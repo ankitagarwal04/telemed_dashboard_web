@@ -141,6 +141,11 @@
           icon: 'mdi-bell',
           to: '/components/notifications',
         },
+        {
+          title: 'requests',
+          icon: 'mdi-clipboard-outline',
+          to: '/components/requests',
+        },
       ],
     }),
 

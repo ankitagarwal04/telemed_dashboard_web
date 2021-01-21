@@ -44,6 +44,11 @@ export default new Router({
           path: 'tables/regular-tables',
           component: () => import('@/views/dashboard/tables/RegularTables'),
         },
+        {
+          name: 'Requests',
+          path: 'components/requests',
+          component: () => import('@/views/dashboard/components/Requests'),
+        },
         // Maps
         {
           name: 'Google Maps',
