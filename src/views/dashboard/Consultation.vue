@@ -14,9 +14,9 @@
           color="info"
           icon="mdi-twitter"
           title="Merchants"
-          is-contain-modal=true
+          :is-contain-modal="true"
           sub-icon="mdi-tag"
-          sub-text="All Merchants"
+          :sub-text="merchantFilterSubText"
           @show-modal="merchantListDialog = true"
         />
       </v-col>
@@ -30,7 +30,7 @@
           color="primary"
           icon="mdi-poll"
           title="Specialities"
-          is-contain-modal=true
+          :is-contain-modal="true"
           sub-icon="mdi-tag"
           sub-text="All Specialities"
           @show-modal="specialitiesListDialog = true"
@@ -57,18 +57,18 @@
     <filter-list-dialog
       :dialog-name="merchantListDialog"
       title="Select Merchant"
-      @close-modal="merchantListDialog = false"
-      @update-selected-item="selectedMerchants=$event"
       :selected-item="selectedMerchants"
       :items="cscMerchants"
+      @close-modal="merchantListDialog = false"
+      @update-selected-item="selectedMerchants=$event"
     />
     <filter-list-dialog
       :dialog-name="specialitiesListDialog"
       title="Select Speciality"
-      @close-modal="specialitiesListDialog = false"
-      @update-selected-item="selectedSpecialities=$event"
       :selected-item="selectedSpecialities"
       :items="specialities"
+      @close-modal="specialitiesListDialog = false"
+      @update-selected-item="selectedSpecialities=$event"
     />
   </v-container>
 </template>
@@ -81,8 +81,9 @@
     },
     data () {
       return {
+        merchantFilterSubText: 'All Merchants',
         consultationStats: {
-          count: '0',
+          count: 0,
         },
         cscMerchants: [],
         specialities: [],
@@ -92,6 +93,22 @@
         selectedSpecialities: [],
       }
     },
+    // watch: {
+    //   selectedMerchants (newSelectedMerchants) {
+    //     if (newSelectedMerchants > 0) {
+    //       this.merchantFilterSubText = ''
+    //       newSelectedMerchants.forEach(function (selectedMerchantId, index) {
+    //         this.cscMerchants.forEach(function (merchant, index) {
+    //           if (merchant.id === selectedMerchantId) {
+    //             this.merchantFilterSubText += merchant.name
+    //           }
+    //         })
+    //       })
+    //     } else {
+    //       this.merchantFilterSubText = 'All Merchants'
+    //     }
+    //   },
+    // },
     created () {
       this.getConsultationStats()
       this.getCscMerchants()

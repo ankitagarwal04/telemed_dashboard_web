@@ -18,10 +18,10 @@
       <v-divider />
       <v-list dense>
         <v-list-item-group
-          v-model="selectedItem"
+          v-model="selectedListItem"
           color="primary"
-          multiple=true
-          :change="$emit('update-selected-item', selectedItem)"
+          :multiple="true"
+          :change="$emit('update-selected-item', selectedListItem)"
         >
           <v-list-item
             v-for="(item, index) in items"
@@ -29,7 +29,7 @@
             :value="item.id"
           >
             <v-list-item-content>
-              <v-list-item-title v-text="item.name"></v-list-item-title>
+              <v-list-item-title v-text="item.name" />
             </v-list-item-content>
           </v-list-item>
         </v-list-item-group>
@@ -57,6 +57,11 @@
         type: Array,
         default: undefined,
       },
+    },
+    data () {
+      return {
+        selectedListItem: this.selectedItem,
+      }
     },
   }
 </script>
