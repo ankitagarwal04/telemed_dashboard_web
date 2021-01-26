@@ -11,9 +11,18 @@
           class="body-3 grey--text font-weight-light"
           v-text="title"
         />
-
-        <h3 class="display-2 font-weight-light text--primary">
-          {{ value }} <small>{{ smallValue }}</small>
+        <v-btn
+          v-if="isContainModal"
+          depressed
+          @click="$emit('show-modal')"
+        >
+          Select
+        </v-btn>
+        <h3
+          v-else
+          class="display-2 font-weight-light text--primary"
+        >
+          {{ value }}
         </h3>
       </div>
     </template>
@@ -76,11 +85,15 @@
         default: undefined,
       },
       value: {
-        type: String,
+        type: Number,
         default: undefined,
       },
-      smallValue: {
-        type: String,
+      isContainModal: {
+        type: Boolean,
+        default: false,
+      },
+      showModal: {
+        type: Boolean,
         default: undefined,
       },
     },
