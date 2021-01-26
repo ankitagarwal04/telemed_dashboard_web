@@ -17,7 +17,7 @@
           is-contain-modal=true
           sub-icon="mdi-tag"
           sub-text="All Merchants"
-          @show-modal="filterListDialog = true"
+          @show-modal="merchantListDialog = true"
         />
       </v-col>
 
@@ -33,6 +33,7 @@
           is-contain-modal=true
           sub-icon="mdi-tag"
           sub-text="All Specialities"
+          @show-modal="specialitiesListDialog = true"
         />
       </v-col>
     </v-row>
@@ -53,61 +54,42 @@
         />
       </v-col>
     </v-row>
-    <v-dialog
-      v-model="filterListDialog"
-      max-width="500"
-    >
-      <v-card>
-        <v-card-title>
-          Select Merchant
-
-          <v-spacer />
-
-          <v-icon
-            aria-label="Close"
-            @click="filterListDialog = false"
-          >
-            mdi-close
-          </v-icon>
-        </v-card-title>
-        <v-divider />
-        <v-list dense>
-          <v-list-item-group
-            v-model="selectedMerchant"
-            color="primary"
-            multiple=true
-          >
-            <v-list-item
-              v-for="(merchant, index) in cscMerchants"
-              :key="index"
-              :value="merchant.id"
-            >
-              <v-list-item-content>
-                <v-list-item-title v-text="merchant.name"></v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list-item-group>
-        </v-list>
-      </v-card>
-    </v-dialog>
+    <filter-list-dialog
+      :dialog-name="merchantListDialog"
+      title="Select Merchant"
+      @close-modal="merchantListDialog = false"
+      @update-selected-item="selectedMerchants=$event"
+      :selected-item="selectedMerchants"
+      :items="cscMerchants"
+    />
+    <filter-list-dialog
+      :dialog-name="specialitiesListDialog"
+      title="Select Speciality"
+      @close-modal="specialitiesListDialog = false"
+      @update-selected-item="selectedSpecialities=$event"
+      :selected-item="selectedSpecialities"
+      :items="specialities"
+    />
   </v-container>
 </template>
 
 <script>
   export default {
     name: 'Consultation',
-    // components: {
-    //   Dialog: () => import('./components/Dialog'),
-    // },
+    components: {
+      FilterListDialog: () => import('@/components/FilterListDialog'),
+    },
     data () {
       return {
-        selectedMerchant: [],
-        filterListDialog: false,
         consultationStats: {
           count: '0',
         },
         cscMerchants: [],
         specialities: [],
+        merchantListDialog: false,
+        specialitiesListDialog: false,
+        selectedMerchants: [],
+        selectedSpecialities: [],
       }
     },
     created () {
