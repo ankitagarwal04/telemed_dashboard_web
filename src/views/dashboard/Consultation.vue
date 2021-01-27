@@ -61,7 +61,7 @@
       title="Select Merchant"
       :selected-item="selectedMerchants"
       :items="cscMerchants"
-      @close-modal="merchantListDialog = false"
+      @close-modal="closeFilterListDialog (merchantFilterTitle)"
       @update-selected-item="selectedMerchants=$event"
     />
     <filter-list-dialog
@@ -69,7 +69,7 @@
       title="Select Speciality"
       :selected-item="selectedSpecialities"
       :items="specialities"
-      @close-modal="specialitiesListDialog = false"
+      @close-modal="closeFilterListDialog (specialityFilterTitle)"
       @update-selected-item="selectedSpecialities=$event"
     />
   </v-container>
@@ -119,8 +119,12 @@
     },
     methods: {
       getConsultationStats: function () {
-        this.axios.get('http://localhost:3000/dashboard_consultations/stats').then((response) => {
-          console.log(response)
+        this.axios.post('http://localhost:3000/dashboard_consultations/stats', {
+          consultation_filters: {
+            merchant_ids: this.selectedMerchants,
+            speciality_ids: this.selectedSpecialities,
+          },
+        }).then((response) => {
           var consultationStats = response.data.data
           this.consultationStats.count = consultationStats ? consultationStats.consultation_count : 0
         }).catch((error) => {
@@ -130,7 +134,6 @@
       },
       getCscMerchants: function () {
         this.axios.get('http://localhost:3000/csc_merchants/index').then((response) => {
-          console.log(response)
           this.cscMerchants = response.data.data
           this.merchantFilterTitle += ` (${this.cscMerchants.length})`
         }).catch((error) => {
@@ -140,7 +143,6 @@
       },
       getSpecialities: function () {
         this.axios.get('http://localhost:3000/specialities/index').then((response) => {
-          console.log(response)
           this.specialities = response.data.data
           this.specialityFilterTitle += ` (${this.specialities.length})`
         }).catch((error) => {
@@ -167,6 +169,14 @@
           modalButtonText = 'SELECT'
         }
         return [filterSubtext, modalButtonText]
+      },
+      closeFilterListDialog: function (filterName) {
+        if (filterName === this.merchantFilterTitle) {
+          this.merchantListDialog = false
+        } else if (filterName === this.specialityFilterTitle) {
+          this.specialitiesListDialog = false
+        }
+        this.getConsultationStats()
       },
     },
   }
