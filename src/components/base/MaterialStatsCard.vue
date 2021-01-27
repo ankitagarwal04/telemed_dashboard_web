@@ -16,7 +16,7 @@
           depressed
           @click="$emit('show-modal')"
         >
-          Select
+          {{ modalButtonText }}
         </v-btn>
         <h3
           v-else
@@ -94,6 +94,10 @@
       },
       showModal: {
         type: Boolean,
+        default: undefined,
+      },
+      modalButtonText: {
+        type: String,
         default: undefined,
       },
     },

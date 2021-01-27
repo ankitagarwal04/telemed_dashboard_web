@@ -13,8 +13,9 @@
         <base-material-stats-card
           color="info"
           icon="mdi-twitter"
-          title="Merchants"
+          :title="merchantFilterTitle"
           :is-contain-modal="true"
+          :modal-button-text="merchantModalButtonText"
           sub-icon="mdi-tag"
           :sub-text="merchantFilterSubText"
           @show-modal="merchantListDialog = true"
@@ -29,10 +30,11 @@
         <base-material-stats-card
           color="primary"
           icon="mdi-poll"
-          title="Specialities"
+          :title="specialityFilterTitle"
           :is-contain-modal="true"
+          :modal-button-text="specialityModalButtonText"
           sub-icon="mdi-tag"
-          sub-text="All Specialities"
+          :sub-text="specialityFilterSubText"
           @show-modal="specialitiesListDialog = true"
         />
       </v-col>
@@ -81,7 +83,12 @@
     },
     data () {
       return {
+        merchantFilterTitle: 'Merchants',
+        specialityFilterTitle: 'Specialities',
         merchantFilterSubText: 'All Merchants',
+        specialityFilterSubText: 'All Specialities',
+        merchantModalButtonText: 'SELECT',
+        specialityModalButtonText: 'SELECT',
         consultationStats: {
           count: 0,
         },
@@ -93,22 +100,18 @@
         selectedSpecialities: [],
       }
     },
-    // watch: {
-    //   selectedMerchants (newSelectedMerchants) {
-    //     if (newSelectedMerchants > 0) {
-    //       this.merchantFilterSubText = ''
-    //       newSelectedMerchants.forEach(function (selectedMerchantId, index) {
-    //         this.cscMerchants.forEach(function (merchant, index) {
-    //           if (merchant.id === selectedMerchantId) {
-    //             this.merchantFilterSubText += merchant.name
-    //           }
-    //         })
-    //       })
-    //     } else {
-    //       this.merchantFilterSubText = 'All Merchants'
-    //     }
-    //   },
-    // },
+    watch: {
+      selectedMerchants (newSelectedMerchants) {
+        var response = this.updateFilterSubText(newSelectedMerchants, this.cscMerchants)
+        this.merchantFilterSubText = response[0]
+        this.merchantModalButtonText = response[1]
+      },
+      selectedSpecialities (newselectedSpecialities) {
+        var response = this.updateFilterSubText(newselectedSpecialities, this.specialities)
+        this.specialityFilterSubText = response[0]
+        this.specialityModalButtonText = response[1]
+      },
+    },
     created () {
       this.getConsultationStats()
       this.getCscMerchants()
@@ -129,6 +132,7 @@
         this.axios.get('http://localhost:3000/csc_merchants/index').then((response) => {
           console.log(response)
           this.cscMerchants = response.data.data
+          this.merchantFilterTitle += ` (${this.cscMerchants.length})`
         }).catch((error) => {
           // handle error
           console.log(error)
@@ -138,10 +142,31 @@
         this.axios.get('http://localhost:3000/specialities/index').then((response) => {
           console.log(response)
           this.specialities = response.data.data
+          this.specialityFilterTitle += ` (${this.specialities.length})`
         }).catch((error) => {
           // handle error
           console.log(error)
         })
+      },
+      updateFilterSubText: function (newSelectedFilters, filterDataItems) {
+        if (newSelectedFilters.length > 0) {
+          var selectedFilterNames = []
+          var modalButtonText = ''
+          var filterSubtext = ''
+          newSelectedFilters.forEach((selectedFilterId, index) => {
+            filterDataItems.forEach((item, index) => {
+              if (item.id === selectedFilterId) {
+                selectedFilterNames.push(item.name)
+              }
+            })
+          })
+          filterSubtext = selectedFilterNames.join(', ')
+          modalButtonText = `SELECTED (${selectedFilterNames.length})`
+        } else {
+          filterSubtext = 'All Merchants'
+          modalButtonText = 'SELECT'
+        }
+        return [filterSubtext, modalButtonText]
       },
     },
   }
