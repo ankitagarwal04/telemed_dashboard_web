@@ -12,7 +12,7 @@
       >
         <base-material-stats-card
           color="info"
-          icon="mdi-twitter"
+          icon="mdi-poll"
           :title="merchantFilterTitle"
           :is-contain-modal="true"
           :modal-button-text="merchantModalButtonText"
@@ -28,7 +28,7 @@
         lg="6"
       >
         <base-material-stats-card
-          color="primary"
+          color="info"
           icon="mdi-poll"
           :title="specialityFilterTitle"
           :is-contain-modal="true"
@@ -43,8 +43,8 @@
     <v-row>
       <v-col
         cols="12"
-        sm="12"
-        lg="12"
+        sm="6"
+        lg="6"
       >
         <base-material-stats-card
           color="success"
@@ -54,6 +54,154 @@
           sub-icon="mdi-calendar"
           sub-text="Last 24 Hours"
         />
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
+        lg="6"
+      >
+        <base-material-chart-card
+          :data="lastSevenDaysChart.data"
+          :options="lastSevenDaysChart.options"
+          color="success"
+          hover-reveal
+          type="Line"
+        >
+          <template v-slot:reveal-actions>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ attrs, on }">
+                <v-btn
+                  v-bind="attrs"
+                  color="info"
+                  icon
+                  v-on="on"
+                >
+                  <v-icon
+                    color="info"
+                  >
+                    mdi-refresh
+                  </v-icon>
+                </v-btn>
+              </template>
+
+              <span>Refresh</span>
+            </v-tooltip>
+
+            <v-tooltip bottom>
+              <template v-slot:activator="{ attrs, on }">
+                <v-btn
+                  v-bind="attrs"
+                  light
+                  icon
+                  v-on="on"
+                >
+                  <v-icon>mdi-pencil</v-icon>
+                </v-btn>
+              </template>
+
+              <span>Change Date</span>
+            </v-tooltip>
+          </template>
+
+          <!-- <h4 class="card-title font-weight-light mt-2 ml-2">
+            Daily Sales
+          </h4>
+
+          <p class="d-inline-flex font-weight-light ml-2 mt-1">
+            <v-icon
+              color="green"
+              small
+            >
+              mdi-arrow-up
+            </v-icon>
+            <span class="green--text">55%</span>&nbsp;
+            increase in today's sales
+          </p> -->
+
+          <template v-slot:actions>
+            <v-icon
+              class="mr-1"
+              small
+            >
+              mdi-clock-outline
+            </v-icon>
+            <span class="caption grey--text font-weight-light">last 7 days Stats</span>
+          </template>
+        </base-material-chart-card>
+      </v-col>
+      <v-col
+        cols="12"
+        sm="5"
+        lg="5"
+      >
+        <base-material-chart-card
+          :data="lastTwelveMonthsChart.data"
+          :options="lastTwelveMonthsChart.options"
+          color="success"
+          hover-reveal
+          type="Bar"
+        >
+          <template v-slot:reveal-actions>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ attrs, on }">
+                <v-btn
+                  v-bind="attrs"
+                  color="info"
+                  icon
+                  v-on="on"
+                >
+                  <v-icon
+                    color="info"
+                  >
+                    mdi-refresh
+                  </v-icon>
+                </v-btn>
+              </template>
+
+              <span>Refresh</span>
+            </v-tooltip>
+
+            <v-tooltip bottom>
+              <template v-slot:activator="{ attrs, on }">
+                <v-btn
+                  v-bind="attrs"
+                  light
+                  icon
+                  v-on="on"
+                >
+                  <v-icon>mdi-pencil</v-icon>
+                </v-btn>
+              </template>
+
+              <span>Change Date</span>
+            </v-tooltip>
+          </template>
+
+          <!-- <h4 class="card-title font-weight-light mt-2 ml-2">
+            Daily Sales
+          </h4>
+
+          <p class="d-inline-flex font-weight-light ml-2 mt-1">
+            <v-icon
+              color="green"
+              small
+            >
+              mdi-arrow-up
+            </v-icon>
+            <span class="green--text">55%</span>&nbsp;
+            increase in today's sales
+          </p> -->
+
+          <template v-slot:actions>
+            <v-icon
+              class="mr-1"
+              small
+            >
+              mdi-clock-outline
+            </v-icon>
+            <span class="caption grey--text font-weight-light">last 12 Months Stats</span>
+          </template>
+        </base-material-chart-card>
       </v-col>
     </v-row>
     <filter-list-dialog
@@ -98,6 +246,44 @@
         specialitiesListDialog: false,
         selectedMerchants: [],
         selectedSpecialities: [],
+        lastSevenDaysChart: {
+          data: {
+            labels: [],
+            series: [],
+          },
+          options: {
+            lineSmooth: this.$chartist.Interpolation.cardinal({
+              tension: 0,
+            }),
+            low: 0,
+            high: 0, // recommended you to set the high as the biggest value + something for a better look
+            chartPadding: {
+              top: 0,
+              right: 0,
+              bottom: 0,
+              left: 0,
+            },
+          },
+        },
+        lastTwelveMonthsChart: {
+          data: {
+            labels: [],
+            series: [],
+          },
+          options: {
+            lineSmooth: this.$chartist.Interpolation.cardinal({
+              tension: 0,
+            }),
+            low: 0,
+            high: 0, // recommended you to set the high as the biggest value + something for a better look
+            chartPadding: {
+              top: 0,
+              right: 0,
+              bottom: 0,
+              left: 0,
+            },
+          },
+        },
       }
     },
     watch: {
@@ -126,7 +312,20 @@
           },
         }).then((response) => {
           var consultationStats = response.data.data
+          var lastSevenDays = consultationStats.last_7_days
+          var lastTwelveMonths = consultationStats.last_12_months
+          var lastSevenDaysDataLabels = Object.keys(lastSevenDays)
+          var lastSevenDaysDataSeries = [Object.values(lastSevenDays)]
+          var lastTwelveMonthsDataLabels = Object.keys(lastTwelveMonths)
+          var lastTwelveMonthsDataSeries = [Object.values(lastTwelveMonths)]
+
           this.consultationStats.count = consultationStats ? consultationStats.consultation_count : 0
+          this.lastSevenDaysChart.data.labels = lastSevenDaysDataLabels
+          this.lastSevenDaysChart.data.series = lastSevenDaysDataSeries
+          this.lastSevenDaysChart.options.high = (Math.max(...lastSevenDaysDataSeries[0]) + Math.max(...lastSevenDaysDataSeries[0]) / 4)
+          this.lastTwelveMonthsChart.data.labels = lastTwelveMonthsDataLabels
+          this.lastTwelveMonthsChart.data.series = lastTwelveMonthsDataSeries
+          this.lastTwelveMonthsChart.options.high = (Math.max(...lastTwelveMonthsDataSeries[0]) + Math.max(...lastTwelveMonthsDataSeries[0]) / 4)
         }).catch((error) => {
           // handle error
           console.log(error)
