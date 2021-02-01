@@ -103,21 +103,6 @@
             </v-tooltip>
           </template>
 
-          <!-- <h4 class="card-title font-weight-light mt-2 ml-2">
-            Daily Sales
-          </h4>
-
-          <p class="d-inline-flex font-weight-light ml-2 mt-1">
-            <v-icon
-              color="green"
-              small
-            >
-              mdi-arrow-up
-            </v-icon>
-            <span class="green--text">55%</span>&nbsp;
-            increase in today's sales
-          </p> -->
-
           <template v-slot:actions>
             <v-icon
               class="mr-1"
@@ -176,21 +161,6 @@
               <span>Change Date</span>
             </v-tooltip>
           </template>
-
-          <!-- <h4 class="card-title font-weight-light mt-2 ml-2">
-            Daily Sales
-          </h4>
-
-          <p class="d-inline-flex font-weight-light ml-2 mt-1">
-            <v-icon
-              color="green"
-              small
-            >
-              mdi-arrow-up
-            </v-icon>
-            <span class="green--text">55%</span>&nbsp;
-            increase in today's sales
-          </p> -->
 
           <template v-slot:actions>
             <v-icon
