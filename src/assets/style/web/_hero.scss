@@ -1,0 +1,18 @@
+.top-hero-section {
+  text-align: center;
+  .bg-image {
+    // TODO: this path is not absolute, require fix.
+    background-image: url("../../../../assets/images/hero_1.png");
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    min-height: 500px;
+    @media only screen and (max-width: $small-devices-max) {
+      min-height: 300px;
+    }
+    @media (max-width: $medium-devices-min) and (min-width: $small-devices-max) {
+      min-height: 400px;
+    }
+  }
+}

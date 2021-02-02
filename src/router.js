@@ -21,7 +21,10 @@ export default new Router({
     },
     {
       path: '/',
-      component: () => import('@/views/web/Landing'),
+      components: {
+        navbar: () => import('./views/web/components/landing/Navbar'),
+        default: () => import('@/views/web/Landing'),
+      },
     },
   ],
 })
