@@ -116,8 +116,8 @@
       </v-col>
       <v-col
         cols="12"
-        sm="5"
-        lg="5"
+        sm="6"
+        lg="6"
       >
         <base-material-chart-card
           :data="lastTwelveMonthsChart.data"
@@ -248,9 +248,9 @@
             high: 0, // recommended you to set the high as the biggest value + something for a better look
             chartPadding: {
               top: 0,
-              right: 0,
+              right: 10,
               bottom: 0,
-              left: 0,
+              left: 15,
             },
           },
         },

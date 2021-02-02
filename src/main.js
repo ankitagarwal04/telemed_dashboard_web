@@ -12,6 +12,7 @@
 // * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 import Vue from 'vue'
+import BootstrapVue from 'bootstrap-vue/dist/bootstrap-vue.esm'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -22,7 +23,11 @@ import vuetify from './plugins/vuetify'
 import i18n from './i18n'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+// Import the styles directly. (Or you could add them via script tags.)
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+Vue.use(BootstrapVue)
 Vue.use(VueAxios, axios)
 Vue.config.productionTip = false
 

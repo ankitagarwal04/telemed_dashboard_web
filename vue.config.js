@@ -15,4 +15,15 @@ module.exports = {
       enableInSFC: false,
     },
   },
+
+  css: {
+    loaderOptions: {
+      scss: {
+        prependData: `@import "@/sass/_variables.scss";`
+      },
+      // sass: {
+      //   sassData
+      // },
+    }
+  },
 }

@@ -20,7 +20,7 @@
         </v-btn>
         <h3
           v-else
-          class="display-2 font-weight-light text--primary"
+          class="font-weight-light text--primary"
         >
           {{ value }}
         </h3>

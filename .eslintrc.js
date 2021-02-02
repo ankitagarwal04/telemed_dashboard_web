@@ -1,3 +1,4 @@
+// eslint-disable-next-line 
 module.exports = {
   root: true,
   env: {
@@ -11,4 +12,8 @@ module.exports = {
   parserOptions: {
     parser: 'babel-eslint',
   },
+  rules: {
+    // override/add rules settings here, such as:
+    // 'vue/no-unused-vars': 'error'
+  }
 }

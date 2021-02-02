@@ -38,7 +38,7 @@
 
         <v-list-item-content>
           <v-list-item-title
-            class="display-1"
+            class="title"
             v-text="profile.title"
           />
         </v-list-item-content>
@@ -101,41 +101,6 @@
           title: 'dashboard',
           to: '/',
         },
-        // {
-        //   icon: 'mdi-account',
-        //   title: 'user',
-        //   to: '/pages/user',
-        // },
-        // {
-        //   title: 'rtables',
-        //   icon: 'mdi-clipboard-outline',
-        //   to: '/tables/regular-tables',
-        // },
-        // {
-        //   title: 'typography',
-        //   icon: 'mdi-format-font',
-        //   to: '/components/typography',
-        // },
-        // {
-        //   title: 'icons',
-        //   icon: 'mdi-chart-bubble',
-        //   to: '/components/icons',
-        // },
-        // {
-        //   title: 'google',
-        //   icon: 'mdi-map-marker',
-        //   to: '/maps/google-maps',
-        // },
-        // {
-        //   title: 'notifications',
-        //   icon: 'mdi-bell',
-        //   to: '/components/notifications',
-        // },
-        // {
-        //   title: 'requests',
-        //   icon: 'mdi-clipboard-outline',
-        //   to: '/components/requests',
-        // },
       ],
     }),
 
