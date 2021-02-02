@@ -2,7 +2,7 @@
   <!-- eslint-disable -->
   <div class="stats-display d-flex flex-row flex-wrap justify-content-around align-items-center bg-light mb-3">
     <div v-for="(value, propertyName) in stats" :key="propertyName" class="counter-holder">
-      <span class="counter display-2 text-info">{{ value.count }}</span>
+      <h5 class="counter text-info">{{ value.count }}</h5>
       <h4 class="counter-title">{{ value.title }}</h4>
     </div>
   </div>

@@ -5,8 +5,8 @@
     variant="light"
   >
     <b-navbar-brand href="#">
-      <img src="logo.png">
-      <span>Telemed</span>
+      <img src="csc_logo.png">
+      <span>Telemedicine</span>
     </b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse" />
