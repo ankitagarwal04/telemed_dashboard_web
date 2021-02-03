@@ -5,6 +5,7 @@
     <about />
     <service />
     <partner />
+    <testimonial />
   </div>
 </template>
 
@@ -17,6 +18,7 @@
       About: () => import('@/views/web/components/landing/About'),
       Service: () => import('@/views/web/components/landing/Service'),
       Partner: () => import('@/views/web/components/landing/Partner'),
+      Testimonial: () => import('@/views/web/components/landing/Testimonial'),
     },
   }
 </script>

@@ -23,12 +23,14 @@ import vuetify from './plugins/vuetify'
 import i18n from './i18n'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import VueCarousel from 'vue-carousel'
 // Import the styles directly. (Or you could add them via script tags.)
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 Vue.use(BootstrapVue)
 Vue.use(VueAxios, axios)
+Vue.use(VueCarousel)
 Vue.config.productionTip = false
 
 new Vue({
