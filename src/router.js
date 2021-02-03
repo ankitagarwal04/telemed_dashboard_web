@@ -22,8 +22,9 @@ export default new Router({
     {
       path: '/',
       components: {
-        navbar: () => import('./views/web/components/landing/Navbar'),
+        navbar: () => import('./views/web/components/core/Navbar'),
         default: () => import('@/views/web/Landing'),
+        footer: () => import('./views/web/components/core/Footer'),
       },
     },
   ],
