@@ -5,7 +5,7 @@
     variant="light"
   >
     <b-navbar-brand href="#">
-      <img src='~@/assets/images/csc_logo.png'>
+      <img src="~@/assets/images/csc_logo.png">
       <span>Telemedicine</span>
     </b-navbar-brand>
 

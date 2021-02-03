@@ -4,6 +4,7 @@
     <stats-display />
     <about />
     <service />
+    <partner />
   </div>
 </template>
 
@@ -15,6 +16,7 @@
       StatsDisplay: () => import('@/views/web/components/landing/StatsDisplay'),
       About: () => import('@/views/web/components/landing/About'),
       Service: () => import('@/views/web/components/landing/Service'),
+      Partner: () => import('@/views/web/components/landing/Partner'),
     },
   }
 </script>

@@ -9,7 +9,7 @@
       <div class="card-deck flex-wrap">
         <div v-for="service in services" :key="service.title" class="card service-card-holder p-3 mb-3">
           <div class="service-icon">
-            <img class="card-img-top center" src="logo.png" alt="Card image cap">
+            <img class="card-img-top center" src="logo.png" alt="service.title">
           </div>
           <div class="card-body">
             <h5 class="card-title">{{ service.title }}</h5>
