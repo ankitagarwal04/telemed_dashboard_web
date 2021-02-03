@@ -3,6 +3,7 @@
     <hero />
     <stats-display />
     <about />
+    <service />
   </div>
 </template>
 
@@ -13,6 +14,7 @@
       Hero: () => import('@/views/web/components/landing/Hero'),
       StatsDisplay: () => import('@/views/web/components/landing/StatsDisplay'),
       About: () => import('@/views/web/components/landing/About'),
+      Service: () => import('@/views/web/components/landing/Service'),
     },
   }
 </script>

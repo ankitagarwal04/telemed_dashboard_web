@@ -1,0 +1,24 @@
+.service-section {
+  .service-header {
+    text-align: center;
+  }
+  .service-card-holder {
+    text-align: center;
+    flex-grow: 1;
+    flex-basis: 25%;
+    @media only screen and (max-width: $small-devices-max) {
+      flex-basis: 100%;
+    }
+    @media (max-width: $medium-devices-min) and (min-width: $small-devices-max) {
+      flex-basis: 50%;
+    }
+    @media (max-width: $large-devices-min) and (min-width: $medium-devices-min) {
+      flex-basis: 33%;
+    }
+    .service-icon {
+      img {
+        width: 64px;
+      }
+    }
+  }
+}
