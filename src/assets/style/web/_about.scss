@@ -1,0 +1,28 @@
+.about-us {
+  justify-content: space-between;
+  @media only screen and (max-width: $large-devices-min) {
+    justify-content: center;
+  }
+  .about-media {
+    flex-grow: 1;
+    flex-basis: 50%;
+    margin-bottom: 50px;
+    @media only screen and (max-width: $large-devices-min) {
+      flex-basis: 100%;
+      max-width: 80%;
+    }
+    img {
+      width: 100%;
+    }
+  }
+  .about-content {
+    text-align: center;
+    flex-grow: 1;
+    flex-basis: 50%;
+    padding-left: 3em;
+    padding-right: 3em;
+    @media only screen and (max-width: $large-devices-min) {
+      flex-basis: 100%;
+    }
+  }
+}

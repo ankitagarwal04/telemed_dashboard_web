@@ -1,8 +1,8 @@
 .top-hero-section {
+  position: relative;
   text-align: center;
   .bg-image {
-    // TODO: this path is not absolute, require fix.
-    background-image: url("../../../../assets/images/hero_1.png");
+    background-image: url('~@/assets/images/hero_1.png');
     width: 100%;
     background-size: cover;
     background-repeat: no-repeat;

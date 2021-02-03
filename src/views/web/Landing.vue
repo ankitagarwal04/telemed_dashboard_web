@@ -2,6 +2,7 @@
   <div>
     <hero />
     <stats-display />
+    <about />
   </div>
 </template>
 
@@ -11,6 +12,7 @@
     components: {
       Hero: () => import('@/views/web/components/landing/Hero'),
       StatsDisplay: () => import('@/views/web/components/landing/StatsDisplay'),
+      About: () => import('@/views/web/components/landing/About'),
     },
   }
 </script>

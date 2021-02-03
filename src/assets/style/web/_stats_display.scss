@@ -1,0 +1,14 @@
+.stats-container {
+  position: relative;
+  margin-top: -80px;
+  .stats-display {
+    min-height: 200px;
+    justify-content: space-around;
+    .counter-holder {
+      text-align: center;
+      .counter {
+        font-weight: 900;
+      }
+    }
+  }
+}

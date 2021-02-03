@@ -1,28 +1,33 @@
 <template>
   <!-- eslint-disable -->
-  <div class="stats-display d-flex flex-row flex-wrap justify-content-around align-items-center bg-light mb-3">
-    <div v-for="(value, propertyName) in stats" :key="propertyName" class="counter-holder">
-      <h5 class="counter text-info">{{ value.count }}</h5>
-      <h4 class="counter-title">{{ value.title }}</h4>
+  <div class="container stats-container">
+    <div class="stats-display d-flex flex-row flex-wrap align-items-center bg-info mb-3">
+      <div v-for="(value, propertyName) in stats" :key="propertyName" class="counter-holder pt-3 pb-3">
+        <!-- TODO: this is hardcoded for now. -->
+        <img src="~@/assets/images/doctor_available_icon.png" class="mb-3" />
+        <h3 class="counter text-white">{{ value.count }}</h3>
+        <h5 class="counter-title text-white">{{ value.title }}</h5>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+  var abbreviate = require('number-abbreviate')
   export default {
     name: 'StatsDisplay',
     data () {
       return {
         stats: {
           doctor: {
-            count: 200,
-            title: 'Doctors Available',
-            icon: 'https://www.flaticon.com/premium-icon/telemedicine_1698377?term=telemedicine&related_id=1698377',
+            count: abbreviate(200, 2),
+            title: '(Doctors Available)',
+            // icon: 'doctor_available_icon.png',
           },
           consultations: {
-            count: 400000,
-            title: 'Successful Consultations',
-            icon: 'https://www.flaticon.com/premium-icon/telemedicine_1698377?term=telemedicine&related_id=1698377',
+            count: abbreviate(400000, 2),
+            title: '(Successful Consultations)',
+            // icon: '~@/assets/images/telemed_consult_icon.png',
           },
         },
       }
@@ -31,10 +36,5 @@
 </script>
 
 <style lang="scss" scoped>
-  .stats-display {
-    min-height: 100px;
-    .counter-holder {
-      text-align: center;
-    }
-  }
+  @import "@/assets/style/web/_stats_display.scss";
 </style>
