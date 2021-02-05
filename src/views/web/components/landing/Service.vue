@@ -8,11 +8,12 @@
       </div>
       <div class="card-deck flex-wrap justify-content-between">
         <div v-for="service in services" :key="service.title" class="card service-card-holder p-3 mb-3  ml-0 mr-0">
-          <div class="service-icon">
-            <img class="card-img-top center" :src="service.icon" alt="service.title">
-          </div>
-          <div class="card-body">
+          <div class="service-card-header">
+            <img class="card-img-top center service-icon mb-3" :src="service.icon" alt="service.title">
             <h5 class="card-title">{{ service.title }}</h5>
+          </div>
+          <hr>
+          <div class="card-body">
             <p class="card-text">{{ service.text }}</p>
           </div>
         </div>
@@ -33,7 +34,7 @@
             icon: require('@/assets/images/services/telemed.png'),
           },
           {
-            title: 'DIAGNOSTIC SERVICES',
+            title: 'DIAGNOSTIC',
             text: "A diagnostic test is an examination to identify an individual's specific areas of weakness and strength in order determine a condition, disease or illness.",
             icon: require('@/assets/images/services/diagnostic.png'),
           },

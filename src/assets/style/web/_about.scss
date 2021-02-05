@@ -6,7 +6,6 @@
   .about-media {
     flex-grow: 1;
     flex-basis: 50%;
-    margin-bottom: 50px;
     @media only screen and (max-width: $large-devices-min) {
       flex-basis: 100%;
       max-width: 80%;

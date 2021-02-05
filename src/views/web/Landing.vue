@@ -2,9 +2,9 @@
   <div>
     <hero />
     <stats-display />
+    <partner />
     <about />
     <service />
-    <partner />
     <testimonial />
   </div>
 </template>

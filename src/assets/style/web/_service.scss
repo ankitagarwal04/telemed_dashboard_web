@@ -14,8 +14,9 @@
     @media (max-width: $large-devices-min) and (min-width: $medium-devices-min) {
       flex-basis: 33%;
     }
-    .service-icon {
-      img {
+    .service-card-header {
+      min-height: 150px;
+      .service-icon {
         width: 64px;
       }
     }
