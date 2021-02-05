@@ -2,16 +2,19 @@
   <!-- eslint-disable -->
   <section class="partner-section">
     <div class="container">
-      <div class="partner-header">
+      <div class="partner-header text-center mb-5">
         <h4>Our Partners</h4>
       </div>
-      <div class="card-deck flex-wrap mt-5">
-        <div v-for="partner in partners" :key="partner.id" class="card partner-card-holder p-3 mb-3">
-          <div class="partner-icon">
-            <img class="card-img-top center" src="jiva.jpg" alt="partner.name">
-          </div>
-        </div>
-      </div>
+      <carousel
+        :per-page=5
+        :loop='true'
+        :autoplay='true'
+        class='ml-3 mr-3'
+      >
+        <slide v-for="partner in partners" :key="partner.id" class="partner-icon pr-3">
+          <img class="card-img-top center" :src="partner.logo" alt="partner.name">
+        </slide>
+      </carousel>
     </div>
   </section>
 </template>
@@ -24,67 +27,48 @@
         partners: [
           {
             id: 1,
-            name: 'TELEMEDICINE',
+            name: 'APOLLO',
+            logo: require('@/assets/images/partners/apollo.jpg'),
           },
           {
             id: 2,
-            name: 'DIAGNOSTIC SERVICES',
+            name: 'BPPI',
+            logo: require('@/assets/images/partners/bppi.jpg'),
           },
           {
             id: 3,
-            name: 'MEDICINES',
+            name: 'DOC-ONLINE',
+            logo: require('@/assets/images/partners/doc_online.jpg'),
           },
           {
             id: 4,
-            name: 'PRODUCTS',
+            name: 'INNOWAVE',
+            logo: require('@/assets/images/partners/innowave.jpg'),
           },
           {
             id: 5,
-            name: 'HEALTH PACKAGES',
+            name: 'JIVA',
+            logo: require('@/assets/images/partners/jiva.jpg'),
           },
           {
             id: 6,
-            name: 'CSC WELLNESS CENTER',
+            name: 'MEDANTA',
+            logo: require('@/assets/images/partners/medanta.jpg'),
           },
           {
             id: 7,
-            name: 'DIGIGAON',
+            name: 'PATANJALI',
+            logo: require('@/assets/images/partners/patanjali.jpg'),
           },
           {
             id: 8,
-            name: 'TRAINING',
+            name: 'PHFI',
+            logo: require('@/assets/images/partners/phfi.jpg'),
           },
           {
             id: 9,
-            name: 'TELEMEDICINE',
-          },
-          {
-            id: 10,
-            name: 'DIAGNOSTIC SERVICES',
-          },
-          {
-            id: 11,
-            name: 'MEDICINES',
-          },
-          {
-            id: 12,
-            name: 'PRODUCTS',
-          },
-          {
-            id: 13,
-            name: 'HEALTH PACKAGES',
-          },
-          {
-            id: 14,
-            name: 'CSC WELLNESS CENTER',
-          },
-          {
-            id: 15,
-            name: 'DIGIGAON',
-          },
-          {
-            id: 16,
-            name: 'TRAINING',
+            name: 'WELCOME CURE',
+            logo: require('@/assets/images/partners/welcome_cure.jpg'),
           },
         ],
       }

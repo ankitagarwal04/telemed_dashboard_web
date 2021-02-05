@@ -278,7 +278,7 @@
         this.axios.post('http://localhost:3000/dashboard_consultations/stats', {
           consultation_filters: {
             merchant_ids: this.selectedMerchants,
-            speciality_ids: this.selectedSpecialities,
+            mapped_speciality_ids: this.selectedSpecialities,
           },
         }).then((response) => {
           var consultationStats = response.data.data
@@ -311,7 +311,7 @@
         })
       },
       getSpecialities: function () {
-        this.axios.get('http://localhost:3000/specialities/index').then((response) => {
+        this.axios.get('http://localhost:3000/mapped_specialities/index').then((response) => {
           this.specialities = response.data.data
           this.specialityFilterTitle += ` (${this.specialities.length})`
         }).catch((error) => {

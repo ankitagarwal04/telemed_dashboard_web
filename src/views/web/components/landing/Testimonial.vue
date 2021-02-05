@@ -2,9 +2,14 @@
   <!-- eslint-disable -->
   <section class="testimonial-section">
     <div class="container">
+      <div class="testimonial-header text-center mb-5">
+        <h4>Our Testimonials</h4>
+      </div>
       <carousel
         :per-page=1
+        :loop='true'
         :autoplay='true'
+        :autoplayTimeout=5000
         class='ml-3 mr-3'
       >
         <slide v-for="testimonial in testimonials" :key="testimonial.name">

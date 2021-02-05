@@ -1,19 +1,14 @@
-.partner-section {
-  .partner-header {
-    text-align: center;
+.partner-card-holder {
+  text-align: center;
+  flex-grow: 1;
+  flex-basis: 12.5%;
+  @media only screen and (max-width: $small-devices-max) {
+    flex-basis: 33%;
   }
-  .partner-card-holder {
-    text-align: center;
-    flex-grow: 1;
-    flex-basis: 12.5%;
-    @media only screen and (max-width: $small-devices-max) {
-      flex-basis: 33%;
-    }
-    @media (max-width: $medium-devices-min) and (min-width: $small-devices-max) {
-      flex-basis: 20%;
-    }
-    @media (max-width: $large-devices-min) and (min-width: $medium-devices-min) {
-      flex-basis: 33%;
-    }
+  @media (max-width: $medium-devices-min) and (min-width: $small-devices-max) {
+    flex-basis: 20%;
+  }
+  @media (max-width: $large-devices-min) and (min-width: $medium-devices-min) {
+    flex-basis: 33%;
   }
 }
