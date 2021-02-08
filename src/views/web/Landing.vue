@@ -2,8 +2,8 @@
   <div>
     <hero />
     <stats-display />
-    <partner />
     <about />
+    <partner />
     <service />
     <testimonial />
   </div>

@@ -11,9 +11,9 @@
     .nav-item {
       a {
         &:hover {
-          font-weight: bold;
-          color: $primary-blue-color;
-          border-bottom: 3px solid $primary-blue-color;
+          button {
+            background-color: $primary-blue-color;
+          }
         }; 
       }
     }

@@ -17,19 +17,19 @@
       is-nav
     >
       <b-navbar-nav>
-        <b-nav-item href="#" class="pr-3">
-          <span>VLE</span>
+        <b-nav-item href="#" class="">
+          <b-button>VLE</b-button>
         </b-nav-item>
-        <b-nav-item href="#" class="pr-3">
-          <span>Doctor</span>
+        <b-nav-item href="#" class="">
+          <b-button>Doctor</b-button>
         </b-nav-item>
-        <b-nav-item href="/dashboard" class="pr-3">
-          <span>Dashboard</span>
+        <b-nav-item href="/dashboard" class="">
+          <b-button>Dashboard</b-button>
         </b-nav-item>
       </b-navbar-nav>
     </b-collapse>
 
-    <b-navbar-brand href="#">
+    <b-navbar-brand>
       <img src="~@/assets/images/digital_india_logo.png">
     </b-navbar-brand>
 
