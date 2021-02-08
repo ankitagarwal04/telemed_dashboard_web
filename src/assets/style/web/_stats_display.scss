@@ -1,13 +1,32 @@
 .stats-container {
   position: relative;
-  margin-top: -80px;
+  margin-top: -115px;
+  @media only screen and (max-width: $small-devices-max) {
+    margin-top: 0;
+  }
   .stats-display {
     min-height: 200px;
-    justify-content: space-around;
+    justify-content: flex-end;
+    @media only screen and (max-width: $large-devices-min) {
+      justify-content: center;
+    }
     .counter-holder {
       text-align: center;
+      border-radius: 10%;
+      padding: 20px;
+      margin-right: 20px;
+      width: 250px;
+      img {
+        width: 50px;
+        min-height: 60px;
+      }
       .counter {
         font-weight: 900;
+      }
+      .counter-title {
+        @media only screen and (max-width: $small-devices-max) {
+          min-height: 50px;
+        }
       }
     }
   }

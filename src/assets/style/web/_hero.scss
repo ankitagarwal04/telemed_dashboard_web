@@ -11,7 +11,10 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    min-height: 400px;
+    min-height: 500px;
+    @media only screen and (max-width: $small-devices-max) {
+      min-height: 400px;
+    }
     .layer {
       position: absolute;
       background-color: $primary-blue-color-light;
@@ -26,13 +29,16 @@
       top: 25%;
       margin-left: 20px;
       color: white;
-      // align flex-box at center
+      @media (max-width: large-devices-min) and (min-width: $medium-devices-min) {
+        top: 20%;
+      }
       @media only screen and (max-width: $medium-devices-min) {
         width: 100%;
         margin-left: 0;
         top: 15%;
       }
       .hero-content-flex-box {
+        // align flex-box at center
         @media only screen and (max-width: $medium-devices-min) {
           width: 70%;
           margin-left: auto;
