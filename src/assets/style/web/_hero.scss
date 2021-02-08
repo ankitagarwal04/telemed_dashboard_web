@@ -1,18 +1,61 @@
 .top-hero-section {
   position: relative;
-  text-align: center;
+  .bg-image, .layer {
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+  }
   .bg-image {
-    background-image: url('~@/assets/images/hero_1.png');
+    position: relative;
+    background-image: url('~@/assets/images/hero-doctors.jpg');
     width: 100%;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    min-height: 500px;
-    @media only screen and (max-width: $small-devices-max) {
-      min-height: 300px;
+    min-height: 400px;
+    .layer {
+      position: absolute;
+      background-color: $primary-blue-color-light;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
     }
-    @media (max-width: $medium-devices-min) and (min-width: $small-devices-max) {
-      min-height: 400px;
+    .hero-content {
+      position: absolute;
+      width: 50%;
+      top: 25%;
+      margin-left: 20px;
+      color: white;
+      // align flex-box at center
+      @media only screen and (max-width: $medium-devices-min) {
+        width: 100%;
+        margin-left: 0;
+        top: 15%;
+      }
+      .hero-content-flex-box {
+        @media only screen and (max-width: $medium-devices-min) {
+          width: 70%;
+          margin-left: auto;
+          margin-right: auto;
+          align-items: center;
+        }
+        @media only screen and (max-width: $small-devices-max) {
+          width: 85%;
+        }
+        .vue-lorem, p {
+          text-align: justify;
+        }
+        .hero-contact-us {
+          .via-caller {
+            border-right: 3px solid white;
+          }
+          .hero-contact-item {
+            img {
+              width: 25px;
+            }
+          }
+        }
+      }
     }
   }
 }

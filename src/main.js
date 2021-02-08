@@ -33,6 +33,10 @@ Vue.use(VueAxios, axios)
 Vue.use(VueCarousel)
 Vue.config.productionTip = false
 
+// defining global variables
+Vue.prototype.$contactEmail = 'helpdesk@csc.gov.in'
+Vue.prototype.$contactNumber = '1800-121-3468'
+
 new Vue({
   router,
   store,

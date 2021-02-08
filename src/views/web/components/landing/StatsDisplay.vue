@@ -21,12 +21,12 @@
           doctor: {
             count: abbreviate(200, 2),
             title: '(Doctors Available)',
-            icon: require('@/assets/images/doctor_available_icon.png'),
+            icon: require('@/assets/images/doctor.svg'),
           },
           consultations: {
             count: abbreviate(400000, 2),
             title: '(Successful Consultations)',
-            icon: require('@/assets/images/telemed_consult_icon.png'),
+            icon: require('@/assets/images/tick.svg'),
           },
         },
       }
