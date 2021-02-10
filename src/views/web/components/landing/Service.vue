@@ -1,11 +1,9 @@
 <template>
   <!-- eslint-disable -->
-  <section class="service-section">
-    <div class="container service-container mt-5 mb-5">
-      <div class="service-header">
-        <h4>Health Services</h4>
-        <p>CSC Health Services serve thousands of people from their earliest years to retirement. Our mission is to help rural masses live healthier lives and make the health system work better and the vision is to play our best part in creating a more sustainable health care system: one that works for the betterment for everyone.</p>
-      </div>
+  <section class="service-section bg-light">
+    <div class="container">
+      <h2 class="section-header">Health Services</h2>
+      <p class="text-center mb-5">CSC Health Services serve thousands of people from their earliest years to retirement. Our mission is to help rural masses live healthier lives and make the health system work better and the vision is to play our best part in creating a more sustainable health care system: one that works for the betterment for everyone.</p>
       <div class="card-deck flex-wrap justify-content-between">
         <div v-for="service in services" :key="service.title" class="card service-card-holder p-3 mb-3  ml-0 mr-0">
           <div class="service-card-header">
@@ -76,4 +74,5 @@
 
 <style lang="scss" scoped>
   @import "@/assets/style/web/_service.scss";
+  @import "@/assets/style/web/_shared.scss";
 </style>

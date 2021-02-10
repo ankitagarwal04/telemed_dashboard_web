@@ -2,15 +2,13 @@
   <!-- eslint-disable -->
   <section class="testimonial-section">
     <div class="container">
-      <div class="testimonial-header text-center mb-5">
-        <h4>Our Testimonials</h4>
-      </div>
+      <h2 class="section-header">Our Testimonials</h2>
       <carousel
         :per-page=1
         :loop='true'
         :autoplay='true'
         :autoplayTimeout=5000
-        class='ml-3 mr-3'
+        class='ml-3 mr-3 text-center'
       >
         <slide v-for="testimonial in testimonials" :key="testimonial.name">
           <div class="row quote-container">
@@ -62,20 +60,6 @@
 </script>
 
 <style lang="scss" scoped>
-  .testimonial-section {
-    text-align: center;
-    margin-top: 100px;
-    margin-bottom: 50px;
-    .quote-container {
-      .img-rounded {
-        border-radius: 50%;
-        width: 100px;
-        height: 100px;
-        object-fit: cover;
-      }
-      .quote-text {
-        text-align: left;
-      }
-    }
-  }
+  @import "@/assets/style/web/_testimonial.scss";
+  @import "@/assets/style/web/_shared.scss";
 </style>

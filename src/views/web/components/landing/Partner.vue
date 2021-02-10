@@ -2,9 +2,7 @@
   <!-- eslint-disable -->
   <section class="partner-section">
     <div class="container">
-      <div class="partner-header text-center mb-5">
-        <h4>Our Partners</h4>
-      </div>
+      <h2 class="section-header text-center mb-5">Our Partners</h2>
       <carousel
         :per-page=5
         :loop='true'
@@ -78,4 +76,5 @@
 
 <style lang="scss" scoped>
   @import "@/assets/style/web/_partner.scss";
+  @import "@/assets/style/web/_shared.scss";
 </style>

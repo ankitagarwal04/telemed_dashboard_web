@@ -5,6 +5,7 @@
   .service-card-holder {
     text-align: center;
     flex-basis: 25%;
+    border-radius: 5%;
     @media only screen and (max-width: $small-devices-max) {
       flex-basis: 100%;
     }
