@@ -24,10 +24,17 @@ import i18n from './i18n'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueCarousel from 'vue-carousel'
+import AirbnbStyleDatepicker from 'vue-airbnb-style-datepicker'
 // Import the styles directly. (Or you could add them via script tags.)
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import 'vue-airbnb-style-datepicker/dist/vue-airbnb-style-datepicker.min.css'
 
+// see docs for available options
+// https://mikaeledebro.gitbooks.io/vue-airbnb-style-datepicker/content/INSTALLATION.html
+const datepickerOptions = {}
+
+Vue.use(AirbnbStyleDatepicker, datepickerOptions)
 Vue.use(BootstrapVue)
 Vue.use(VueAxios, axios)
 Vue.use(VueCarousel)

@@ -8,7 +8,7 @@
       <v-col
         cols="12"
         sm="6"
-        lg="6"
+        lg="4"
       >
         <base-material-stats-card
           color="info"
@@ -25,7 +25,7 @@
       <v-col
         cols="12"
         sm="6"
-        lg="6"
+        lg="4"
       >
         <base-material-stats-card
           color="info"
@@ -37,6 +37,33 @@
           :sub-text="specialityFilterSubText"
           @show-modal="specialitiesListDialog = true"
         />
+      </v-col>
+
+      <v-col
+        cols="12"
+        sm="6"
+        lg="4"
+      >
+        <div class="datepicker-trigger datepicker-filter">
+          <input
+            type="text"
+            id="datepicker-trigger"
+            placeholder="Select dates"
+            :value="formatDates(this.datePicker.dateOne, this.datePicker.dateTwo)"
+          >
+
+          <AirbnbStyleDatepicker
+            :trigger-element-id="'datepicker-trigger'"
+            :mode="'range'"
+            :fullscreen-mobile="true"
+            :date-one="this.datePicker.dateOne"
+            :date-two="this.datePicker.dateTwo"
+            :end-date="this.datePicker.endDate"
+            @date-one-selected="val => { this.datePicker.dateOne = val }"
+            @date-two-selected="val => { this.datePicker.dateTwo = val }"
+            @apply="getConsultationStats ()"
+          />
+        </div>
       </v-col>
     </v-row>
     <v-divider />
@@ -194,6 +221,7 @@
 </template>
 
 <script>
+  import format from 'date-fns/format'
   export default {
     name: 'Consultation',
     components: {
@@ -254,6 +282,12 @@
             },
           },
         },
+        datePicker: {
+          dateFormat: 'D MMM YYYY',
+          dateOne: '',
+          dateTwo: '',
+          endDate: '',
+        },
       }
     },
     watch: {
@@ -272,6 +306,7 @@
       this.getConsultationStats()
       this.getCscMerchants()
       this.getSpecialities()
+      this.updateDatePickerFields()
     },
     methods: {
       getConsultationStats: function () {
@@ -279,6 +314,8 @@
           consultation_filters: {
             merchant_ids: this.selectedMerchants,
             mapped_speciality_ids: this.selectedSpecialities,
+            date_from: this.datePicker.dateOne,
+            date_to: this.datePicker.dateTwo,
           },
         }).then((response) => {
           var consultationStats = response.data.data
@@ -296,6 +333,12 @@
           this.lastTwelveMonthsChart.data.labels = lastTwelveMonthsDataLabels
           this.lastTwelveMonthsChart.data.series = lastTwelveMonthsDataSeries
           this.lastTwelveMonthsChart.options.high = (Math.max(...lastTwelveMonthsDataSeries[0]) + Math.max(...lastTwelveMonthsDataSeries[0]) / 4)
+          if (this.lastTwelveMonthsChart.options.high === 0) {
+            this.lastTwelveMonthsChart.options.high = 100
+          }
+          if (this.lastSevenDaysChart.options.high === 0) {
+            this.lastSevenDaysChart.options.high = 100
+          }
         }).catch((error) => {
           // handle error
           console.log(error)
@@ -347,6 +390,33 @@
         }
         this.getConsultationStats()
       },
+      formatDates (dateOne, dateTwo) {
+        let formattedDates = ''
+        if (dateOne) {
+          formattedDates = format(dateOne, this.datePicker.dateFormat)
+        }
+        if (dateTwo) {
+          formattedDates += ' - ' + format(dateTwo, this.datePicker.dateFormat)
+        }
+        return formattedDates
+      },
+      updateDatePickerFields () {
+        const d = new Date()
+        const date = d.getDate()
+        const month = d.getMonth()
+        const year = d.getFullYear()
+        // date format ('2021-02-20')
+        // using a day before today
+        this.datePicker.endDate = year + '-' + (month + 1) + '-' + (date - 1)
+      },
     },
   }
 </script>
+
+<style lang='scss' unscoped>
+  .datepicker-filter {
+    margin-top: 30px;
+    margin-bottom: 15px;
+    background-color: white;
+  }
+</style>
