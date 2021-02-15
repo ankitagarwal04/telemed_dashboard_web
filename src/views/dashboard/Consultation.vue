@@ -61,7 +61,7 @@
             :end-date="this.datePicker.endDate"
             @date-one-selected="val => { this.datePicker.dateOne = val }"
             @date-two-selected="val => { this.datePicker.dateTwo = val }"
-            @apply="getConsultationStats ()"
+            @apply="getSuccessfulConsultationStats ()"
           />
         </div>
       </v-col>
@@ -303,13 +303,13 @@
       },
     },
     created () {
-      this.getConsultationStats()
+      this.getSuccessfulConsultationStats()
       this.getCscMerchants()
       this.getSpecialities()
       this.updateDatePickerFields()
     },
     methods: {
-      getConsultationStats: function () {
+      getSuccessfulConsultationStats: function () {
         this.axios.post('http://localhost:3000/dashboard_consultations/stats', {
           consultation_filters: {
             merchant_ids: this.selectedMerchants,
@@ -388,7 +388,7 @@
         } else if (filterName === this.specialityFilterTitle) {
           this.specialitiesListDialog = false
         }
-        this.getConsultationStats()
+        this.getSuccessfulConsultationStats()
       },
       formatDates (dateOne, dateTwo) {
         let formattedDates = ''
