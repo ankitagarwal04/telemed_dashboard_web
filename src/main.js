@@ -21,8 +21,8 @@ import './plugins/chartist'
 import './plugins/vee-validate'
 import vuetify from './plugins/vuetify'
 import i18n from './i18n'
-import axios from 'axios'
-import VueAxios from 'vue-axios'
+// defining global variables here, including request interceptor
+import variable from './services/variables'
 import VueCarousel from 'vue-carousel'
 import AirbnbStyleDatepicker from 'vue-airbnb-style-datepicker'
 // Import the styles directly. (Or you could add them via script tags.)
@@ -36,13 +36,9 @@ const datepickerOptions = {}
 
 Vue.use(AirbnbStyleDatepicker, datepickerOptions)
 Vue.use(BootstrapVue)
-Vue.use(VueAxios, axios)
 Vue.use(VueCarousel)
+Vue.use(variable)
 Vue.config.productionTip = false
-
-// defining global variables
-Vue.prototype.$contactEmail = 'helpdesk@csc.gov.in'
-Vue.prototype.$contactNumber = '1800-121-3468'
 
 new Vue({
   router,

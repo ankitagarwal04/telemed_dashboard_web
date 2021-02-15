@@ -39,8 +39,8 @@
     },
     methods: {
       getConsultationStats: function () {
-        this.axios.post('http://localhost:3000/dashboard_consultations/stats').then((response) => {
-          const consultationStats = response.data.data
+        this.$http.post('/dashboard_consultations/stats').then((response) => {
+          const consultationStats = response
           if (consultationStats) {
             this.stats.consultations.count = consultationStats.consultation_count
             this.stats.consultations.abbreviated_count = abbreviate(this.stats.consultations.count, 2)
@@ -51,10 +51,10 @@
         })
       },
       getAvailableDoctorStats: function () {
-        this.axios.get('http://localhost:3000/doctor_profiles/stats').then((response) => {
-          const availableDoctorStats = response.data
-          if (availableDoctorStats && availableDoctorStats.data && availableDoctorStats.data.approved_doctor_profiles) {
-            this.stats.doctor.count = availableDoctorStats.data.approved_doctor_profiles.count
+        this.$http.get('/doctor_profiles/stats').then((response) => {
+          const availableDoctorStats = response
+          if (availableDoctorStats && availableDoctorStats.approved_doctor_profiles) {
+            this.stats.doctor.count = availableDoctorStats.approved_doctor_profiles.count
             this.stats.doctor.abbreviated_count = abbreviate(this.stats.doctor.count, 2)
           }
         }).catch((error) => {

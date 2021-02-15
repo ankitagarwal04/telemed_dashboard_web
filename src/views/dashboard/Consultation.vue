@@ -310,7 +310,7 @@
     },
     methods: {
       getSuccessfulConsultationStats: function () {
-        this.axios.post('http://localhost:3000/dashboard_consultations/stats', {
+        this.$http.post('/dashboard_consultations/stats', {
           consultation_filters: {
             merchant_ids: this.selectedMerchants,
             mapped_speciality_ids: this.selectedSpecialities,
@@ -318,7 +318,7 @@
             date_to: this.datePicker.dateTwo,
           },
         }).then((response) => {
-          var consultationStats = response.data.data
+          var consultationStats = response
           var lastSevenDays = consultationStats.last_7_days
           var lastTwelveMonths = consultationStats.last_12_months
           var lastSevenDaysDataLabels = Object.keys(lastSevenDays)
@@ -345,8 +345,8 @@
         })
       },
       getCscMerchants: function () {
-        this.axios.get('http://localhost:3000/csc_merchants/index').then((response) => {
-          this.cscMerchants = response.data.data
+        this.$http.get('/csc_merchants/index').then((response) => {
+          this.cscMerchants = response
           this.merchantFilterTitle += ` (${this.cscMerchants.length})`
         }).catch((error) => {
           // handle error
@@ -354,8 +354,8 @@
         })
       },
       getSpecialities: function () {
-        this.axios.get('http://localhost:3000/mapped_specialities/index').then((response) => {
-          this.specialities = response.data.data
+        this.$http.get('/mapped_specialities/index').then((response) => {
+          this.specialities = response
           this.specialityFilterTitle += ` (${this.specialities.length})`
         }).catch((error) => {
           // handle error
