@@ -70,8 +70,8 @@
     <v-row>
       <v-col
         cols="12"
-        sm="6"
-        lg="6"
+        sm="4"
+        lg="4"
       >
         <base-material-stats-card
           color="success"
@@ -79,9 +79,39 @@
           title="Consultations"
           :value="consultationStats.count"
           sub-icon="mdi-calendar"
-          sub-text="Last 24 Hours"
+          sub-text="Updated Last 24 Hours"
         />
       </v-col>
+      <v-col
+        cols="12"
+        sm="4"
+        lg="4"
+      >
+        <base-material-stats-card
+          color="success"
+          icon="mdi-store"
+          title="Doctors Available"
+          :value="doctorStats.approvedCount"
+          sub-icon="mdi-calendar"
+          sub-text="Updated Last 24 Hours"
+        />
+      </v-col>
+      <v-col
+        cols="12"
+        sm="4"
+        lg="4"
+      >
+        <base-material-stats-card
+          color="success"
+          icon="mdi-store"
+          title="Patients Registered"
+          :value="patientsRegistered"
+          sub-icon="mdi-calendar"
+          sub-text="Updated Last 24 Hours"
+        />
+      </v-col>
+    </v-row>
+    <v-row>
       <v-col
         cols="12"
         sm="6"
@@ -137,7 +167,7 @@
             >
               mdi-clock-outline
             </v-icon>
-            <span class="caption grey--text font-weight-light">last 7 days Stats</span>
+            <span class="caption grey--text font-weight-light">Consultation last 7 days Stats</span>
           </template>
         </base-material-chart-card>
       </v-col>
@@ -196,7 +226,7 @@
             >
               mdi-clock-outline
             </v-icon>
-            <span class="caption grey--text font-weight-light">last 12 Months Stats</span>
+            <span class="caption grey--text font-weight-light">Consultation last 12 Months Stats</span>
           </template>
         </base-material-chart-card>
       </v-col>
@@ -288,6 +318,11 @@
           dateTwo: '',
           endDate: '',
         },
+        patientsRegistered: 0,
+        doctorStats: {
+          approvedCount: 0,
+          totalCount: 0,
+        },
       }
     },
     watch: {
@@ -307,6 +342,7 @@
       this.getCscMerchants()
       this.getSpecialities()
       this.updateDatePickerFields()
+      this.getDoctorAvailableStats('on_page_load')
     },
     methods: {
       getSuccessfulConsultationStats: function () {
@@ -387,6 +423,7 @@
           this.merchantListDialog = false
         } else if (filterName === this.specialityFilterTitle) {
           this.specialitiesListDialog = false
+          this.getDoctorAvailableStats('on_speciaility_change')
         }
         this.getSuccessfulConsultationStats()
       },
@@ -408,6 +445,35 @@
         // date format ('2021-02-20')
         // using a day before today
         this.datePicker.endDate = year + '-' + (month + 1) + '-' + (date - 1)
+      },
+      getDoctorAvailableStats: function (from) {
+        if (from === 'on_page_load') {
+          this.$http.get('/doctor_profiles/stats').then((response) => {
+            if (response.approved_doctor_profiles) {
+              this.doctorStats.approvedCount = response.approved_doctor_profiles.count
+            }
+          }).catch((error) => {
+            // handle error
+            console.log(error)
+          })
+        } else if (from === 'on_speciaility_change') {
+          if (this.specialities) {
+            let updatedDoctorApprovedCount = 0
+            // iterate over mapped speciality
+            this.specialities.forEach((speciality, index) => {
+              console.log(this.selectedSpecialities)
+              // filtering out the unselected specialities.
+              if (this.selectedSpecialities.includes(speciality.id)) {
+                const childSpecialities = speciality.child_specialities
+                if (childSpecialities.doctor_stats) {
+                  console.log(childSpecialities.doctor_stats)
+                  updatedDoctorApprovedCount += childSpecialities.doctor_stats.total_approved_doctor_profiles_count
+                }
+              }
+            })
+            this.doctorStats.approvedCount = updatedDoctorApprovedCount
+          }
+        }
       },
     },
   }
