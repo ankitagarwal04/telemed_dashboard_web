@@ -338,11 +338,13 @@
       },
     },
     created () {
+      // TODO: single request API to fetch required data on page load.
       this.getSuccessfulConsultationStats()
       this.getCscMerchants()
       this.getSpecialities()
       this.updateDatePickerFields()
       this.getDoctorAvailableStats('on_page_load')
+      this.getPatientStats()
     },
     methods: {
       getSuccessfulConsultationStats: function () {
@@ -474,6 +476,16 @@
             this.doctorStats.approvedCount = updatedDoctorApprovedCount
           }
         }
+      },
+      getPatientStats: function () {
+        this.$http.get('/users/patients_stats').then((response) => {
+          if (response.count) {
+            this.patientsRegistered = response.count
+          }
+        }).catch((error) => {
+          // handle error
+          console.log(error)
+        })
       },
     },
   }
