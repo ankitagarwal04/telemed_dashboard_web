@@ -264,8 +264,8 @@
         lg="6"
       >
         <base-material-chart-card
-          :data="lastSevenDaysChart.data"
-          :options="lastSevenDaysChart.options"
+          :data="consultationStats.grouppedByDay.data"
+          :options="consultationStats.grouppedByDay.options"
           color="success"
           hover-reveal
           type="Line"
@@ -323,8 +323,8 @@
         lg="6"
       >
         <base-material-chart-card
-          :data="lastTwelveMonthsChart.data"
-          :options="lastTwelveMonthsChart.options"
+          :data="consultationStats.grouppedByMonth.data"
+          :options="consultationStats.grouppedByMonth.options"
           color="success"
           hover-reveal
           type="Bar"
@@ -420,42 +420,42 @@
         selectedSpecialities: [],
         consultationStats: {
           count: 0,
-        },
-        lastSevenDaysChart: {
-          data: {
-            labels: [],
-            series: [],
-          },
-          options: {
-            lineSmooth: this.$chartist.Interpolation.cardinal({
-              tension: 0,
-            }),
-            low: 0,
-            high: 0, // recommended you to set the high as the biggest value + something for a better look
-            chartPadding: {
-              top: 0,
-              right: 0,
-              bottom: 0,
-              left: 0,
+          grouppedByDay: {
+            data: {
+              labels: [],
+              series: [],
+            },
+            options: {
+              lineSmooth: this.$chartist.Interpolation.cardinal({
+                tension: 0,
+              }),
+              low: 0,
+              high: 0, // recommended you to set the high as the biggest value + something for a better look
+              chartPadding: {
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0,
+              },
             },
           },
-        },
-        lastTwelveMonthsChart: {
-          data: {
-            labels: [],
-            series: [],
-          },
-          options: {
-            lineSmooth: this.$chartist.Interpolation.cardinal({
-              tension: 0,
-            }),
-            low: 0,
-            high: 0, // recommended you to set the high as the biggest value + something for a better look
-            chartPadding: {
-              top: 0,
-              right: 10,
-              bottom: 0,
-              left: 15,
+          grouppedByMonth: {
+            data: {
+              labels: [],
+              series: [],
+            },
+            options: {
+              lineSmooth: this.$chartist.Interpolation.cardinal({
+                tension: 0,
+              }),
+              low: 0,
+              high: 0, // recommended you to set the high as the biggest value + something for a better look
+              chartPadding: {
+                top: 0,
+                right: 10,
+                bottom: 0,
+                left: 15,
+              },
             },
           },
         },
@@ -553,26 +553,15 @@
         }).then((response) => {
           const consultationStats = response
           const callDurationStats = consultationStats.call_duration_stats
-          const lastSevenDays = consultationStats.last_7_days
-          const lastSevenDaysDataLabels = Object.keys(lastSevenDays)
-          const lastSevenDaysDataSeries = [Object.values(lastSevenDays)]
-          const lastTwelveMonths = consultationStats.last_12_months
-          const lastTwelveMonthsDataLabels = Object.keys(lastTwelveMonths)
-          const lastTwelveMonthsDataSeries = [Object.values(lastTwelveMonths)]
-
           this.consultationStats.count = consultationStats ? consultationStats.consultation_count : 0
-          this.lastSevenDaysChart.data.labels = lastSevenDaysDataLabels
-          this.lastSevenDaysChart.data.series = lastSevenDaysDataSeries
-          this.lastSevenDaysChart.options.high = (Math.max(...lastSevenDaysDataSeries[0]) + Math.max(...lastSevenDaysDataSeries[0]) / 4)
-          this.lastTwelveMonthsChart.data.labels = lastTwelveMonthsDataLabels
-          this.lastTwelveMonthsChart.data.series = lastTwelveMonthsDataSeries
-          this.lastTwelveMonthsChart.options.high = (Math.max(...lastTwelveMonthsDataSeries[0]) + Math.max(...lastTwelveMonthsDataSeries[0]) / 4)
-          if (this.lastTwelveMonthsChart.options.high === 0) {
-            this.lastTwelveMonthsChart.options.high = 100
+          // handling consultation stats chart
+          if (consultationStats.groupped_by_day) {
+            this.handleChartData('consultationStats', 'daily', consultationStats.groupped_by_day)
           }
-          if (this.lastSevenDaysChart.options.high === 0) {
-            this.lastSevenDaysChart.options.high = 100
+          if (consultationStats.groupped_by_month) {
+            this.handleChartData('consultationStats', 'monthly', consultationStats.groupped_by_month)
           }
+          // handling call duration stats
           this.callDurationStats.minCallDuration = callDurationStats.min_call_duration
           this.callDurationStats.avgCallDuration = callDurationStats.avg_call_duration
           this.callDurationStats.maxCallDuration = callDurationStats.max_call_duration
@@ -728,6 +717,16 @@
             this.doctorStats.grouppedByMonth.data.labels = specifiedIntervalData[0]
             this.doctorStats.grouppedByMonth.data.series = specifiedIntervalData[1]
             this.doctorStats.grouppedByMonth.options.high = specifiedIntervalData[2]
+          }
+        } else if (whoseStats === 'consultationStats') {
+          if (grouppingInterval === 'daily') {
+            this.consultationStats.grouppedByDay.data.labels = specifiedIntervalData[0]
+            this.consultationStats.grouppedByDay.data.series = specifiedIntervalData[1]
+            this.consultationStats.grouppedByDay.options.high = specifiedIntervalData[2]
+          } else if (grouppingInterval === 'monthly') {
+            this.consultationStats.grouppedByMonth.data.labels = specifiedIntervalData[0]
+            this.consultationStats.grouppedByMonth.data.series = specifiedIntervalData[1]
+            this.consultationStats.grouppedByMonth.options.high = specifiedIntervalData[2]
           }
         }
       },
