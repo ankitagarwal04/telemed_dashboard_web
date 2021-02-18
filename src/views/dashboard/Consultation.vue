@@ -46,21 +46,21 @@
       >
         <div class="datepicker-trigger datepicker-filter">
           <input
-            type="text"
             id="datepicker-trigger"
+            type="text"
             placeholder="Select dates"
-            :value="formatDates(this.datePicker.dateOne, this.datePicker.dateTwo)"
+            :value="formatDates(datePicker.dateOne, datePicker.dateTwo)"
           >
 
           <AirbnbStyleDatepicker
             :trigger-element-id="'datepicker-trigger'"
             :mode="'range'"
             :fullscreen-mobile="true"
-            :date-one="this.datePicker.dateOne"
-            :date-two="this.datePicker.dateTwo"
-            :end-date="this.datePicker.endDate"
-            @date-one-selected="val => { this.datePicker.dateOne = val }"
-            @date-two-selected="val => { this.datePicker.dateTwo = val }"
+            :date-one="datePicker.dateOne"
+            :date-two="datePicker.dateTwo"
+            :end-date="datePicker.endDate"
+            @date-one-selected="val => { datePicker.dateOne = val }"
+            @date-two-selected="val => { datePicker.dateTwo = val }"
             @apply="getSuccessfulConsultationStats ()"
           />
         </div>
@@ -95,6 +95,124 @@
           sub-icon="mdi-calendar"
           sub-text="Updated Last 24 Hours"
         />
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
+        lg="6"
+      >
+        <base-material-chart-card
+          :data="doctorStats.grouppedByWeek.data"
+          :options="doctorStats.grouppedByWeek.options"
+          color="success"
+          hover-reveal
+          type="Line"
+        >
+          <template v-slot:reveal-actions>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ attrs, on }">
+                <v-btn
+                  v-bind="attrs"
+                  color="info"
+                  icon
+                  v-on="on"
+                >
+                  <v-icon
+                    color="info"
+                  >
+                    mdi-refresh
+                  </v-icon>
+                </v-btn>
+              </template>
+
+              <span>Refresh</span>
+            </v-tooltip>
+
+            <v-tooltip bottom>
+              <template v-slot:activator="{ attrs, on }">
+                <v-btn
+                  v-bind="attrs"
+                  light
+                  icon
+                  v-on="on"
+                >
+                  <v-icon>mdi-pencil</v-icon>
+                </v-btn>
+              </template>
+
+              <span>Change Date</span>
+            </v-tooltip>
+          </template>
+
+          <template v-slot:actions>
+            <v-icon
+              class="mr-1"
+              small
+            >
+              mdi-clock-outline
+            </v-icon>
+            <span class="caption grey--text font-weight-light">Consultation last 7 days Stats</span>
+          </template>
+        </base-material-chart-card>
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
+        lg="6"
+      >
+        <base-material-chart-card
+          :data="doctorStats.grouppedByMonth.data"
+          :options="doctorStats.grouppedByMonth.options"
+          color="success"
+          hover-reveal
+          type="Bar"
+        >
+          <template v-slot:reveal-actions>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ attrs, on }">
+                <v-btn
+                  v-bind="attrs"
+                  color="info"
+                  icon
+                  v-on="on"
+                >
+                  <v-icon
+                    color="info"
+                  >
+                    mdi-refresh
+                  </v-icon>
+                </v-btn>
+              </template>
+
+              <span>Refresh</span>
+            </v-tooltip>
+
+            <v-tooltip bottom>
+              <template v-slot:activator="{ attrs, on }">
+                <v-btn
+                  v-bind="attrs"
+                  light
+                  icon
+                  v-on="on"
+                >
+                  <v-icon>mdi-pencil</v-icon>
+                </v-btn>
+              </template>
+
+              <span>Change Date</span>
+            </v-tooltip>
+          </template>
+
+          <template v-slot:actions>
+            <v-icon
+              class="mr-1"
+              small
+            >
+              mdi-clock-outline
+            </v-icon>
+            <span class="caption grey--text font-weight-light">Consultation last 12 Months Stats</span>
+          </template>
+        </base-material-chart-card>
       </v-col>
       <v-col
         cols="12"
@@ -293,15 +411,16 @@
         specialityFilterSubText: 'All Specialities',
         merchantModalButtonText: 'SELECT',
         specialityModalButtonText: 'SELECT',
-        consultationStats: {
-          count: 0,
-        },
+        patientsRegistered: 0,
         cscMerchants: [],
         specialities: [],
         merchantListDialog: false,
         specialitiesListDialog: false,
         selectedMerchants: [],
         selectedSpecialities: [],
+        consultationStats: {
+          count: 0,
+        },
         lastSevenDaysChart: {
           data: {
             labels: [],
@@ -346,10 +465,47 @@
           dateTwo: '',
           endDate: '',
         },
-        patientsRegistered: 0,
         doctorStats: {
           approvedCount: 0,
           totalCount: 0,
+          grouppedByWeek: {
+            data: {
+              labels: [],
+              series: [],
+            },
+            options: {
+              lineSmooth: this.$chartist.Interpolation.cardinal({
+                tension: 0,
+              }),
+              low: 0,
+              high: 0, // recommended you to set the high as the biggest value + something for a better look
+              chartPadding: {
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0,
+              },
+            },
+          },
+          grouppedByMonth: {
+            data: {
+              labels: [],
+              series: [],
+            },
+            options: {
+              lineSmooth: this.$chartist.Interpolation.cardinal({
+                tension: 0,
+              }),
+              low: 0,
+              high: 0, // recommended you to set the high as the biggest value + something for a better look
+              chartPadding: {
+                top: 0,
+                right: 10,
+                bottom: 0,
+                left: 15,
+              },
+            },
+          },
         },
         callDurationStats: {
           minCallDuration: 0,
@@ -396,11 +552,11 @@
           },
         }).then((response) => {
           const consultationStats = response
-          const lastSevenDays = consultationStats.last_7_days
-          const lastTwelveMonths = consultationStats.last_12_months
           const callDurationStats = consultationStats.call_duration_stats
+          const lastSevenDays = consultationStats.last_7_days
           const lastSevenDaysDataLabels = Object.keys(lastSevenDays)
           const lastSevenDaysDataSeries = [Object.values(lastSevenDays)]
+          const lastTwelveMonths = consultationStats.last_12_months
           const lastTwelveMonthsDataLabels = Object.keys(lastTwelveMonths)
           const lastTwelveMonthsDataSeries = [Object.values(lastTwelveMonths)]
 
@@ -499,6 +655,12 @@
             if (response.approved_doctor_profiles) {
               this.doctorStats.approvedCount = response.approved_doctor_profiles.count
             }
+            if (response.groupped_by_week) {
+              this.handleChartData('doctorStats', 'weekly', response.groupped_by_week)
+            }
+            if (response.groupped_by_month) {
+              this.handleChartData('doctorStats', 'monthly', response.groupped_by_month)
+            }
           }).catch((error) => {
             // handle error
             console.log(error)
@@ -508,13 +670,18 @@
             let updatedDoctorApprovedCount = 0
             // iterate over mapped speciality
             this.specialities.forEach((speciality, index) => {
-              console.log(this.selectedSpecialities)
               // filtering out the unselected specialities.
               if (this.selectedSpecialities.includes(speciality.id)) {
                 const childSpecialities = speciality.child_specialities
                 if (childSpecialities.doctor_stats) {
-                  console.log(childSpecialities.doctor_stats)
-                  updatedDoctorApprovedCount += childSpecialities.doctor_stats.total_approved_doctor_profiles_count
+                  const doctorStats = childSpecialities.doctor_stats
+                  if (doctorStats.groupped_by_week) {
+                    this.handleChartData('doctorStats', 'weekly', doctorStats.groupped_by_week)
+                  }
+                  if (doctorStats.groupped_by_month) {
+                    this.handleChartData('doctorStats', 'monthly', doctorStats.groupped_by_month)
+                  }
+                  updatedDoctorApprovedCount += doctorStats.total_approved_doctor_profiles_count
                 }
               }
             })
@@ -539,6 +706,30 @@
           // handle error
           console.log(error)
         })
+      },
+      fetchChartData: function (chartData) {
+        const chartDataLabels = Object.keys(chartData)
+        const chartDataSeries = [Object.values(chartData)]
+        let chartDataOptionHigh = 0
+        chartDataOptionHigh = (Math.max(...chartDataSeries[0]) + Math.max(...chartDataSeries[0]) / 4)
+        if (chartDataOptionHigh === 0) {
+          chartDataOptionHigh = 100
+        }
+        return [chartDataLabels, chartDataSeries, chartDataOptionHigh]
+      },
+      handleChartData: function (whoseStats, grouppingInterval, grouppedData) {
+        const specifiedIntervalData = this.fetchChartData(grouppedData)
+        if (whoseStats === 'doctorStats') {
+          if (grouppingInterval === 'weekly') {
+            this.doctorStats.grouppedByWeek.data.labels = specifiedIntervalData[0]
+            this.doctorStats.grouppedByWeek.data.series = specifiedIntervalData[1]
+            this.doctorStats.grouppedByWeek.options.high = specifiedIntervalData[2]
+          } else if (grouppingInterval === 'monthly') {
+            this.doctorStats.grouppedByMonth.data.labels = specifiedIntervalData[0]
+            this.doctorStats.grouppedByMonth.data.series = specifiedIntervalData[1]
+            this.doctorStats.grouppedByMonth.options.high = specifiedIntervalData[2]
+          }
+        }
       },
     },
   }
