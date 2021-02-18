@@ -110,6 +110,34 @@
           sub-text="Updated Last 24 Hours"
         />
       </v-col>
+      <v-col
+        cols="12"
+        sm="4"
+        lg="4"
+      >
+        <base-material-stats-card
+          color="success"
+          icon="mdi-store"
+          title="Call Durations"
+          :value="callDurationStats.totalCallDuration"
+          sub-icon="mdi-calendar"
+          sub-text="Updated Last 24 Hours"
+        />
+      </v-col>
+      <v-col
+        cols="12"
+        sm="4"
+        lg="4"
+      >
+        <base-material-stats-card
+          color="success"
+          icon="mdi-store"
+          title="Payment"
+          :value="paymentStats.totalAmount"
+          sub-icon="mdi-calendar"
+          sub-text="Updated Last 24 Hours"
+        />
+      </v-col>
     </v-row>
     <v-row>
       <v-col
@@ -323,6 +351,16 @@
           approvedCount: 0,
           totalCount: 0,
         },
+        callDurationStats: {
+          minCallDuration: 0,
+          avgCallDuration: 0,
+          maxCallDuration: 0,
+          totalCallDuration: 0,
+          totalVideoConsultations: 0,
+        },
+        paymentStats: {
+          totalAmount: 0,
+        },
       }
     },
     watch: {
@@ -345,6 +383,7 @@
       this.updateDatePickerFields()
       this.getDoctorAvailableStats('on_page_load')
       this.getPatientStats()
+      this.getPaymentStats()
     },
     methods: {
       getSuccessfulConsultationStats: function () {
@@ -356,13 +395,14 @@
             date_to: this.datePicker.dateTwo,
           },
         }).then((response) => {
-          var consultationStats = response
-          var lastSevenDays = consultationStats.last_7_days
-          var lastTwelveMonths = consultationStats.last_12_months
-          var lastSevenDaysDataLabels = Object.keys(lastSevenDays)
-          var lastSevenDaysDataSeries = [Object.values(lastSevenDays)]
-          var lastTwelveMonthsDataLabels = Object.keys(lastTwelveMonths)
-          var lastTwelveMonthsDataSeries = [Object.values(lastTwelveMonths)]
+          const consultationStats = response
+          const lastSevenDays = consultationStats.last_7_days
+          const lastTwelveMonths = consultationStats.last_12_months
+          const callDurationStats = consultationStats.call_duration_stats
+          const lastSevenDaysDataLabels = Object.keys(lastSevenDays)
+          const lastSevenDaysDataSeries = [Object.values(lastSevenDays)]
+          const lastTwelveMonthsDataLabels = Object.keys(lastTwelveMonths)
+          const lastTwelveMonthsDataSeries = [Object.values(lastTwelveMonths)]
 
           this.consultationStats.count = consultationStats ? consultationStats.consultation_count : 0
           this.lastSevenDaysChart.data.labels = lastSevenDaysDataLabels
@@ -377,6 +417,11 @@
           if (this.lastSevenDaysChart.options.high === 0) {
             this.lastSevenDaysChart.options.high = 100
           }
+          this.callDurationStats.minCallDuration = callDurationStats.min_call_duration
+          this.callDurationStats.avgCallDuration = callDurationStats.avg_call_duration
+          this.callDurationStats.maxCallDuration = callDurationStats.max_call_duration
+          this.callDurationStats.totalCallDuration = callDurationStats.total_call_duration
+          this.callDurationStats.totalVideoConsultations = callDurationStats.total_video_consultations
         }).catch((error) => {
           // handle error
           console.log(error)
@@ -482,6 +527,14 @@
           if (response.count) {
             this.patientsRegistered = response.count
           }
+        }).catch((error) => {
+          // handle error
+          console.log(error)
+        })
+      },
+      getPaymentStats: function () {
+        this.$http.get('/payment_notifications/payments').then((response) => {
+          this.paymentStats.totalAmount = response.payment_amount
         }).catch((error) => {
           // handle error
           console.log(error)
