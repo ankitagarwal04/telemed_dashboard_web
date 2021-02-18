@@ -4,6 +4,7 @@
     fluid
     tag="section"
   >
+    <!-- filters -->
     <v-row>
       <v-col
         cols="12"
@@ -67,11 +68,12 @@
       </v-col>
     </v-row>
     <v-divider />
+    <!-- consultation stats -->
     <v-row>
       <v-col
         cols="12"
-        sm="4"
-        lg="4"
+        sm="12"
+        lg="12"
       >
         <base-material-stats-card
           color="success"
@@ -84,8 +86,130 @@
       </v-col>
       <v-col
         cols="12"
-        sm="4"
-        lg="4"
+        sm="6"
+        lg="6"
+      >
+        <base-material-chart-card
+          :data="consultationStats.grouppedByDay.data"
+          :options="consultationStats.grouppedByDay.options"
+          color="success"
+          hover-reveal
+          type="Line"
+        >
+          <template v-slot:reveal-actions>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ attrs, on }">
+                <v-btn
+                  v-bind="attrs"
+                  color="info"
+                  icon
+                  v-on="on"
+                >
+                  <v-icon
+                    color="info"
+                  >
+                    mdi-refresh
+                  </v-icon>
+                </v-btn>
+              </template>
+
+              <span>Refresh</span>
+            </v-tooltip>
+
+            <v-tooltip bottom>
+              <template v-slot:activator="{ attrs, on }">
+                <v-btn
+                  v-bind="attrs"
+                  light
+                  icon
+                  v-on="on"
+                >
+                  <v-icon>mdi-pencil</v-icon>
+                </v-btn>
+              </template>
+
+              <span>Change Date</span>
+            </v-tooltip>
+          </template>
+
+          <template v-slot:actions>
+            <v-icon
+              class="mr-1"
+              small
+            >
+              mdi-clock-outline
+            </v-icon>
+            <span class="caption grey--text font-weight-light">Consultation last 7 days Stats</span>
+          </template>
+        </base-material-chart-card>
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
+        lg="6"
+      >
+        <base-material-chart-card
+          :data="consultationStats.grouppedByMonth.data"
+          :options="consultationStats.grouppedByMonth.options"
+          color="success"
+          hover-reveal
+          type="Bar"
+        >
+          <template v-slot:reveal-actions>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ attrs, on }">
+                <v-btn
+                  v-bind="attrs"
+                  color="info"
+                  icon
+                  v-on="on"
+                >
+                  <v-icon
+                    color="info"
+                  >
+                    mdi-refresh
+                  </v-icon>
+                </v-btn>
+              </template>
+
+              <span>Refresh</span>
+            </v-tooltip>
+
+            <v-tooltip bottom>
+              <template v-slot:activator="{ attrs, on }">
+                <v-btn
+                  v-bind="attrs"
+                  light
+                  icon
+                  v-on="on"
+                >
+                  <v-icon>mdi-pencil</v-icon>
+                </v-btn>
+              </template>
+
+              <span>Change Date</span>
+            </v-tooltip>
+          </template>
+
+          <template v-slot:actions>
+            <v-icon
+              class="mr-1"
+              small
+            >
+              mdi-clock-outline
+            </v-icon>
+            <span class="caption grey--text font-weight-light">Consultation last 12 Months Stats</span>
+          </template>
+        </base-material-chart-card>
+      </v-col>
+    </v-row>
+    <v-divider />
+    <!-- doctor stats -->
+    <v-row>
+      <v-col
+        cols="12"
+        sm="12"
+        lg="12"
       >
         <base-material-stats-card
           color="success"
@@ -214,58 +338,32 @@
           </template>
         </base-material-chart-card>
       </v-col>
+    </v-row>
+    <v-divider />
+    <!-- patient stats -->
+    <v-row>
       <v-col
         cols="12"
-        sm="4"
-        lg="4"
+        sm="12"
+        lg="!2"
       >
         <base-material-stats-card
           color="success"
           icon="mdi-store"
           title="Patients Registered"
-          :value="patientsRegistered"
+          :value="patientStats.count"
           sub-icon="mdi-calendar"
           sub-text="Updated Last 24 Hours"
         />
       </v-col>
-      <v-col
-        cols="12"
-        sm="4"
-        lg="4"
-      >
-        <base-material-stats-card
-          color="success"
-          icon="mdi-store"
-          title="Call Durations"
-          :value="callDurationStats.totalCallDuration"
-          sub-icon="mdi-calendar"
-          sub-text="Updated Last 24 Hours"
-        />
-      </v-col>
-      <v-col
-        cols="12"
-        sm="4"
-        lg="4"
-      >
-        <base-material-stats-card
-          color="success"
-          icon="mdi-store"
-          title="Payment"
-          :value="paymentStats.totalAmount"
-          sub-icon="mdi-calendar"
-          sub-text="Updated Last 24 Hours"
-        />
-      </v-col>
-    </v-row>
-    <v-row>
       <v-col
         cols="12"
         sm="6"
         lg="6"
       >
         <base-material-chart-card
-          :data="consultationStats.grouppedByDay.data"
-          :options="consultationStats.grouppedByDay.options"
+          :data="patientStats.grouppedByWeek.data"
+          :options="patientStats.grouppedByWeek.options"
           color="success"
           hover-reveal
           type="Line"
@@ -323,8 +421,8 @@
         lg="6"
       >
         <base-material-chart-card
-          :data="consultationStats.grouppedByMonth.data"
-          :options="consultationStats.grouppedByMonth.options"
+          :data="patientStats.grouppedByMonth.data"
+          :options="patientStats.grouppedByMonth.options"
           color="success"
           hover-reveal
           type="Bar"
@@ -377,6 +475,160 @@
         </base-material-chart-card>
       </v-col>
     </v-row>
+    <v-divider />
+    <!-- call duration stats -->
+    <v-row>
+      <v-col
+        cols="12"
+        sm="12"
+        lg="12"
+      >
+        <base-material-stats-card
+          color="success"
+          icon="mdi-store"
+          title="Call Durations"
+          :value="callDurationStats.totalCallDuration"
+          sub-icon="mdi-calendar"
+          sub-text="Updated Last 24 Hours"
+        />
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
+        lg="6"
+      >
+        <base-material-chart-card
+          :data="callDurationStats.grouppedByDay.data"
+          :options="callDurationStats.grouppedByDay.options"
+          color="success"
+          hover-reveal
+          type="Line"
+        >
+          <template v-slot:reveal-actions>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ attrs, on }">
+                <v-btn
+                  v-bind="attrs"
+                  color="info"
+                  icon
+                  v-on="on"
+                >
+                  <v-icon
+                    color="info"
+                  >
+                    mdi-refresh
+                  </v-icon>
+                </v-btn>
+              </template>
+
+              <span>Refresh</span>
+            </v-tooltip>
+
+            <v-tooltip bottom>
+              <template v-slot:activator="{ attrs, on }">
+                <v-btn
+                  v-bind="attrs"
+                  light
+                  icon
+                  v-on="on"
+                >
+                  <v-icon>mdi-pencil</v-icon>
+                </v-btn>
+              </template>
+
+              <span>Change Date</span>
+            </v-tooltip>
+          </template>
+
+          <template v-slot:actions>
+            <v-icon
+              class="mr-1"
+              small
+            >
+              mdi-clock-outline
+            </v-icon>
+            <span class="caption grey--text font-weight-light">Consultation last 7 days Stats</span>
+          </template>
+        </base-material-chart-card>
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
+        lg="6"
+      >
+        <base-material-chart-card
+          :data="callDurationStats.grouppedByMonth.data"
+          :options="callDurationStats.grouppedByMonth.options"
+          color="success"
+          hover-reveal
+          type="Bar"
+        >
+          <template v-slot:reveal-actions>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ attrs, on }">
+                <v-btn
+                  v-bind="attrs"
+                  color="info"
+                  icon
+                  v-on="on"
+                >
+                  <v-icon
+                    color="info"
+                  >
+                    mdi-refresh
+                  </v-icon>
+                </v-btn>
+              </template>
+
+              <span>Refresh</span>
+            </v-tooltip>
+
+            <v-tooltip bottom>
+              <template v-slot:activator="{ attrs, on }">
+                <v-btn
+                  v-bind="attrs"
+                  light
+                  icon
+                  v-on="on"
+                >
+                  <v-icon>mdi-pencil</v-icon>
+                </v-btn>
+              </template>
+
+              <span>Change Date</span>
+            </v-tooltip>
+          </template>
+
+          <template v-slot:actions>
+            <v-icon
+              class="mr-1"
+              small
+            >
+              mdi-clock-outline
+            </v-icon>
+            <span class="caption grey--text font-weight-light">Consultation last 12 Months Stats</span>
+          </template>
+        </base-material-chart-card>
+      </v-col>
+    </v-row>
+    <v-divider />
+    <!-- payment stats -->
+    <v-row>
+      <v-col
+        cols="12"
+        sm="12"
+        lg="12"
+      >
+        <base-material-stats-card
+          color="success"
+          icon="mdi-store"
+          title="Payment"
+          :value="paymentStats.totalAmount"
+          sub-icon="mdi-calendar"
+          sub-text="Updated Last 24 Hours"
+        />
+      </v-col>
+    </v-row>
     <filter-list-dialog
       :dialog-name="merchantListDialog"
       title="Select Merchant"
@@ -411,7 +663,6 @@
         specialityFilterSubText: 'All Specialities',
         merchantModalButtonText: 'SELECT',
         specialityModalButtonText: 'SELECT',
-        patientsRegistered: 0,
         cscMerchants: [],
         specialities: [],
         merchantListDialog: false,
@@ -421,6 +672,47 @@
         consultationStats: {
           count: 0,
           grouppedByDay: {
+            data: {
+              labels: [],
+              series: [],
+            },
+            options: {
+              lineSmooth: this.$chartist.Interpolation.cardinal({
+                tension: 0,
+              }),
+              low: 0,
+              high: 0, // recommended you to set the high as the biggest value + something for a better look
+              chartPadding: {
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0,
+              },
+            },
+          },
+          grouppedByMonth: {
+            data: {
+              labels: [],
+              series: [],
+            },
+            options: {
+              lineSmooth: this.$chartist.Interpolation.cardinal({
+                tension: 0,
+              }),
+              low: 0,
+              high: 0, // recommended you to set the high as the biggest value + something for a better look
+              chartPadding: {
+                top: 0,
+                right: 10,
+                bottom: 0,
+                left: 15,
+              },
+            },
+          },
+        },
+        patientStats: {
+          count: 0,
+          grouppedByWeek: {
             data: {
               labels: [],
               series: [],
@@ -513,6 +805,44 @@
           maxCallDuration: 0,
           totalCallDuration: 0,
           totalVideoConsultations: 0,
+          grouppedByDay: {
+            data: {
+              labels: [],
+              series: [],
+            },
+            options: {
+              lineSmooth: this.$chartist.Interpolation.cardinal({
+                tension: 0,
+              }),
+              low: 0,
+              high: 0, // recommended you to set the high as the biggest value + something for a better look
+              chartPadding: {
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0,
+              },
+            },
+          },
+          grouppedByMonth: {
+            data: {
+              labels: [],
+              series: [],
+            },
+            options: {
+              lineSmooth: this.$chartist.Interpolation.cardinal({
+                tension: 0,
+              }),
+              low: 0,
+              high: 0, // recommended you to set the high as the biggest value + something for a better look
+              chartPadding: {
+                top: 0,
+                right: 10,
+                bottom: 0,
+                left: 15,
+              },
+            },
+          },
         },
         paymentStats: {
           totalAmount: 0,
@@ -567,6 +897,12 @@
           this.callDurationStats.maxCallDuration = callDurationStats.max_call_duration
           this.callDurationStats.totalCallDuration = callDurationStats.total_call_duration
           this.callDurationStats.totalVideoConsultations = callDurationStats.total_video_consultations
+          if (callDurationStats.groupped_by_day) {
+            this.handleChartData('callDurationStats', 'daily', callDurationStats.groupped_by_day)
+          }
+          if (callDurationStats.groupped_by_month) {
+            this.handleChartData('callDurationStats', 'monthly', callDurationStats.groupped_by_month)
+          }
         }).catch((error) => {
           // handle error
           console.log(error)
@@ -681,7 +1017,13 @@
       getPatientStats: function () {
         this.$http.get('/users/patients_stats').then((response) => {
           if (response.count) {
-            this.patientsRegistered = response.count
+            this.patientStats.count = response.count
+          }
+          if (response.groupped_by_week) {
+            this.handleChartData('patientStats', 'weekly', response.groupped_by_week)
+          }
+          if (response.groupped_by_month) {
+            this.handleChartData('patientStats', 'monthly', response.groupped_by_month)
           }
         }).catch((error) => {
           // handle error
@@ -727,6 +1069,26 @@
             this.consultationStats.grouppedByMonth.data.labels = specifiedIntervalData[0]
             this.consultationStats.grouppedByMonth.data.series = specifiedIntervalData[1]
             this.consultationStats.grouppedByMonth.options.high = specifiedIntervalData[2]
+          }
+        } else if (whoseStats === 'patientStats') {
+          if (grouppingInterval === 'weekly') {
+            this.patientStats.grouppedByWeek.data.labels = specifiedIntervalData[0]
+            this.patientStats.grouppedByWeek.data.series = specifiedIntervalData[1]
+            this.patientStats.grouppedByWeek.options.high = specifiedIntervalData[2]
+          } else if (grouppingInterval === 'monthly') {
+            this.patientStats.grouppedByMonth.data.labels = specifiedIntervalData[0]
+            this.patientStats.grouppedByMonth.data.series = specifiedIntervalData[1]
+            this.patientStats.grouppedByMonth.options.high = specifiedIntervalData[2]
+          }
+        } else if (whoseStats === 'callDurationStats') {
+          if (grouppingInterval === 'daily') {
+            this.callDurationStats.grouppedByDay.data.labels = specifiedIntervalData[0]
+            this.callDurationStats.grouppedByDay.data.series = specifiedIntervalData[1]
+            this.callDurationStats.grouppedByDay.options.high = specifiedIntervalData[2]
+          } else if (grouppingInterval === 'monthly') {
+            this.callDurationStats.grouppedByMonth.data.labels = specifiedIntervalData[0]
+            this.callDurationStats.grouppedByMonth.data.series = specifiedIntervalData[1]
+            this.callDurationStats.grouppedByMonth.options.high = specifiedIntervalData[2]
           }
         }
       },
