@@ -212,7 +212,7 @@
         sm="12"
         lg="12"
       >
-        <base-material-stats-card
+        <stats-card
           color="success"
           icon="mdi-store"
           title="Doctors Available"
@@ -348,7 +348,7 @@
         sm="12"
         lg="!2"
       >
-        <base-material-stats-card
+        <stats-card
           color="success"
           icon="mdi-store"
           title="Patients Registered"
@@ -484,11 +484,12 @@
         sm="12"
         lg="12"
       >
-        <base-material-stats-card
+        <stats-card
           color="success"
           icon="mdi-store"
           title="Call Durations"
           :value="callDurationStats.totalCallDuration"
+          :sub-stats="getSubStats('call_duration')"
           sub-icon="mdi-calendar"
           sub-text="Updated Last 24 Hours"
         />
@@ -620,7 +621,7 @@
         sm="12"
         lg="12"
       >
-        <base-material-stats-card
+        <stats-card
           color="success"
           icon="mdi-store"
           title="Payment"
@@ -1111,13 +1112,27 @@
               },
             }
           }
+        } else if (whoseStats === 'call_duration') {
+          if (this.callDurationStats) {
+            subStats = {
+              average: {
+                count: this.callDurationStats.avgCallDuration,
+                color: '#000',
+                icon: 'mdi-tag',
+              },
+              count: {
+                count: this.callDurationStats.totalVideoConsultations,
+                color: '#000',
+                icon: 'mdi-tag',
+              },
+            }
+          }
         }
         return subStats
       },
     },
   }
 </script>
-
 <style lang='scss' unscoped>
   .datepicker-filter {
     margin-top: 30px;

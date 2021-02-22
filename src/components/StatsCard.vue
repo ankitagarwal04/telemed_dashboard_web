@@ -59,7 +59,7 @@
 
     <template v-slot:below-heading>
       <div
-        v-if="isConsultationCard(title)"
+        v-if="displaySubStats(title)"
         class="d-flex grow flex-wrap justify-content-between"
       >
         <div
@@ -153,8 +153,8 @@
       },
     },
     methods: {
-      isConsultationCard: function (value) {
-        if (value === 'Consultations') {
+      displaySubStats: function (value) {
+        if (['Consultations', 'Call Durations'].includes(value)) {
           return true
         } else {
           return false
