@@ -5,29 +5,38 @@
     v-bind="$attrs"
     v-on="$listeners"
   >
-    <!-- <template v-slot:after-heading>
-      <div class="ml-auto text-right">
+    <template v-slot:after-heading>
+      <div
+        v-if="isDatePicker"
+        class="ml-auto text-right"
+      >
         <div
           class="body-3 grey--text font-weight-light"
           v-text="title"
         />
         <v-btn
-          v-if="isContainModal"
+          id="datepicker-trigger"
           depressed
-          @click="$emit('show-modal')"
         >
-          {{ modalButtonText }}
+          Select
         </v-btn>
-        <h3
-          v-else
-          class="font-weight-light text--primary"
-        >
-          {{ value }}
-        </h3>
+        <AirbnbStyleDatepicker
+          :trigger-element-id="'datepicker-trigger'"
+          :mode="'range'"
+          :fullscreen-mobile="true"
+          :date-one="datePicker.dateOne"
+          :date-two="datePicker.dateTwo"
+          :end-date="datePicker.endDate"
+          style="right: 0"
+          @date-one-selected="val => { datePicker.dateOne = val }"
+          @date-two-selected="val => { datePicker.dateTwo = val }"
+          @apply="$emit('format-dates', datePicker)"
+        />
       </div>
-    </template> -->
-    <template v-slot:after-heading>
-      <div class="ml-auto text-right">
+      <div
+        v-else
+        class="ml-auto text-right"
+      >
         <div
           class="body-3 grey--text font-weight-light"
           v-text="title"
@@ -149,6 +158,14 @@
       },
       modalButtonText: {
         type: String,
+        default: undefined,
+      },
+      isDatePicker: {
+        type: Boolean,
+        default: undefined,
+      },
+      datePicker: {
+        type: Object,
         default: undefined,
       },
     },

@@ -11,7 +11,7 @@
         sm="6"
         lg="4"
       >
-        <base-material-stats-card
+        <stats-card
           color="info"
           icon="mdi-poll"
           :title="merchantFilterTitle"
@@ -28,7 +28,7 @@
         sm="6"
         lg="4"
       >
-        <base-material-stats-card
+        <stats-card
           color="info"
           icon="mdi-poll"
           :title="specialityFilterTitle"
@@ -45,26 +45,17 @@
         sm="6"
         lg="4"
       >
-        <div class="datepicker-trigger datepicker-filter">
-          <input
-            id="datepicker-trigger"
-            type="text"
-            placeholder="Select dates"
-            :value="formatDates(datePicker.dateOne, datePicker.dateTwo)"
-          >
-
-          <AirbnbStyleDatepicker
-            :trigger-element-id="'datepicker-trigger'"
-            :mode="'range'"
-            :fullscreen-mobile="true"
-            :date-one="datePicker.dateOne"
-            :date-two="datePicker.dateTwo"
-            :end-date="datePicker.endDate"
-            @date-one-selected="val => { datePicker.dateOne = val }"
-            @date-two-selected="val => { datePicker.dateTwo = val }"
-            @apply="getConsultationStats ()"
-          />
-        </div>
+        <!-- on change of dates, required data is also filtered. -->
+        <stats-card
+          color="info"
+          icon="mdi-poll"
+          title="Date Picker"
+          sub-icon="mdi-tag"
+          :is-date-picker="true"
+          :sub-text="datePicker.subText"
+          :date-picker="datePicker"
+          @format-dates="formatDates($event)"
+        />
       </v-col>
     </v-row>
     <v-divider />
@@ -759,6 +750,7 @@
           dateOne: '',
           dateTwo: '',
           endDate: '',
+          subText: 'Selected Dates',
         },
         doctorStats: {
           approvedCount: 0,
@@ -958,15 +950,19 @@
         }
         this.getConsultationStats()
       },
-      formatDates (dateOne, dateTwo) {
+      formatDates (datePicker) {
+        // on change of dates, required data is also filtered.
         let formattedDates = ''
-        if (dateOne) {
-          formattedDates = format(dateOne, this.datePicker.dateFormat)
+        this.datePicker = datePicker
+        if (datePicker.dateOne) {
+          formattedDates = format(datePicker.dateOne, this.datePicker.dateFormat)
         }
-        if (dateTwo) {
-          formattedDates += ' - ' + format(dateTwo, this.datePicker.dateFormat)
+        if (datePicker.dateTwo) {
+          formattedDates += ' - ' + format(datePicker.dateTwo, this.datePicker.dateFormat)
         }
-        return formattedDates
+        // this.datePicker.subText += '(' + formattedDates + ')'
+        this.datePicker.subText = formattedDates
+        this.getConsultationStats()
       },
       updateDatePickerFields () {
         const d = new Date()
