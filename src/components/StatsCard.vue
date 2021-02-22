@@ -5,6 +5,27 @@
     v-bind="$attrs"
     v-on="$listeners"
   >
+    <!-- <template v-slot:after-heading>
+      <div class="ml-auto text-right">
+        <div
+          class="body-3 grey--text font-weight-light"
+          v-text="title"
+        />
+        <v-btn
+          v-if="isContainModal"
+          depressed
+          @click="$emit('show-modal')"
+        >
+          {{ modalButtonText }}
+        </v-btn>
+        <h3
+          v-else
+          class="font-weight-light text--primary"
+        >
+          {{ value }}
+        </h3>
+      </div>
+    </template> -->
     <template v-slot:after-heading>
       <div class="ml-auto text-right">
         <div
@@ -36,20 +57,43 @@
       </v-col>
     </template>
 
-    <template v-slot:actions>
-      <v-icon
-        :color="subIconColor"
-        size="16"
-        class="ml-2 mr-1"
+    <template v-slot:below-heading>
+      <div
+        v-if="isConsultationCard(title)"
+        class="d-flex grow flex-wrap justify-content-between"
       >
-        {{ subIcon }}
-      </v-icon>
+        <div
+          class="ml-2 mr-1"
+          v-for="(value, key) in subStats"
+          :key="key"
+        >
+          <span>
+            <v-icon
+              size="16"
+              class="ml-2 mr-1"
+            >
+              {{ value.icon }}
+            </v-icon>
+            {{ value.count }}
+          </span>
+          <p class="mt-2">{{ key.toUpperCase() }}</p>
+        </div>
+      </div>
+      <div v-else>
+        <v-icon
+          :color="subIconColor"
+          size="16"
+          class="ml-2 mr-1"
+        >
+          {{ subIcon }}
+        </v-icon>
 
-      <span
-        :class="subTextColor"
-        class="caption grey--text font-weight-light"
-        v-text="subText"
-      />
+        <span
+          :class="subTextColor"
+          class="caption grey--text font-weight-light"
+          v-text="subText"
+        />
+      </div>
     </template>
   </card>
 </template>
@@ -91,6 +135,10 @@
         type: Number,
         default: undefined,
       },
+      subStats: {
+        type: Object,
+        default: undefined,
+      },
       isContainModal: {
         type: Boolean,
         default: false,
@@ -102,6 +150,15 @@
       modalButtonText: {
         type: String,
         default: undefined,
+      },
+    },
+    methods: {
+      isConsultationCard: function (value) {
+        if (value === 'Consultations') {
+          return true
+        } else {
+          return false
+        }
       },
     },
   }

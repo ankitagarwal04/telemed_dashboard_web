@@ -62,7 +62,7 @@
             :end-date="datePicker.endDate"
             @date-one-selected="val => { datePicker.dateOne = val }"
             @date-two-selected="val => { datePicker.dateTwo = val }"
-            @apply="getSuccessfulConsultationStats ()"
+            @apply="getConsultationStats ()"
           />
         </div>
       </v-col>
@@ -75,11 +75,12 @@
         sm="12"
         lg="12"
       >
-        <base-material-stats-card
+        <stats-card
           color="success"
           icon="mdi-store"
           title="Consultations"
-          :value="consultationStats.count"
+          :value="consultationStats.stats.successful_count"
+          :sub-stats="getSubStats('consultation')"
           sub-icon="mdi-calendar"
           sub-text="Updated Last 24 Hours"
         />
@@ -654,6 +655,7 @@
     name: 'Consultation',
     components: {
       FilterListDialog: () => import('@/components/FilterListDialog'),
+      StatsCard: () => import('@/components/StatsCard'),
     },
     data () {
       return {
@@ -670,7 +672,7 @@
         selectedMerchants: [],
         selectedSpecialities: [],
         consultationStats: {
-          count: 0,
+          stats: {},
           grouppedByDay: {
             data: {
               labels: [],
@@ -863,7 +865,7 @@
     },
     created () {
       // TODO: single request API to fetch required data on page load.
-      this.getSuccessfulConsultationStats()
+      this.getConsultationStats()
       this.getCscMerchants()
       this.getSpecialities()
       this.updateDatePickerFields()
@@ -872,7 +874,7 @@
       this.getPaymentStats()
     },
     methods: {
-      getSuccessfulConsultationStats: function () {
+      getConsultationStats: function () {
         this.$http.post('/dashboard_consultations/stats', {
           consultation_filters: {
             merchant_ids: this.selectedMerchants,
@@ -883,7 +885,7 @@
         }).then((response) => {
           const consultationStats = response
           const callDurationStats = consultationStats.call_duration_stats
-          this.consultationStats.count = consultationStats ? consultationStats.consultation_count : 0
+          this.consultationStats.stats = consultationStats.consultation_stats ? consultationStats.consultation_stats : {}
           // handling consultation stats chart
           if (consultationStats.groupped_by_day) {
             this.handleChartData('consultationStats', 'daily', consultationStats.groupped_by_day)
@@ -953,7 +955,7 @@
           this.specialitiesListDialog = false
           this.getDoctorAvailableStats('on_speciaility_change')
         }
-        this.getSuccessfulConsultationStats()
+        this.getConsultationStats()
       },
       formatDates (dateOne, dateTwo) {
         let formattedDates = ''
@@ -1091,6 +1093,26 @@
             this.callDurationStats.grouppedByMonth.options.high = specifiedIntervalData[2]
           }
         }
+      },
+      getSubStats: function (whoseStats) {
+        let subStats = {}
+        if (whoseStats === 'consultation') {
+          if (this.consultationStats.stats) {
+            subStats = {
+              total: {
+                count: this.consultationStats.stats.total,
+                color: '#000',
+                icon: 'mdi-tag',
+              },
+              failed: {
+                count: this.consultationStats.stats.unsuccessful_count,
+                color: '#000',
+                icon: 'mdi-tag',
+              },
+            }
+          }
+        }
+        return subStats
       },
     },
   }

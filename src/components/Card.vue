@@ -32,8 +32,8 @@
 
     <slot />
 
-    <template v-if="$slots.actions">
-      <slot name="actions" />
+    <template v-if="$slots['below-heading']">
+      <slot name="below-heading" />
     </template>
   </v-card>
 </template>
@@ -41,7 +41,6 @@
 <script>
   export default {
     name: 'Card',
-
     props: {
       color: {
         type: String,
@@ -50,6 +49,19 @@
       icon: {
         type: String,
         default: undefined,
+      },
+    },
+    computed: {
+      classes () {
+        return {
+          'v-card--material--has-heading': this.hasHeading,
+        }
+      },
+      hasHeading () {
+        return Boolean(this.$slots.heading || this.title || this.icon)
+      },
+      hasAltHeading () {
+        return Boolean(this.$slots.heading || (this.title && this.icon))
       },
     },
   }
