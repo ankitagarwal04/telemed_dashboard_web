@@ -1,0 +1,49 @@
+<template>
+  <v-container
+    id=""
+    fluid
+    tag="section"
+  >
+     <v-row>
+      <v-col
+        cols="12"
+        sm="6"
+        lg="4"
+      >
+        <stats-card
+          color="info"
+          icon="mdi-poll"
+          title="merchantFilterTitle"
+          value="12"
+          modal-button-text="merchantModalButtonText"
+          sub-icon="mdi-tag"
+          sub-text="merchantFilterSubText"
+        />
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
+        lg="4"
+      >
+        <base-material-stats-card
+          color="info"
+          icon="mdi-poll"
+          title="merchantFilterTitle"
+          value="12"
+          modal-button-text="merchantModalButtonText"
+          sub-icon="mdi-tag"
+          sub-text="merchantFilterSubText"
+        />
+      </v-col>
+    </v-row>
+  </v-container>
+</template>
+<script>
+  export default {
+    name: 'Test',
+    components: {
+      StatsCard: () => import('@/components/StatsCard'),
+    },
+  }
+</script>
+<style></style>

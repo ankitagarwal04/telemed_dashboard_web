@@ -9,6 +9,7 @@ export default new Router({
   routes: [
     {
       path: '/dashboard',
+      name: 'Dashboard',
       component: () => import('@/views/dashboard/Index'),
       children: [
         // Dashboard
@@ -16,6 +17,11 @@ export default new Router({
           name: 'Consultation Stats',
           path: '',
           component: () => import('@/views/dashboard/Consultation'),
+        },
+        {
+          path: '/test',
+          name: 'Test',
+          component: () => import('@/views/dashboard/Test'),
         },
       ],
     },

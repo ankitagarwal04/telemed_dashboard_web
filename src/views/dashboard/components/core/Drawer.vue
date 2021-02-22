@@ -98,8 +98,18 @@
       items: [
         {
           icon: 'mdi-view-dashboard',
-          title: 'dashboard',
+          title: 'landing',
           to: '/',
+        },
+        {
+          icon: 'mdi-view-dashboard',
+          title: 'dashboard',
+          to: '/dashboard',
+        },
+        {
+          icon: 'mdi-view-dashboard',
+          title: 'test',
+          to: '/test',
         },
       ],
     }),
