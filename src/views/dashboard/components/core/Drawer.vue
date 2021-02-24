@@ -186,7 +186,8 @@
 
 <style lang="scss" unscoped>
   .dashboard-drawer {
-    background-color: #132535 !important;
+    background-color: $primary-dark-blue-color !important;
+    border-right: 2px solid $primary-dark-blue-color;
     .dashboard-avatar {
       height: 50px !important;
       width: 100% !important;
