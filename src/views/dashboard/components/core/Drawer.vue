@@ -5,19 +5,12 @@
     :dark="barColor !== 'rgba(228, 226, 226, 1), rgba(255, 255, 255, 0.7)'"
     :expand-on-hover="expandOnHover"
     :right="$vuetify.rtl"
-    :src="barImage"
     mobile-break-point="960"
     app
     width="260"
     v-bind="$attrs"
+    class="dashboard-drawer"
   >
-    <template v-slot:img="props">
-      <v-img
-        :gradient="`to bottom, ${barColor}`"
-        v-bind="props"
-      />
-    </template>
-
     <v-list
       dense
       nav
@@ -40,6 +33,7 @@
     <v-list
       expand
       nav
+      class="navigation-list"
     >
       <!-- Style cascading bug  -->
       <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
@@ -87,19 +81,15 @@
     data: () => ({
       items: [
         {
-          icon: 'mdi-view-dashboard',
-          title: 'landing',
+          icon: 'mdi-home-outline',
+          title: 'Landing',
           to: '/',
         },
         {
-          icon: 'mdi-view-dashboard',
+          // icon: 'mdi-view-dashboard',
+          icon: 'mdi-poll',
           title: 'dashboard',
           to: '/dashboard',
-        },
-        {
-          icon: 'mdi-view-dashboard',
-          title: 'test',
-          to: '/test',
         },
       ],
     }),
@@ -195,13 +185,31 @@
 </style>
 
 <style lang="scss" unscoped>
-  .dashboard-avatar {
-    height: 50px !important;
-    width: 100% !important;
-    border-radius: 0;
-    margin: 0 !important;
-    .v-image__image--cover {
-      background-size: contain !important;
+  .dashboard-drawer {
+    background-color: #132535 !important;
+    .dashboard-avatar {
+      height: 50px !important;
+      width: 100% !important;
+      border-radius: 0;
+      margin: 0 !important;
+      .v-image__image--cover {
+        background-position: unset !important;
+        background-size: contain !important;
+        left: 30px;
+      }
+    }
+    .navigation-list {
+      // this class is appended to the side nav active list item.
+      .primary {
+        // background-color: #17a2b8 !important;
+        background-color: $primary-blue-color-light !important;
+        color: white;
+      }
+      a {
+        &:hover {
+          text-decoration: none;
+        };
+      }
     }
   }
 </style>

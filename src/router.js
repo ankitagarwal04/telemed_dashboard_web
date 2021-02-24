@@ -18,11 +18,6 @@ export default new Router({
           path: '',
           component: () => import('@/views/dashboard/Consultation'),
         },
-        {
-          path: '/test',
-          name: 'Test',
-          component: () => import('@/views/dashboard/Test'),
-        },
       ],
     },
     {
