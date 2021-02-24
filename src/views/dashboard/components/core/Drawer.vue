@@ -18,34 +18,24 @@
       />
     </template>
 
-    <v-divider class="mb-1" />
-
     <v-list
       dense
       nav
+      class="p-0"
     >
-      <v-list-item>
+      <v-list-item class="p-0">
         <v-list-item-avatar
-          class="align-self-center"
+          class="align-self-center dashboard-avatar"
           color="white"
           contain
         >
           <v-img
-            src="https://demos.creative-tim.com/vuetify-material-dashboard/favicon.ico"
-            max-height="30"
+            src="https://portal.csc.gov.in/assets/img/csc.png"
           />
+          <!-- ~@/assets/images/csc_logo.png -->
         </v-list-item-avatar>
-
-        <v-list-item-content>
-          <v-list-item-title
-            class="title"
-            v-text="profile.title"
-          />
-        </v-list-item-content>
       </v-list-item>
     </v-list>
-
-    <v-divider class="mb-2" />
 
     <v-list
       expand
@@ -202,4 +192,16 @@
 
           +rtl()
             margin-left: 8px
+</style>
+
+<style lang="scss" unscoped>
+  .dashboard-avatar {
+    height: 50px !important;
+    width: 100% !important;
+    border-radius: 0;
+    margin: 0 !important;
+    .v-image__image--cover {
+      background-size: contain !important;
+    }
+  }
 </style>
