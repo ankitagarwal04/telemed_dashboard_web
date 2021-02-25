@@ -5,7 +5,13 @@
         cols="12"
         xl="12"
       >
-      <h5>{{ title }}</h5>
+        <h5>
+          <font-awesome-icon
+            :icon="icon"
+            class="mr-3"
+          />
+          {{ title }}
+        </h5>
       </v-col>
     </v-row>
   </div>
@@ -16,6 +22,10 @@
     props: {
       title: {
         type: String,
+        required: true,
+      },
+      icon: {
+        type: Array,
         required: true,
       },
     },

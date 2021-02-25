@@ -7,6 +7,7 @@
     <!-- filters -->
     <section-partition
       title="Filters"
+      :icon="['fa', 'filter']"
     />
     <v-row>
       <v-col
@@ -64,6 +65,7 @@
     <!-- Stats -->
     <section-partition
       title="Stats"
+      :icon="['fa', 'filter']"
     />
     <v-row>
       <v-col
@@ -142,6 +144,7 @@
     <!-- Graphs -->
     <section-partition
       title="Graphs"
+      :icon="['fa', 'chart-bar']"
     />
     <v-row>
       <v-col
