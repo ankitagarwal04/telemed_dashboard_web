@@ -1,8 +1,8 @@
 <template>
-  <v-container
+  <!-- section used instead of v-container because defining fluid inside it wasn't working -->
+  <section
+    class="container-fluid dashboard-consultation mt-8"
     id="consultation"
-    :fluid="true"
-    tag="section"
   >
     <!-- filters -->
     <section-partition
@@ -637,7 +637,7 @@
       @close-modal="closeFilterListDialog (specialityFilterTitle)"
       @update-selected-item="selectedSpecialities=$event"
     />
-  </v-container>
+  </section>
 </template>
 
 <script>
@@ -1130,9 +1130,12 @@
   }
 </script>
 <style lang='scss' unscoped>
-  .datepicker-filter {
-    margin-top: 30px;
-    margin-bottom: 15px;
-    background-color: white;
+  .dashboard-consultation {
+    width: 95%;
+    .datepicker-filter {
+      margin-top: 30px;
+      margin-bottom: 15px;
+      background-color: white;
+    }
   }
 </style>
