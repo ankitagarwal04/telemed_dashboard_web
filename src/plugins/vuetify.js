@@ -10,6 +10,9 @@ const theme = {
   secondary: '#9C27b0',
   accent: '#9C27b0',
   info: '#00CAE3',
+  filterPatchBgColor: '#285D7B',
+  statsPatchBgColor: '#9cc96b',
+  graphPatchBgColor: '#ebaa4b',
 }
 
 export default new Vuetify({

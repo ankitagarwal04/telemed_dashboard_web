@@ -16,8 +16,8 @@
         lg="4"
       >
         <stats-card
-          color="info"
-          icon="mdi-poll"
+          :color="getStatsCardIconBgColor('filter')"
+          :icon="['fa', 'filter']"
           :title="merchantFilterTitle"
           :is-contain-modal="true"
           :modal-button-text="merchantModalButtonText"
@@ -33,8 +33,8 @@
         lg="4"
       >
         <stats-card
-          color="info"
-          icon="mdi-poll"
+          :color="getStatsCardIconBgColor('filter')"
+          :icon="['fa', 'medkit']"
           :title="specialityFilterTitle"
           :is-contain-modal="true"
           :modal-button-text="specialityModalButtonText"
@@ -51,8 +51,8 @@
       >
         <!-- on change of dates, required data is also filtered. -->
         <stats-card
-          color="info"
-          icon="mdi-poll"
+          :color="getStatsCardIconBgColor('filter')"
+          :icon="['fa', 'filter']"
           title="Date Picker"
           sub-icon="mdi-tag"
           :is-date-picker="true"
@@ -74,8 +74,8 @@
         lg="4"
       >
         <stats-card
-          color="success"
-          icon="mdi-store"
+          :color="getStatsCardIconBgColor('stats')"
+          :icon="['fa', 'filter']"
           title="Consultations"
           :value="consultationStats.stats.successful_count"
           :sub-stats="getSubStats('consultation')"
@@ -89,8 +89,8 @@
         lg="4"
       >
         <stats-card
-          color="success"
-          icon="mdi-store"
+          :color="getStatsCardIconBgColor('stats')"
+          :icon="['fa', 'user-md']"
           title="Doctors Available"
           :value="doctorStats.approvedCount"
           sub-icon="mdi-calendar"
@@ -103,8 +103,8 @@
         lg="4"
       >
         <stats-card
-          color="success"
-          icon="mdi-store"
+          :color="getStatsCardIconBgColor('stats')"
+          :icon="['fa', 'hospital-user']"
           title="Patients Registered"
           :value="patientStats.count"
           sub-icon="mdi-calendar"
@@ -117,8 +117,8 @@
         lg="4"
       >
         <stats-card
-          color="success"
-          icon="mdi-store"
+          :color="getStatsCardIconBgColor('stats')"
+          :icon="['fa', 'video']"
           title="Call Durations"
           :value="callDurationStats.totalCallDuration"
           :sub-stats="getSubStats('call_duration')"
@@ -132,8 +132,8 @@
         lg="4"
       >
         <stats-card
-          color="success"
-          icon="mdi-store"
+          :color="getStatsCardIconBgColor('stats')"
+          :icon="['fa', 'rupee-sign']"
           title="Payment"
           :value="paymentStats.totalAmount"
           sub-icon="mdi-calendar"
@@ -1125,6 +1125,21 @@
           }
         }
         return subStats
+      },
+      getStatsCardIconBgColor: function (section) {
+        let color
+        switch (section) {
+          case 'filter':
+            color = 'filterPatchBgColor'
+            break
+          case 'stats':
+            color = 'statsPatchBgColor'
+            break
+          case 'graph':
+            color = 'graphPatchBgColor'
+            break
+        }
+        return color
       },
     },
   }

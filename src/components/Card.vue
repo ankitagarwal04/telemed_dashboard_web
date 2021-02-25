@@ -16,9 +16,9 @@
         class="text-start v-card--material__heading mb-n6"
         dark
       >
-        <v-icon
-          size="32"
-          v-text="icon"
+        <font-awesome-icon
+          :icon="icon"
+          size="2x"
         />
       </v-sheet>
 
@@ -47,7 +47,7 @@
         default: 'success',
       },
       icon: {
-        type: String,
+        type: Array,
         default: undefined,
       },
     },
@@ -74,4 +74,9 @@
       top: -40px
       transition: .3s ease
       z-index: 1
+</style>
+<style lang="scss" scoped>
+  .v-card--material__heading {
+    box-shadow: none !important;
+  }
 </style>

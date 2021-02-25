@@ -117,7 +117,7 @@
     },
     props: {
       icon: {
-        type: String,
+        type: Array,
         required: true,
       },
       subIcon: {
