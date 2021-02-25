@@ -15,7 +15,7 @@ import AirbnbStyleDatepicker from 'vue-airbnb-style-datepicker'
 // import font-awesome
 // https://github.com/FortAwesome/vue-fontawesome
 // https://medium.com/front-end-weekly/how-to-use-fon-awesome-5-on-vuejs-project-ff0f28310821
-import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 // Import the styles directly. (Or you could add them via script tags.)
@@ -26,6 +26,7 @@ import 'vue-airbnb-style-datepicker/dist/vue-airbnb-style-datepicker.min.css'
 // font-awesome
 // multiple libraries can be added as well, for ex: library.add(fasCoffee, farCoffee, falCoffee, fadCoffee)
 library.add(fas)
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 // see docs for available options
 // https://mikaeledebro.gitbooks.io/vue-airbnb-style-datepicker/content/INSTALLATION.html
 const datepickerOptions = {}
