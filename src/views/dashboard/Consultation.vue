@@ -1,10 +1,13 @@
 <template>
   <v-container
     id="consultation"
-    fluid
+    :fluid="true"
     tag="section"
   >
     <!-- filters -->
+    <section-partition
+      title="Filters"
+    />
     <v-row>
       <v-col
         cols="12"
@@ -58,13 +61,15 @@
         />
       </v-col>
     </v-row>
-    <v-divider />
-    <!-- consultation stats -->
+    <!-- Stats -->
+    <section-partition
+      title="Stats"
+    />
     <v-row>
       <v-col
         cols="12"
-        sm="12"
-        lg="12"
+        sm="6"
+        lg="4"
       >
         <stats-card
           color="success"
@@ -79,6 +84,69 @@
       <v-col
         cols="12"
         sm="6"
+        lg="4"
+      >
+        <stats-card
+          color="success"
+          icon="mdi-store"
+          title="Doctors Available"
+          :value="doctorStats.approvedCount"
+          sub-icon="mdi-calendar"
+          sub-text="Updated Last 24 Hours"
+        />
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
+        lg="4"
+      >
+        <stats-card
+          color="success"
+          icon="mdi-store"
+          title="Patients Registered"
+          :value="patientStats.count"
+          sub-icon="mdi-calendar"
+          sub-text="Updated Last 24 Hours"
+        />
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
+        lg="4"
+      >
+        <stats-card
+          color="success"
+          icon="mdi-store"
+          title="Call Durations"
+          :value="callDurationStats.totalCallDuration"
+          :sub-stats="getSubStats('call_duration')"
+          sub-icon="mdi-calendar"
+          sub-text="Updated Last 24 Hours"
+        />
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
+        lg="4"
+      >
+        <stats-card
+          color="success"
+          icon="mdi-store"
+          title="Payment"
+          :value="paymentStats.totalAmount"
+          sub-icon="mdi-calendar"
+          sub-text="Updated Last 24 Hours"
+        />
+      </v-col>
+    </v-row>
+    <!-- Graphs -->
+    <section-partition
+      title="Graphs"
+    />
+    <v-row>
+      <v-col
+        cols="12"
+        sm="12"
         lg="6"
       >
         <base-material-chart-card
@@ -137,7 +205,7 @@
       </v-col>
       <v-col
         cols="12"
-        sm="6"
+        sm="12"
         lg="6"
       >
         <base-material-chart-card
@@ -194,27 +262,9 @@
           </template>
         </base-material-chart-card>
       </v-col>
-    </v-row>
-    <v-divider />
-    <!-- doctor stats -->
-    <v-row>
       <v-col
         cols="12"
         sm="12"
-        lg="12"
-      >
-        <stats-card
-          color="success"
-          icon="mdi-store"
-          title="Doctors Available"
-          :value="doctorStats.approvedCount"
-          sub-icon="mdi-calendar"
-          sub-text="Updated Last 24 Hours"
-        />
-      </v-col>
-      <v-col
-        cols="12"
-        sm="6"
         lg="6"
       >
         <base-material-chart-card
@@ -273,7 +323,7 @@
       </v-col>
       <v-col
         cols="12"
-        sm="6"
+        sm="12"
         lg="6"
       >
         <base-material-chart-card
@@ -330,27 +380,9 @@
           </template>
         </base-material-chart-card>
       </v-col>
-    </v-row>
-    <v-divider />
-    <!-- patient stats -->
-    <v-row>
       <v-col
         cols="12"
         sm="12"
-        lg="!2"
-      >
-        <stats-card
-          color="success"
-          icon="mdi-store"
-          title="Patients Registered"
-          :value="patientStats.count"
-          sub-icon="mdi-calendar"
-          sub-text="Updated Last 24 Hours"
-        />
-      </v-col>
-      <v-col
-        cols="12"
-        sm="6"
         lg="6"
       >
         <base-material-chart-card
@@ -409,7 +441,7 @@
       </v-col>
       <v-col
         cols="12"
-        sm="6"
+        sm="12"
         lg="6"
       >
         <base-material-chart-card
@@ -466,28 +498,9 @@
           </template>
         </base-material-chart-card>
       </v-col>
-    </v-row>
-    <v-divider />
-    <!-- call duration stats -->
-    <v-row>
       <v-col
         cols="12"
         sm="12"
-        lg="12"
-      >
-        <stats-card
-          color="success"
-          icon="mdi-store"
-          title="Call Durations"
-          :value="callDurationStats.totalCallDuration"
-          :sub-stats="getSubStats('call_duration')"
-          sub-icon="mdi-calendar"
-          sub-text="Updated Last 24 Hours"
-        />
-      </v-col>
-      <v-col
-        cols="12"
-        sm="6"
         lg="6"
       >
         <base-material-chart-card
@@ -546,7 +559,7 @@
       </v-col>
       <v-col
         cols="12"
-        sm="6"
+        sm="12"
         lg="6"
       >
         <base-material-chart-card
@@ -605,23 +618,6 @@
       </v-col>
     </v-row>
     <v-divider />
-    <!-- payment stats -->
-    <v-row>
-      <v-col
-        cols="12"
-        sm="12"
-        lg="12"
-      >
-        <stats-card
-          color="success"
-          icon="mdi-store"
-          title="Payment"
-          :value="paymentStats.totalAmount"
-          sub-icon="mdi-calendar"
-          sub-text="Updated Last 24 Hours"
-        />
-      </v-col>
-    </v-row>
     <filter-list-dialog
       :dialog-name="merchantListDialog"
       title="Select Merchant"
@@ -648,6 +644,7 @@
     components: {
       FilterListDialog: () => import('@/components/FilterListDialog'),
       StatsCard: () => import('@/components/StatsCard'),
+      SectionPartition: () => import('@/components/SectionPartition'),
     },
     data () {
       return {

@@ -6,18 +6,14 @@
     color="white"
     flat
     height="50"
+    class="dashboard-app-bar"
   >
-    <v-btn
-      class="mr-3"
-      elevation="1"
-      fab
-      small
+    <v-icon
+      class="mr-3 drawer-toggle"
       @click="setDrawer(!drawer)"
     >
-      <v-icon>
-        mdi-format-list-bulleted
-      </v-icon>
-    </v-btn>
+      mdi-format-list-bulleted
+    </v-icon>
     <v-toolbar-title
       class="hidden-sm-and-down font-weight-normal"
     >
@@ -66,3 +62,11 @@
     },
   }
 </script>
+
+<style lang="scss" scoped>
+  .dashboard-app-bar {
+    .drawer-toggle {
+      color: $primary-dark-blue-color;
+    }
+  }
+</style>

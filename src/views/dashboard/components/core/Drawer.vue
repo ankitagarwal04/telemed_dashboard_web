@@ -25,7 +25,6 @@
           <v-img
             src="https://portal.csc.gov.in/assets/img/csc.png"
           />
-          <!-- ~@/assets/images/csc_logo.png -->
         </v-list-item-avatar>
       </v-list-item>
     </v-list>
@@ -202,7 +201,6 @@
     .navigation-list {
       // this class is appended to the side nav active list item.
       .primary {
-        // background-color: #17a2b8 !important;
         background-color: $primary-blue-color-light !important;
         color: white;
       }
