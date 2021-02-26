@@ -8,6 +8,7 @@
     <section-partition
       title="Filters"
       :icon="['fa', 'filter']"
+      patchBgColor='#4ebcda'
     />
     <v-row>
       <v-col
@@ -66,6 +67,7 @@
     <section-partition
       title="Stats"
       :icon="['fa', 'filter']"
+      patchBgColor='#9cc96b'
     />
     <v-row>
       <v-col
@@ -75,10 +77,9 @@
       >
         <stats-card
           :color="getStatsCardIconBgColor('stats')"
-          :icon="['fa', 'filter']"
-          title="Consultations"
-          :value="consultationStats.stats.successful_count"
-          :sub-stats="getSubStats('consultation')"
+          :icon="['fa', 'rupee-sign']"
+          title="Payment"
+          :value="paymentStats.totalAmount"
           sub-icon="mdi-calendar"
           sub-text="Updated Last 24 Hours"
         />
@@ -133,9 +134,10 @@
       >
         <stats-card
           :color="getStatsCardIconBgColor('stats')"
-          :icon="['fa', 'rupee-sign']"
-          title="Payment"
-          :value="paymentStats.totalAmount"
+          :icon="['fa', 'filter']"
+          title="Consultations"
+          :value="consultationStats.stats.successful_count"
+          :sub-stats="getSubStats('consultation')"
           sub-icon="mdi-calendar"
           sub-text="Updated Last 24 Hours"
         />
@@ -145,6 +147,7 @@
     <section-partition
       title="Graphs"
       :icon="['fa', 'chart-bar']"
+      patchBgColor='#ebaa4b'
     />
     <v-row>
       <v-col
@@ -1130,13 +1133,13 @@
         let color
         switch (section) {
           case 'filter':
-            color = 'filterPatchBgColor'
+            color = 'lightBlue'
             break
           case 'stats':
             color = 'statsPatchBgColor'
             break
           case 'graph':
-            color = 'graphPatchBgColor'
+            color = 'lightOrange'
             break
         }
         return color

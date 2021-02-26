@@ -5,7 +5,7 @@
         cols="12"
         xl="12"
       >
-        <h5>
+        <h5 :style="{'background-color': patchBgColor}">
           <font-awesome-icon
             :icon="icon"
             class="mr-3"
@@ -28,13 +28,17 @@
         type: Array,
         required: true,
       },
+      patchBgColor: {
+        type: String,
+        required: true,
+        default: '#ebaa4b',
+      },
     },
   }
 </script>
 <style lang="scss" scoped>
   .section-partition {
     h5 {
-      background-color: $primary-blue-color;
       color: white;
       padding: 10px 8px;
     }

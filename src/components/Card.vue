@@ -69,6 +69,7 @@
 
 <style lang="sass">
   .v-card--material
+    height: 80%
     &__heading
       position: relative
       top: -40px
