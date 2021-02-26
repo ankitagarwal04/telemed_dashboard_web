@@ -72,20 +72,26 @@
         class="d-flex grow flex-wrap justify-content-between"
       >
         <div
-          class="ml-2 mr-1"
-          v-for="(value, key) in subStats"
-          :key="key"
+          class="ml-2 mr-1 d-flex justify-content-between"
+          v-for="substat in subStats"
+          :key="substat.title"
         >
-          <span>
-            <v-icon
-              size="16"
+          <div
+           v-if="substat.icon"
+           class="mr-3"
+          >
+            <font-awesome-icon
+              :icon="substat.icon"
               class="ml-2 mr-1"
-            >
-              {{ value.icon }}
-            </v-icon>
-            {{ value.count }}
-          </span>
-          <p class="mt-2">{{ key.toUpperCase() }}</p>
+              :style="{'color': substat.color}"
+            />
+          </div>
+          <div :style="{'color': substat.color}">
+            <h3>
+              {{ substat.count }}
+            </h3>
+            <h6 class="mt-2">{{ substat.title.toUpperCase() }}</h6>
+          </div>
         </div>
       </div>
       <div v-else>
@@ -145,7 +151,7 @@
         default: undefined,
       },
       subStats: {
-        type: Object,
+        type: Array,
         default: undefined,
       },
       isContainModal: {

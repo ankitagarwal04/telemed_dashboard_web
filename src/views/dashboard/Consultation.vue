@@ -136,7 +136,7 @@
           :color="getStatsCardIconBgColor('stats')"
           :icon="['fa', 'filter']"
           title="Consultations"
-          :value="consultationStats.stats.successful_count"
+          :value="consultationStats.stats.total"
           :sub-stats="getSubStats('consultation')"
           sub-icon="mdi-calendar"
           sub-text="Updated Last 24 Hours"
@@ -147,7 +147,7 @@
     <section-partition
       title="Graphs"
       :icon="['fa', 'chart-bar']"
-      patchBgColor='#ebaa4b'
+      patchBgColor='#4ebcda'
     />
     <v-row>
       <v-col
@@ -1098,33 +1098,35 @@
         let subStats = {}
         if (whoseStats === 'consultation') {
           if (this.consultationStats.stats) {
-            subStats = {
-              total: {
-                count: this.consultationStats.stats.total,
-                color: '#000',
-                icon: 'mdi-tag',
+            subStats = [
+              {
+                title: 'success',
+                count: this.consultationStats.stats.successful_count,
+                color: '#28a745',
+                icon: ['fas', 'arrow-up'],
               },
-              failed: {
+              {
+                title: 'failed',
                 count: this.consultationStats.stats.unsuccessful_count,
-                color: '#000',
-                icon: 'mdi-tag',
+                color: '#dc3545',
+                icon: ['fas', 'arrow-down'],
               },
-            }
+            ]
           }
         } else if (whoseStats === 'call_duration') {
           if (this.callDurationStats) {
-            subStats = {
-              average: {
+            subStats = [
+              {
+                title: 'average',
                 count: this.callDurationStats.avgCallDuration,
-                color: '#000',
-                icon: 'mdi-tag',
+                color: '#17a2b8',
               },
-              count: {
+              {
+                title: 'count',
                 count: this.callDurationStats.totalVideoConsultations,
-                color: '#000',
-                icon: 'mdi-tag',
+                color: '#17a2b8',
               },
-            }
+            ]
           }
         }
         return subStats
