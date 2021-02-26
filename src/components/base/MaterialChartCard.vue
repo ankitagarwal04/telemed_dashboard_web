@@ -75,13 +75,13 @@
       max-height: 185px
 
       .ct-label
-        color: inherit
+        color: #fff !important
         opacity: .7
         font-size: 0.975rem
         font-weight: 100
 
       .ct-grid
-        stroke: rgba(255, 255, 255, 0.2)
+        stroke: #343a40
 
       .ct-series-a .ct-point,
       .ct-series-a .ct-line,

@@ -18,7 +18,7 @@
       >
         <stats-card
           :color="getStatsCardIconBgColor('filter')"
-          :icon="['fa', 'filter']"
+          :icon="['fas', 'hospital']"
           :title="merchantFilterTitle"
           :is-contain-modal="true"
           :modal-button-text="merchantModalButtonText"
@@ -53,7 +53,7 @@
         <!-- on change of dates, required data is also filtered. -->
         <stats-card
           :color="getStatsCardIconBgColor('filter')"
-          :icon="['fa', 'filter']"
+          :icon="['fas', 'calendar']"
           title="Date Picker"
           sub-icon="mdi-tag"
           :is-date-picker="true"
@@ -134,7 +134,7 @@
       >
         <stats-card
           :color="getStatsCardIconBgColor('stats')"
-          :icon="['fa', 'filter']"
+          :icon="['fas', 'laptop-medical']"
           title="Consultations"
           :value="consultationStats.stats.total"
           :sub-stats="getSubStats('consultation')"
@@ -147,7 +147,7 @@
     <section-partition
       title="Graphs"
       :icon="['fa', 'chart-bar']"
-      patchBgColor='#4ebcda'
+      patchBgColor='#6c757d'
     />
     <v-row>
       <v-col
@@ -158,54 +158,17 @@
         <base-material-chart-card
           :data="consultationStats.grouppedByDay.data"
           :options="consultationStats.grouppedByDay.options"
-          color="success"
+          color="#6c757d"
           hover-reveal
           type="Line"
         >
-          <template v-slot:reveal-actions>
-            <v-tooltip bottom>
-              <template v-slot:activator="{ attrs, on }">
-                <v-btn
-                  v-bind="attrs"
-                  color="info"
-                  icon
-                  v-on="on"
-                >
-                  <v-icon
-                    color="info"
-                  >
-                    mdi-refresh
-                  </v-icon>
-                </v-btn>
-              </template>
-
-              <span>Refresh</span>
-            </v-tooltip>
-
-            <v-tooltip bottom>
-              <template v-slot:activator="{ attrs, on }">
-                <v-btn
-                  v-bind="attrs"
-                  light
-                  icon
-                  v-on="on"
-                >
-                  <v-icon>mdi-pencil</v-icon>
-                </v-btn>
-              </template>
-
-              <span>Change Date</span>
-            </v-tooltip>
-          </template>
-
           <template v-slot:actions>
             <v-icon
               class="mr-1"
-              small
             >
               mdi-clock-outline
             </v-icon>
-            <span class="caption grey--text font-weight-light">Consultation last 7 days Stats</span>
+            <span class="h5 mb-0 caption grey--text font-weight-light">Consultations last 7 days</span>
           </template>
         </base-material-chart-card>
       </v-col>
@@ -217,54 +180,17 @@
         <base-material-chart-card
           :data="consultationStats.grouppedByMonth.data"
           :options="consultationStats.grouppedByMonth.options"
-          color="success"
+          color="#6c757d"
           hover-reveal
           type="Bar"
         >
-          <template v-slot:reveal-actions>
-            <v-tooltip bottom>
-              <template v-slot:activator="{ attrs, on }">
-                <v-btn
-                  v-bind="attrs"
-                  color="info"
-                  icon
-                  v-on="on"
-                >
-                  <v-icon
-                    color="info"
-                  >
-                    mdi-refresh
-                  </v-icon>
-                </v-btn>
-              </template>
-
-              <span>Refresh</span>
-            </v-tooltip>
-
-            <v-tooltip bottom>
-              <template v-slot:activator="{ attrs, on }">
-                <v-btn
-                  v-bind="attrs"
-                  light
-                  icon
-                  v-on="on"
-                >
-                  <v-icon>mdi-pencil</v-icon>
-                </v-btn>
-              </template>
-
-              <span>Change Date</span>
-            </v-tooltip>
-          </template>
-
           <template v-slot:actions>
             <v-icon
               class="mr-1"
-              small
             >
               mdi-clock-outline
             </v-icon>
-            <span class="caption grey--text font-weight-light">Consultation last 12 Months Stats</span>
+            <span class="h5 mb-0 caption grey--text font-weight-light">Consultations last 12 Months</span>
           </template>
         </base-material-chart-card>
       </v-col>
@@ -276,54 +202,17 @@
         <base-material-chart-card
           :data="doctorStats.grouppedByWeek.data"
           :options="doctorStats.grouppedByWeek.options"
-          color="success"
+          color="#6c757d"
           hover-reveal
           type="Line"
         >
-          <template v-slot:reveal-actions>
-            <v-tooltip bottom>
-              <template v-slot:activator="{ attrs, on }">
-                <v-btn
-                  v-bind="attrs"
-                  color="info"
-                  icon
-                  v-on="on"
-                >
-                  <v-icon
-                    color="info"
-                  >
-                    mdi-refresh
-                  </v-icon>
-                </v-btn>
-              </template>
-
-              <span>Refresh</span>
-            </v-tooltip>
-
-            <v-tooltip bottom>
-              <template v-slot:activator="{ attrs, on }">
-                <v-btn
-                  v-bind="attrs"
-                  light
-                  icon
-                  v-on="on"
-                >
-                  <v-icon>mdi-pencil</v-icon>
-                </v-btn>
-              </template>
-
-              <span>Change Date</span>
-            </v-tooltip>
-          </template>
-
           <template v-slot:actions>
             <v-icon
               class="mr-1"
-              small
             >
               mdi-clock-outline
             </v-icon>
-            <span class="caption grey--text font-weight-light">Consultation last 7 days Stats</span>
+            <span class="h5 mb-0 caption grey--text font-weight-light">Doctor Registeration last weeks</span>
           </template>
         </base-material-chart-card>
       </v-col>
@@ -335,54 +224,17 @@
         <base-material-chart-card
           :data="doctorStats.grouppedByMonth.data"
           :options="doctorStats.grouppedByMonth.options"
-          color="success"
+          color="#6c757d"
           hover-reveal
           type="Bar"
         >
-          <template v-slot:reveal-actions>
-            <v-tooltip bottom>
-              <template v-slot:activator="{ attrs, on }">
-                <v-btn
-                  v-bind="attrs"
-                  color="info"
-                  icon
-                  v-on="on"
-                >
-                  <v-icon
-                    color="info"
-                  >
-                    mdi-refresh
-                  </v-icon>
-                </v-btn>
-              </template>
-
-              <span>Refresh</span>
-            </v-tooltip>
-
-            <v-tooltip bottom>
-              <template v-slot:activator="{ attrs, on }">
-                <v-btn
-                  v-bind="attrs"
-                  light
-                  icon
-                  v-on="on"
-                >
-                  <v-icon>mdi-pencil</v-icon>
-                </v-btn>
-              </template>
-
-              <span>Change Date</span>
-            </v-tooltip>
-          </template>
-
           <template v-slot:actions>
             <v-icon
               class="mr-1"
-              small
             >
               mdi-clock-outline
             </v-icon>
-            <span class="caption grey--text font-weight-light">Consultation last 12 Months Stats</span>
+            <span class="h5 mb-0 caption grey--text font-weight-light">Doctor Registeration last 12 Months</span>
           </template>
         </base-material-chart-card>
       </v-col>
@@ -394,54 +246,17 @@
         <base-material-chart-card
           :data="patientStats.grouppedByWeek.data"
           :options="patientStats.grouppedByWeek.options"
-          color="success"
+          color="#6c757d"
           hover-reveal
           type="Line"
         >
-          <template v-slot:reveal-actions>
-            <v-tooltip bottom>
-              <template v-slot:activator="{ attrs, on }">
-                <v-btn
-                  v-bind="attrs"
-                  color="info"
-                  icon
-                  v-on="on"
-                >
-                  <v-icon
-                    color="info"
-                  >
-                    mdi-refresh
-                  </v-icon>
-                </v-btn>
-              </template>
-
-              <span>Refresh</span>
-            </v-tooltip>
-
-            <v-tooltip bottom>
-              <template v-slot:activator="{ attrs, on }">
-                <v-btn
-                  v-bind="attrs"
-                  light
-                  icon
-                  v-on="on"
-                >
-                  <v-icon>mdi-pencil</v-icon>
-                </v-btn>
-              </template>
-
-              <span>Change Date</span>
-            </v-tooltip>
-          </template>
-
           <template v-slot:actions>
             <v-icon
               class="mr-1"
-              small
             >
               mdi-clock-outline
             </v-icon>
-            <span class="caption grey--text font-weight-light">Consultation last 7 days Stats</span>
+            <span class="h5 mb-0 caption grey--text font-weight-light">Patient Registeration last weeks</span>
           </template>
         </base-material-chart-card>
       </v-col>
@@ -453,54 +268,17 @@
         <base-material-chart-card
           :data="patientStats.grouppedByMonth.data"
           :options="patientStats.grouppedByMonth.options"
-          color="success"
+          color="#6c757d"
           hover-reveal
           type="Bar"
         >
-          <template v-slot:reveal-actions>
-            <v-tooltip bottom>
-              <template v-slot:activator="{ attrs, on }">
-                <v-btn
-                  v-bind="attrs"
-                  color="info"
-                  icon
-                  v-on="on"
-                >
-                  <v-icon
-                    color="info"
-                  >
-                    mdi-refresh
-                  </v-icon>
-                </v-btn>
-              </template>
-
-              <span>Refresh</span>
-            </v-tooltip>
-
-            <v-tooltip bottom>
-              <template v-slot:activator="{ attrs, on }">
-                <v-btn
-                  v-bind="attrs"
-                  light
-                  icon
-                  v-on="on"
-                >
-                  <v-icon>mdi-pencil</v-icon>
-                </v-btn>
-              </template>
-
-              <span>Change Date</span>
-            </v-tooltip>
-          </template>
-
           <template v-slot:actions>
             <v-icon
               class="mr-1"
-              small
             >
               mdi-clock-outline
             </v-icon>
-            <span class="caption grey--text font-weight-light">Consultation last 12 Months Stats</span>
+            <span class="h5 mb-0 caption grey--text font-weight-light">Patient Registeration last 12 Months</span>
           </template>
         </base-material-chart-card>
       </v-col>
@@ -512,54 +290,17 @@
         <base-material-chart-card
           :data="callDurationStats.grouppedByDay.data"
           :options="callDurationStats.grouppedByDay.options"
-          color="success"
+          color="#6c757d"
           hover-reveal
           type="Line"
         >
-          <template v-slot:reveal-actions>
-            <v-tooltip bottom>
-              <template v-slot:activator="{ attrs, on }">
-                <v-btn
-                  v-bind="attrs"
-                  color="info"
-                  icon
-                  v-on="on"
-                >
-                  <v-icon
-                    color="info"
-                  >
-                    mdi-refresh
-                  </v-icon>
-                </v-btn>
-              </template>
-
-              <span>Refresh</span>
-            </v-tooltip>
-
-            <v-tooltip bottom>
-              <template v-slot:activator="{ attrs, on }">
-                <v-btn
-                  v-bind="attrs"
-                  light
-                  icon
-                  v-on="on"
-                >
-                  <v-icon>mdi-pencil</v-icon>
-                </v-btn>
-              </template>
-
-              <span>Change Date</span>
-            </v-tooltip>
-          </template>
-
           <template v-slot:actions>
             <v-icon
               class="mr-1"
-              small
             >
               mdi-clock-outline
             </v-icon>
-            <span class="caption grey--text font-weight-light">Consultation last 7 days Stats</span>
+            <span class="h5 mb-0 caption grey--text font-weight-light">Call Duration last 7 days</span>
           </template>
         </base-material-chart-card>
       </v-col>
@@ -571,54 +312,17 @@
         <base-material-chart-card
           :data="callDurationStats.grouppedByMonth.data"
           :options="callDurationStats.grouppedByMonth.options"
-          color="success"
+          color="#6c757d"
           hover-reveal
           type="Bar"
         >
-          <template v-slot:reveal-actions>
-            <v-tooltip bottom>
-              <template v-slot:activator="{ attrs, on }">
-                <v-btn
-                  v-bind="attrs"
-                  color="info"
-                  icon
-                  v-on="on"
-                >
-                  <v-icon
-                    color="info"
-                  >
-                    mdi-refresh
-                  </v-icon>
-                </v-btn>
-              </template>
-
-              <span>Refresh</span>
-            </v-tooltip>
-
-            <v-tooltip bottom>
-              <template v-slot:activator="{ attrs, on }">
-                <v-btn
-                  v-bind="attrs"
-                  light
-                  icon
-                  v-on="on"
-                >
-                  <v-icon>mdi-pencil</v-icon>
-                </v-btn>
-              </template>
-
-              <span>Change Date</span>
-            </v-tooltip>
-          </template>
-
           <template v-slot:actions>
             <v-icon
               class="mr-1"
-              small
             >
               mdi-clock-outline
             </v-icon>
-            <span class="caption grey--text font-weight-light">Consultation last 12 Months Stats</span>
+            <span class="h5 mb-0 caption grey--text font-weight-light">Call Duration last 12 Months</span>
           </template>
         </base-material-chart-card>
       </v-col>
