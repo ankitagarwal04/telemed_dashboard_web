@@ -67,6 +67,7 @@
 </script>
 
 <style lang="sass">
+  // https://gionkunz.github.io/chartist-js/getting-started.html#colour-up-your-charts
   .v-card--material-chart
     p
       color: #999

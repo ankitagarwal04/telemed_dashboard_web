@@ -62,6 +62,38 @@
           @format-dates="formatDates($event)"
         />
       </v-col>
+      <v-col
+        cols="12"
+        sm="6"
+        lg="4"
+      >
+        <stats-card
+          :color="getStatsCardIconBgColor('filter')"
+          :icon="['fas', 'globe-asia']"
+          :title="statesFilterTitle"
+          :is-contain-modal="true"
+          :modal-button-text="stateModalButtonText"
+          sub-icon="mdi-tag"
+          :sub-text="stateFilterSubText"
+          @show-modal="stateListDialog = true"
+        />
+      </v-col>
+      <v-col
+        cols="12"
+        sm="6"
+        lg="4"
+      >
+        <stats-card
+          :color="getStatsCardIconBgColor('filter')"
+          :icon="['fas', 'globe-asia']"
+          :title="districtsFilterTitle"
+          :is-contain-modal="true"
+          :modal-button-text="districtModalButtonText"
+          sub-icon="mdi-tag"
+          :sub-text="districtFilterSubText"
+          @show-modal="districtListDialog = true"
+        />
+      </v-col>
     </v-row>
     <!-- Stats -->
     <section-partition
@@ -149,7 +181,7 @@
       :icon="['fa', 'chart-bar']"
       patchBgColor='#6c757d'
     />
-    <v-row>
+    <v-row class="dashboard-graph">
       <v-col
         cols="12"
         sm="12"
@@ -168,7 +200,7 @@
             >
               mdi-clock-outline
             </v-icon>
-            <span class="h5 mb-0 caption grey--text font-weight-light">Consultations last 7 days</span>
+            <span class="h5 mb-0 caption black--text font-weight-dark">Consultations last 7 days</span>
           </template>
         </base-material-chart-card>
       </v-col>
@@ -190,7 +222,7 @@
             >
               mdi-clock-outline
             </v-icon>
-            <span class="h5 mb-0 caption grey--text font-weight-light">Consultations last 12 Months</span>
+            <span class="h5 mb-0 caption black--text font-weight-dark">Consultations last 12 Months</span>
           </template>
         </base-material-chart-card>
       </v-col>
@@ -212,7 +244,7 @@
             >
               mdi-clock-outline
             </v-icon>
-            <span class="h5 mb-0 caption grey--text font-weight-light">Doctor Registeration last weeks</span>
+            <span class="h5 mb-0 caption black--text font-weight-dark">Doctor Registeration last weeks</span>
           </template>
         </base-material-chart-card>
       </v-col>
@@ -234,7 +266,7 @@
             >
               mdi-clock-outline
             </v-icon>
-            <span class="h5 mb-0 caption grey--text font-weight-light">Doctor Registeration last 12 Months</span>
+            <span class="h5 mb-0 caption black--text font-weight-dark">Doctor Registeration last 12 Months</span>
           </template>
         </base-material-chart-card>
       </v-col>
@@ -256,7 +288,7 @@
             >
               mdi-clock-outline
             </v-icon>
-            <span class="h5 mb-0 caption grey--text font-weight-light">Patient Registeration last weeks</span>
+            <span class="h5 mb-0 caption black--text font-weight-dark">Patient Registeration last weeks</span>
           </template>
         </base-material-chart-card>
       </v-col>
@@ -278,7 +310,7 @@
             >
               mdi-clock-outline
             </v-icon>
-            <span class="h5 mb-0 caption grey--text font-weight-light">Patient Registeration last 12 Months</span>
+            <span class="h5 mb-0 caption black--text font-weight-dark">Patient Registeration last 12 Months</span>
           </template>
         </base-material-chart-card>
       </v-col>
@@ -300,7 +332,7 @@
             >
               mdi-clock-outline
             </v-icon>
-            <span class="h5 mb-0 caption grey--text font-weight-light">Call Duration last 7 days</span>
+            <span class="h5 mb-0 caption black--text font-weight-dark">Call Duration last 7 days</span>
           </template>
         </base-material-chart-card>
       </v-col>
@@ -322,7 +354,7 @@
             >
               mdi-clock-outline
             </v-icon>
-            <span class="h5 mb-0 caption grey--text font-weight-light">Call Duration last 12 Months</span>
+            <span class="h5 mb-0 caption black--text font-weight-dark">Call Duration last 12 Months</span>
           </template>
         </base-material-chart-card>
       </v-col>
@@ -344,6 +376,22 @@
       @close-modal="closeFilterListDialog (specialityFilterTitle)"
       @update-selected-item="selectedSpecialities=$event"
     />
+    <filter-list-dialog
+      :dialog-name="stateListDialog"
+      title="Select State"
+      :selected-item="selectedStates"
+      :items="cscStates"
+      @close-modal="closeFilterListDialog (statesFilterTitle)"
+      @update-selected-item="selectedState=$event"
+    />
+    <filter-list-dialog
+      :dialog-name="districtListDialog"
+      title="Select District"
+      :selected-item="selectedDistricts"
+      :items="cscDistricts"
+      @close-modal="closeFilterListDialog (districtsFilterTitle)"
+      @update-selected-item="selectedDistrict=$event"
+    />
   </section>
 </template>
 
@@ -360,16 +408,28 @@
       return {
         merchantFilterTitle: 'Merchants',
         specialityFilterTitle: 'Specialities',
+        statesFilterTitle: 'States',
+        districtsFilterTitle: 'Districts',
         merchantFilterSubText: 'All Merchants',
         specialityFilterSubText: 'All Specialities',
+        stateFilterSubText: 'All States',
+        districtFilterSubText: 'All Districts',
         merchantModalButtonText: 'SELECT',
         specialityModalButtonText: 'SELECT',
+        stateModalButtonText: 'SELECT',
+        districtModalButtonText: 'SELECT',
         cscMerchants: [],
         specialities: [],
+        cscStates: [],
+        cscDistricts: [],
         merchantListDialog: false,
         specialitiesListDialog: false,
+        stateListDialog: false,
+        districtListDialog: false,
         selectedMerchants: [],
         selectedSpecialities: [],
+        selectedStates: [],
+        selectedDistricts: [],
         consultationStats: {
           stats: {},
           grouppedByDay: {
@@ -562,12 +622,24 @@
         this.specialityFilterSubText = response[0]
         this.specialityModalButtonText = response[1]
       },
+      selectedStates (newselectedStates) {
+        var response = this.updateFilterSubText(newselectedStates, this.cscStates)
+        this.stateFilterSubText = response[0]
+        this.stateModalButtonText = response[1]
+      },
+      selectedDistricts (newselectedDistricts) {
+        var response = this.updateFilterSubText(newselectedDistricts, this.cscDistricts)
+        this.districtFilterSubText = response[0]
+        this.districtModalButtonText = response[1]
+      },
     },
     created () {
       // TODO: single request API to fetch required data on page load.
       this.getConsultationStats()
       this.getCscMerchants()
       this.getSpecialities()
+      this.getCscStates()
+      this.getCscDistricts()
       this.updateDatePickerFields()
       this.getDoctorAvailableStats('on_page_load')
       this.getPatientStats()
@@ -628,6 +700,24 @@
           console.log(error)
         })
       },
+      getCscStates: function () {
+        this.$http.get('/csc_states/index').then((response) => {
+          this.cscStates = response
+          this.statesFilterTitle += ` (${this.cscStates.length})`
+        }).catch((error) => {
+          // handle error
+          console.log(error)
+        })
+      },
+      getCscDistricts: function () {
+        this.$http.get('/csc_districts/index').then((response) => {
+          this.cscDistricts = response
+          this.districtsFilterTitle += ` (${this.cscDistricts.length})`
+        }).catch((error) => {
+          // handle error
+          console.log(error)
+        })
+      },
       updateFilterSubText: function (newSelectedFilters, filterDataItems) {
         if (newSelectedFilters.length > 0) {
           var selectedFilterNames = []
@@ -654,6 +744,10 @@
         } else if (filterName === this.specialityFilterTitle) {
           this.specialitiesListDialog = false
           this.getDoctorAvailableStats('on_speciaility_change')
+        } else if (filterName === this.statesFilterTitle) {
+          this.stateListDialog = false
+        } else if (filterName === this.districtsFilterTitle) {
+          this.districtListDialog = false
         }
         this.getConsultationStats()
       },
@@ -860,6 +954,11 @@
       margin-top: 30px;
       margin-bottom: 15px;
       background-color: white;
+    }
+    .dashboard-graph {
+      .caption {
+        font-size: 16px !important;
+      }
     }
   }
 </style>
