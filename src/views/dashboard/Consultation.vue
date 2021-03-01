@@ -99,7 +99,7 @@
     <section-partition
       title="Stats"
       :icon="['fa', 'filter']"
-      patchBgColor='#53b884'
+      patchBgColor='#368f8b'
     />
     <v-row>
       <v-col
@@ -928,7 +928,7 @@
             color = '#004a91'
             break
           case 'stats':
-            color = '#53b884'
+            color = '#368f8b'
             break
           case 'graph':
             color = 'lightOrange'
