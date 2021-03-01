@@ -16,14 +16,14 @@
       nav
       class="p-0"
     >
-      <v-list-item class="p-0">
+      <v-list-item class="p-0 dashboard-avatar">
         <v-list-item-avatar
-          class="align-self-center dashboard-avatar"
+          class="align-self-center"
           color="white"
           contain
         >
           <v-img
-            src="https://portal.csc.gov.in/assets/img/csc.png"
+            src="~@/assets/images/csc_logo.png"
           />
         </v-list-item-avatar>
       </v-list-item>
@@ -188,10 +188,14 @@
     background-color: $primary-dark-blue-color !important;
     border-right: 2px solid $primary-dark-blue-color;
     .dashboard-avatar {
-      height: 50px !important;
-      width: 100% !important;
-      border-radius: 0;
-      margin: 0 !important;
+      background-color: white;
+      min-height: 60px;
+      .v-list-item__avatar {
+        height: 50px !important;
+        width: 100% !important;
+        border-radius: 0;
+        margin: 0 !important;
+      }
       .v-image__image--cover {
         background-position: unset !important;
         background-size: contain !important;

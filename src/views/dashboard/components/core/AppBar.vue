@@ -23,7 +23,10 @@
     <v-spacer />
 
     <a href="#">
-      <img src="https://portal.csc.gov.in/assets/img/digiindia.png">
+      <v-img
+        contain
+        src="~@/assets/images/digital_india_logo.png"
+      />
     </a>
   </v-app-bar>
 </template>
@@ -67,6 +70,10 @@
   .dashboard-app-bar {
     .drawer-toggle {
       color: $primary-dark-blue-color;
+    }
+    .v-image {
+      height: 50px;
+      width: 150px;
     }
   }
 </style>
