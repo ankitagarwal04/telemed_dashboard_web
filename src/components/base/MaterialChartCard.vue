@@ -1,6 +1,7 @@
 <template>
   <base-material-card
     class="v-card--material-chart"
+    color="#ffe2e5"
     v-bind="$attrs"
     v-on="$listeners"
   >
@@ -75,20 +76,25 @@
     .v-card--material__heading
       max-height: 185px
 
+      // axis labels
       .ct-label
-        color: #fff !important
+        // color: #fff !important
+        color: #3f4254 !important
         opacity: .7
         font-size: 0.975rem
         font-weight: 100
 
+      // checks
       .ct-grid
-        stroke: #343a40
+        // stroke: #343a40
+        stroke: #f64e60
 
       .ct-series-a .ct-point,
       .ct-series-a .ct-line,
       .ct-series-a .ct-bar,
       .ct-series-a .ct-slice-donut
-          stroke: rgba(255,255,255,.8)
+          // stroke: rgba(255,255,255,.8)
+          color: #3f4254 !important
 
       .ct-series-a .ct-slice-pie,
       .ct-series-a .ct-area

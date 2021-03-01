@@ -8,7 +8,7 @@
     <section-partition
       title="Filters"
       :icon="['fa', 'filter']"
-      patchBgColor='#4ebcda'
+      patchBgColor='#004a91'
     />
     <v-row>
       <v-col
@@ -99,7 +99,7 @@
     <section-partition
       title="Stats"
       :icon="['fa', 'filter']"
-      patchBgColor='#9cc96b'
+      patchBgColor='#53b884'
     />
     <v-row>
       <v-col
@@ -179,7 +179,7 @@
     <section-partition
       title="Graphs"
       :icon="['fa', 'chart-bar']"
-      patchBgColor='#6c757d'
+      patchBgColor='#f64e60'
     />
     <v-row class="dashboard-graph">
       <v-col
@@ -190,7 +190,6 @@
         <base-material-chart-card
           :data="consultationStats.grouppedByDay.data"
           :options="consultationStats.grouppedByDay.options"
-          color="#6c757d"
           hover-reveal
           type="Line"
         >
@@ -212,7 +211,6 @@
         <base-material-chart-card
           :data="consultationStats.grouppedByMonth.data"
           :options="consultationStats.grouppedByMonth.options"
-          color="#6c757d"
           hover-reveal
           type="Bar"
         >
@@ -234,7 +232,6 @@
         <base-material-chart-card
           :data="doctorStats.grouppedByWeek.data"
           :options="doctorStats.grouppedByWeek.options"
-          color="#6c757d"
           hover-reveal
           type="Line"
         >
@@ -256,7 +253,6 @@
         <base-material-chart-card
           :data="doctorStats.grouppedByMonth.data"
           :options="doctorStats.grouppedByMonth.options"
-          color="#6c757d"
           hover-reveal
           type="Bar"
         >
@@ -278,7 +274,6 @@
         <base-material-chart-card
           :data="patientStats.grouppedByWeek.data"
           :options="patientStats.grouppedByWeek.options"
-          color="#6c757d"
           hover-reveal
           type="Line"
         >
@@ -300,7 +295,6 @@
         <base-material-chart-card
           :data="patientStats.grouppedByMonth.data"
           :options="patientStats.grouppedByMonth.options"
-          color="#6c757d"
           hover-reveal
           type="Bar"
         >
@@ -322,7 +316,6 @@
         <base-material-chart-card
           :data="callDurationStats.grouppedByDay.data"
           :options="callDurationStats.grouppedByDay.options"
-          color="#6c757d"
           hover-reveal
           type="Line"
         >
@@ -344,7 +337,6 @@
         <base-material-chart-card
           :data="callDurationStats.grouppedByMonth.data"
           :options="callDurationStats.grouppedByMonth.options"
-          color="#6c757d"
           hover-reveal
           type="Bar"
         >
@@ -933,10 +925,10 @@
         let color
         switch (section) {
           case 'filter':
-            color = 'lightBlue'
+            color = '#004a91'
             break
           case 'stats':
-            color = 'statsPatchBgColor'
+            color = '#53b884'
             break
           case 'graph':
             color = 'lightOrange'

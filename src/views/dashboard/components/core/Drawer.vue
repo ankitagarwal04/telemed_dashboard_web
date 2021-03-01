@@ -201,8 +201,13 @@
     .navigation-list {
       // this class is appended to the side nav active list item.
       .primary {
-        background-color: $primary-blue-color-light !important;
+        background-color: inherit !important;
         color: white;
+        .v-list-item__content {
+          .v-list-item__title {
+            font-size: 20px;
+          }
+        }
       }
       a {
         &:hover {

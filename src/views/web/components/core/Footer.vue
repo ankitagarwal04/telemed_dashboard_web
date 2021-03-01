@@ -16,7 +16,7 @@
         >
           <a
             :href="link.href"
-            class="mr-0 grey--text text--darken-3"
+            class="mr-0 text-white text--darken-3"
             rel="noopener"
             target="_blank"
             v-text="link.text"
@@ -53,7 +53,7 @@
           text: 'DOCTOR',
         },
         {
-          href: '#',
+          href: '/dashboard',
           text: 'DASHBOARD',
         },
       ],
