@@ -1,7 +1,7 @@
 <template>
   <card
     :icon="icon"
-    class="v-card--material-stats"
+    class="v-card--material-stats dashboard-stats"
     v-bind="$attrs"
     v-on="$listeners"
   >
@@ -50,7 +50,7 @@
         </v-btn>
         <h3
           v-else
-          class="font-weight-light text--primary"
+          class="text--primary counter-class"
         >
           {{ value }}
         </h3>
@@ -87,7 +87,7 @@
             />
           </div>
           <div :style="{'color': substat.color}">
-            <h3>
+            <h3 class="counter-class">
               {{ substat.count }}
             </h3>
             <h6 class="mt-2">{{ substat.title.toUpperCase() }}</h6>
@@ -210,4 +210,14 @@
 
   .v-card__actions
     flex: 1 0 100%
+</style>
+<style lang="scss" scoped>
+  .dashboard-stats {
+    .counter-class {
+      font-family: Stardos Stencil;
+    }
+    .card-title {
+      font-family: graduate !important;
+    }
+  }
 </style>

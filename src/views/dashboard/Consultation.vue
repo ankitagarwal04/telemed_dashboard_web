@@ -5,16 +5,12 @@
     class="container-fluid dashboard-consultation mt-8"
   >
     <!-- filters -->
-    <section-partition
-      title="Filters"
-      :icon="['fa', 'filter']"
-      patch-bg-color='#004a91'
-    />
     <v-row>
       <v-col
         cols="12"
-        sm="6"
+        md="6"
         lg="4"
+        xl="3"
       >
         <stats-card
           :color="getStatsCardIconBgColor('filter')"
@@ -30,8 +26,9 @@
 
       <v-col
         cols="12"
-        sm="6"
+        md="6"
         lg="4"
+        xl="3"
       >
         <stats-card
           :color="getStatsCardIconBgColor('filter')"
@@ -47,8 +44,9 @@
 
       <v-col
         cols="12"
-        sm="6"
+        md="6"
         lg="4"
+        xl="3"
       >
         <!-- on change of dates, required data is also filtered. -->
         <stats-card
@@ -64,8 +62,9 @@
       </v-col>
       <v-col
         cols="12"
-        sm="6"
+        md="6"
         lg="4"
+        xl="3"
       >
         <stats-card
           :color="getStatsCardIconBgColor('filter')"
@@ -80,8 +79,9 @@
       </v-col>
       <v-col
         cols="12"
-        sm="6"
+        md="6"
         lg="4"
+        xl="3"
       >
         <stats-card
           :color="getStatsCardIconBgColor('filter')"
@@ -96,11 +96,6 @@
       </v-col>
     </v-row>
     <!-- Stats -->
-    <section-partition
-      title="Stats"
-      :icon="['fa', 'filter']"
-      patch-bg-color='#368f8b'
-    />
     <v-row>
       <v-col
         cols="12"
@@ -176,11 +171,6 @@
       </v-col>
     </v-row>
     <!-- Graphs -->
-    <section-partition
-      title="Graphs"
-      :icon="['fa', 'chart-bar']"
-      patch-bg-color='#f64e60'
-    />
     <v-row class="dashboard-graph">
       <v-col
         cols="12"
@@ -397,7 +387,6 @@
     components: {
       FilterListDialog: () => import('@/components/FilterListDialog'),
       StatsCard: () => import('@/components/StatsCard'),
-      SectionPartition: () => import('@/components/SectionPartition'),
     },
     data () {
       return {
