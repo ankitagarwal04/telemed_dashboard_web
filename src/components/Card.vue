@@ -13,7 +13,7 @@
         height="100%"
         elevation="6"
         class="v-card--material__heading pa-2"
-        style="background-color: green"
+        :style="{'background-color': outerIconBgColor}"
         dark
       >
         <!-- inner icon square-->
@@ -22,7 +22,7 @@
           :max-height="icon ? '100%' : undefined"
           :width="icon ? 'auto' : '100%'"
           class="text-start p-2"
-          style="background-color: red"
+          :style="{'background-color': iconBgColor}"
           dark
         >
           <font-awesome-icon
@@ -58,6 +58,14 @@
       },
       icon: {
         type: Array,
+        default: undefined,
+      },
+      iconBgColor: {
+        type: String,
+        default: undefined,
+      },
+      outerIconBgColor: {
+        type: String,
         default: undefined,
       },
     },

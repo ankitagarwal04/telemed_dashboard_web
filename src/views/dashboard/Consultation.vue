@@ -15,6 +15,8 @@
         <stats-card
           :color="getStatsCardIconBgColor('filter')"
           :icon="['fas', 'hospital']"
+          outer-icon-bg-color="#46c046"
+          icon-bg-color="#199c39"
           :title="merchantFilterTitle"
           :is-contain-modal="true"
           :modal-button-text="merchantModalButtonText"

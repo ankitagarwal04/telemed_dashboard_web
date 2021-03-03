@@ -1,6 +1,8 @@
 <template>
   <card
     :icon="icon"
+    :icon-bg-color="iconBgColor"
+    :outer-icon-bg-color="outerIconBgColor"
     class="v-card--material-stats dashboard-stats"
     v-bind="$attrs"
     v-on="$listeners"
@@ -129,6 +131,14 @@
       subIcon: {
         type: String,
         default: undefined,
+      },
+      iconBgColor: {
+        type: String,
+        default: '#e8bd14',
+      },
+      outerIconBgColor: {
+        type: String,
+        default: '#f6d365de',
       },
       subIconColor: {
         type: String,
