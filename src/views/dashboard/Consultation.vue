@@ -1,14 +1,14 @@
 <template>
   <!-- section used instead of v-container because defining fluid inside it wasn't working -->
   <section
-    class="container-fluid dashboard-consultation mt-8"
     id="consultation"
+    class="container-fluid dashboard-consultation mt-8"
   >
     <!-- filters -->
     <section-partition
       title="Filters"
       :icon="['fa', 'filter']"
-      patchBgColor='#004a91'
+      patch-bg-color='#004a91'
     />
     <v-row>
       <v-col
@@ -99,7 +99,7 @@
     <section-partition
       title="Stats"
       :icon="['fa', 'filter']"
-      patchBgColor='#368f8b'
+      patch-bg-color='#368f8b'
     />
     <v-row>
       <v-col
@@ -179,7 +179,7 @@
     <section-partition
       title="Graphs"
       :icon="['fa', 'chart-bar']"
-      patchBgColor='#f64e60'
+      patch-bg-color='#f64e60'
     />
     <v-row class="dashboard-graph">
       <v-col
@@ -389,6 +389,9 @@
 
 <script>
   import format from 'date-fns/format'
+  // https://www.npmjs.com/package/chartist-plugin-tooltips-updated
+  import ChartistTooltip from 'chartist-plugin-tooltips-updated'
+
   export default {
     name: 'Consultation',
     components: {
@@ -550,6 +553,7 @@
                 bottom: 0,
                 left: 15,
               },
+              plugins: [ChartistTooltip()],
             },
           },
         },
