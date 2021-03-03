@@ -185,6 +185,15 @@
           hover-reveal
           type="Line"
         >
+          <h4 class="card-title font-weight-light mt-2 ml-2">
+            <!-- Website Views -->
+            {{consultationStats.title}}
+          </h4>
+
+          <p class="d-inline-flex font-weight-light ml-2 mt-1">
+            <!-- Last Campaign Performance -->
+            {{consultationStats.grouppedByDay.subTitle}}
+          </p>
           <template v-slot:actions>
             <v-icon
               class="mr-1"
@@ -206,6 +215,13 @@
           hover-reveal
           type="Bar"
         >
+          <h4 class="card-title font-weight-light mt-2 ml-2">
+            {{consultationStats.title}}
+          </h4>
+
+          <p class="d-inline-flex font-weight-light ml-2 mt-1">
+            {{consultationStats.grouppedByMonth.subTitle}}
+          </p>
           <template v-slot:actions>
             <v-icon
               class="mr-1"
@@ -227,6 +243,13 @@
           hover-reveal
           type="Line"
         >
+          <h4 class="card-title font-weight-light mt-2 ml-2">
+            {{doctorStats.title}}
+          </h4>
+
+          <p class="d-inline-flex font-weight-light ml-2 mt-1">
+            {{doctorStats.grouppedByWeek.subTitle}}
+          </p>
           <template v-slot:actions>
             <v-icon
               class="mr-1"
@@ -248,6 +271,13 @@
           hover-reveal
           type="Bar"
         >
+          <h4 class="card-title font-weight-light mt-2 ml-2">
+            {{doctorStats.title}}
+          </h4>
+
+          <p class="d-inline-flex font-weight-light ml-2 mt-1">
+            {{doctorStats.grouppedByMonth.subTitle}}
+          </p>
           <template v-slot:actions>
             <v-icon
               class="mr-1"
@@ -269,6 +299,13 @@
           hover-reveal
           type="Line"
         >
+          <h4 class="card-title font-weight-light mt-2 ml-2">
+            {{patientStats.title}}
+          </h4>
+
+          <p class="d-inline-flex font-weight-light ml-2 mt-1">
+            {{patientStats.grouppedByWeek.subTitle}}
+          </p>
           <template v-slot:actions>
             <v-icon
               class="mr-1"
@@ -290,6 +327,13 @@
           hover-reveal
           type="Bar"
         >
+          <h4 class="card-title font-weight-light mt-2 ml-2">
+            {{patientStats.title}}
+          </h4>
+
+          <p class="d-inline-flex font-weight-light ml-2 mt-1">
+            {{patientStats.grouppedByMonth.subTitle}}
+          </p>
           <template v-slot:actions>
             <v-icon
               class="mr-1"
@@ -311,6 +355,13 @@
           hover-reveal
           type="Line"
         >
+          <h4 class="card-title font-weight-light mt-2 ml-2">
+            {{callDurationStats.title}}
+          </h4>
+
+          <p class="d-inline-flex font-weight-light ml-2 mt-1">
+            {{callDurationStats.grouppedByDay.subTitle}}
+          </p>
           <template v-slot:actions>
             <v-icon
               class="mr-1"
@@ -332,6 +383,13 @@
           hover-reveal
           type="Bar"
         >
+          <h4 class="card-title font-weight-light mt-2 ml-2">
+            {{callDurationStats.title}}
+          </h4>
+
+          <p class="d-inline-flex font-weight-light ml-2 mt-1">
+            {{callDurationStats.grouppedByMonth.subTitle}}
+          </p>
           <template v-slot:actions>
             <v-icon
               class="mr-1"
@@ -417,6 +475,7 @@
         selectedStates: [],
         selectedDistricts: [],
         consultationStats: {
+          title: 'merchant title',
           stats: {},
           grouppedByDay: {
             data: {
@@ -436,6 +495,7 @@
                 left: 0,
               },
             },
+            subTitle: 'merchant daily subTitle',
           },
           grouppedByMonth: {
             data: {
@@ -455,10 +515,12 @@
                 left: 15,
               },
             },
+            subTitle: 'merchant monthly subTitle',
           },
         },
         patientStats: {
           count: 0,
+          title: 'patient title',
           grouppedByWeek: {
             data: {
               labels: [],
@@ -477,6 +539,7 @@
                 left: 0,
               },
             },
+            subTitle: 'patient weekly subTitle',
           },
           grouppedByMonth: {
             data: {
@@ -496,6 +559,7 @@
                 left: 15,
               },
             },
+            subTitle: 'patient monthly subTitle',
           },
         },
         datePicker: {
@@ -508,6 +572,7 @@
         doctorStats: {
           approvedCount: 0,
           totalCount: 0,
+          title: 'doctor title',
           grouppedByWeek: {
             data: {
               labels: [],
@@ -526,6 +591,7 @@
                 left: 0,
               },
             },
+            subTitle: 'doctor weekly subTitle',
           },
           grouppedByMonth: {
             data: {
@@ -546,6 +612,7 @@
               },
               plugins: [ChartistTooltip()],
             },
+            subTitle: 'doctor monthly subTitle',
           },
         },
         callDurationStats: {
@@ -554,6 +621,7 @@
           maxCallDuration: 0,
           totalCallDuration: 0,
           totalVideoConsultations: 0,
+          title: 'call title',
           grouppedByDay: {
             data: {
               labels: [],
@@ -572,6 +640,7 @@
                 left: 0,
               },
             },
+            subTitle: 'call daily subTitle',
           },
           grouppedByMonth: {
             data: {
@@ -591,6 +660,7 @@
                 left: 15,
               },
             },
+            subTitle: 'call monthly subTitle',
           },
         },
         paymentStats: {

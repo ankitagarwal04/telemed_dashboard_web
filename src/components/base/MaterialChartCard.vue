@@ -4,6 +4,7 @@
     color="#ffe2e5"
     v-bind="$attrs"
     v-on="$listeners"
+    height="auto"
   >
     <template v-slot:heading>
       <chartist
