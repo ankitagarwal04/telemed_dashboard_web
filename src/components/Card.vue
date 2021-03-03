@@ -5,23 +5,33 @@
     class="v-card--material pa-3"
   >
     <div class="d-flex grow flex-wrap">
+      <!-- outer icon square-->
       <v-sheet
-        :class="{
-          'pa-7': !$slots.image
-        }"
         :color="color"
         :max-height="icon ? 90 : undefined"
         :width="icon ? 'auto' : '100%'"
+        height="100%"
         elevation="6"
-        class="text-start v-card--material__heading mb-n6"
+        class="v-card--material__heading pa-2"
+        style="background-color: green"
         dark
       >
-        <font-awesome-icon
-          :icon="icon"
-          size="2x"
-        />
+        <!-- inner icon square-->
+        <v-sheet
+          :color="color"
+          :max-height="icon ? '100%' : undefined"
+          :width="icon ? 'auto' : '100%'"
+          class="text-start p-2"
+          style="background-color: red"
+          dark
+        >
+          <font-awesome-icon
+            :icon="icon"
+            class="icons-size"
+            size="2x"
+          />
+        </v-sheet>
       </v-sheet>
-
       <div
         v-if="$slots['after-heading']"
         class="ml-6"
@@ -77,7 +87,8 @@
       z-index: 1
 </style>
 <style lang="scss" scoped>
-  .v-card--material__heading {
-    box-shadow: none !important;
+  .icons-size {
+    width: 35px;
+    height: 35px
   }
 </style>
