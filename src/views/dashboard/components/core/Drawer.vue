@@ -2,7 +2,6 @@
   <v-navigation-drawer
     id="core-navigation-drawer"
     v-model="drawer"
-    :dark="barColor !== 'rgba(228, 226, 226, 1), rgba(255, 255, 255, 0.7)'"
     :expand-on-hover="expandOnHover"
     :right="$vuetify.rtl"
     mobile-break-point="960"
@@ -27,6 +26,7 @@
           />
         </v-list-item-avatar>
       </v-list-item>
+      <hr>
     </v-list>
 
     <v-list
@@ -36,8 +36,6 @@
     >
       <!-- Style cascading bug  -->
       <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
-      <div />
-
       <template v-for="(item, i) in computedItems">
         <base-item-group
           v-if="item.children"
@@ -185,10 +183,7 @@
 
 <style lang="scss" unscoped>
   .dashboard-drawer {
-    background-color: $primary-dark-blue-color !important;
-    border-right: 2px solid $primary-dark-blue-color;
     .dashboard-avatar {
-      background-color: white;
       min-height: 60px;
       .v-list-item__avatar {
         height: 50px !important;
@@ -205,13 +200,9 @@
     .navigation-list {
       // this class is appended to the side nav active list item.
       .primary {
-        background-color: inherit !important;
-        color: white;
-        .v-list-item__content {
-          .v-list-item__title {
-            font-size: 20px;
-          }
-        }
+        background-color: #00008b !important;
+        color: white !important;
+        box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 0, 139, 0.75);
       }
       a {
         &:hover {
