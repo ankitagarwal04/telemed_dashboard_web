@@ -15,8 +15,8 @@
         <stats-card
           :color="getStatsCardIconBgColor('filter')"
           :icon="['fas', 'hospital']"
-          outer-icon-bg-color="#46c046"
-          icon-bg-color="#199c39"
+          outer-icon-bg-color="rgb(25,156,57, 0.7)"
+          icon-bg-color="rgb(25,156,57)"
           :is-contain-modal="true"
           :modal-button-text="merchantFilterTitle"
           sub-icon="mdi-tag"
@@ -35,8 +35,8 @@
         <stats-card
           :color="getStatsCardIconBgColor('filter')"
           :icon="['fa', 'medkit']"
-          outer-icon-bg-color="#46c046"
-          icon-bg-color="#199c39"
+          outer-icon-bg-color="rgb(241, 154, 62, 0.7)"
+          icon-bg-color="rgb(241, 154, 62)"
           :is-contain-modal="true"
           :modal-button-text="specialityFilterTitle"
           sub-icon="mdi-tag"
@@ -55,6 +55,8 @@
         <stats-card
           :color="getStatsCardIconBgColor('filter')"
           :icon="['fas', 'calendar']"
+          outer-icon-bg-color="rgb(238, 180, 179, 0.7)"
+          icon-bg-color="rgb(238, 180, 179)"
           title="Date Picker"
           sub-icon="mdi-tag"
           :is-date-picker="true"
@@ -72,8 +74,8 @@
         <stats-card
           :color="getStatsCardIconBgColor('filter')"
           :icon="['fas', 'globe-asia']"
-          outer-icon-bg-color="#46c046"
-          icon-bg-color="#199c39"
+          outer-icon-bg-color="rgb(136, 128, 152, 0.7)"
+          icon-bg-color="rgb(136, 128, 152)"
           :is-contain-modal="true"
           :modal-button-text="statesFilterTitle"
           sub-icon="mdi-tag"
@@ -91,8 +93,8 @@
         <stats-card
           :color="getStatsCardIconBgColor('filter')"
           :icon="['fas', 'globe-asia']"
-          outer-icon-bg-color="#46c046"
-          icon-bg-color="#199c39"
+          outer-icon-bg-color="rgb(54, 143, 139, 0.7)"
+          icon-bg-color="rgb(54, 143, 139)"
           :is-contain-modal="true"
           :modal-button-text="districtsFilterTitle"
           sub-icon="mdi-tag"
@@ -112,6 +114,8 @@
         <stats-card
           :color="getStatsCardIconBgColor('stats')"
           :icon="['fa', 'rupee-sign']"
+          outer-icon-bg-color="rgb(54, 143, 139, 0.7)"
+          icon-bg-color="rgb(54, 143, 139)"
           title="Payment"
           :value="paymentStats.totalAmount"
           sub-icon="mdi-calendar"
@@ -126,6 +130,8 @@
         <stats-card
           :color="getStatsCardIconBgColor('stats')"
           :icon="['fa', 'user-md']"
+          outer-icon-bg-color="rgb(136, 128, 152, 0.7)"
+          icon-bg-color="rgb(136, 128, 152)"
           title="Doctors Available"
           :value="doctorStats.approvedCount"
           sub-icon="mdi-calendar"
@@ -140,6 +146,8 @@
         <stats-card
           :color="getStatsCardIconBgColor('stats')"
           :icon="['fa', 'hospital-user']"
+          outer-icon-bg-color="rgb(238, 180, 179, 0.7)"
+          icon-bg-color="rgb(238, 180, 179)"
           title="Patients Registered"
           :value="patientStats.count"
           sub-icon="mdi-calendar"
@@ -154,6 +162,8 @@
         <stats-card
           :color="getStatsCardIconBgColor('stats')"
           :icon="['fa', 'video']"
+          outer-icon-bg-color="rgb(241, 154, 62, 0.7)"
+          icon-bg-color="rgb(241, 154, 62)"
           title="Call Durations"
           :value="callDurationStats.totalCallDuration"
           :sub-stats="getSubStats('call_duration')"
@@ -169,6 +179,8 @@
         <stats-card
           :color="getStatsCardIconBgColor('stats')"
           :icon="['fas', 'laptop-medical']"
+          outer-icon-bg-color="rgb(25,156,57, 0.7)"
+          icon-bg-color="rgb(25,156,57)"
           title="Consultations"
           :value="consultationStats.stats.total"
           :sub-stats="getSubStats('consultation')"
