@@ -17,11 +17,11 @@
           :icon="['fas', 'hospital']"
           outer-icon-bg-color="#46c046"
           icon-bg-color="#199c39"
-          :title="merchantFilterTitle"
           :is-contain-modal="true"
-          :modal-button-text="merchantModalButtonText"
+          :modal-button-text="merchantFilterTitle"
           sub-icon="mdi-tag"
           :sub-text="merchantFilterSubText"
+          :value="merchantFilterValue"
           @show-modal="merchantListDialog = true"
         />
       </v-col>
@@ -35,15 +35,16 @@
         <stats-card
           :color="getStatsCardIconBgColor('filter')"
           :icon="['fa', 'medkit']"
-          :title="specialityFilterTitle"
+          outer-icon-bg-color="#46c046"
+          icon-bg-color="#199c39"
           :is-contain-modal="true"
-          :modal-button-text="specialityModalButtonText"
+          :modal-button-text="specialityFilterTitle"
           sub-icon="mdi-tag"
           :sub-text="specialityFilterSubText"
+          :value="specialityFilterValue"
           @show-modal="specialitiesListDialog = true"
         />
       </v-col>
-
       <v-col
         cols="12"
         md="6"
@@ -71,11 +72,13 @@
         <stats-card
           :color="getStatsCardIconBgColor('filter')"
           :icon="['fas', 'globe-asia']"
-          :title="statesFilterTitle"
+          outer-icon-bg-color="#46c046"
+          icon-bg-color="#199c39"
           :is-contain-modal="true"
-          :modal-button-text="stateModalButtonText"
+          :modal-button-text="statesFilterTitle"
           sub-icon="mdi-tag"
           :sub-text="stateFilterSubText"
+          :value="statesFilterValue"
           @show-modal="stateListDialog = true"
         />
       </v-col>
@@ -88,11 +91,13 @@
         <stats-card
           :color="getStatsCardIconBgColor('filter')"
           :icon="['fas', 'globe-asia']"
-          :title="districtsFilterTitle"
+          outer-icon-bg-color="#46c046"
+          icon-bg-color="#199c39"
           :is-contain-modal="true"
-          :modal-button-text="districtModalButtonText"
+          :modal-button-text="districtsFilterTitle"
           sub-icon="mdi-tag"
           :sub-text="districtFilterSubText"
+          :value="districtsFilterValue"
           @show-modal="districtListDialog = true"
         />
       </v-col>
@@ -424,7 +429,7 @@
       :selected-item="selectedStates"
       :items="cscStates"
       @close-modal="closeFilterListDialog (statesFilterTitle)"
-      @update-selected-item="selectedState=$event"
+      @update-selected-item="selectedStates=$event"
     />
     <filter-list-dialog
       :dialog-name="districtListDialog"
@@ -432,7 +437,7 @@
       :selected-item="selectedDistricts"
       :items="cscDistricts"
       @close-modal="closeFilterListDialog (districtsFilterTitle)"
-      @update-selected-item="selectedDistrict=$event"
+      @update-selected-item="selectedDistricts=$event"
     />
   </section>
 </template>
@@ -451,17 +456,17 @@
     data () {
       return {
         merchantFilterTitle: 'Merchants',
+        merchantFilterValue: 0,
         specialityFilterTitle: 'Specialities',
+        specialityFilterValue: 0,
         statesFilterTitle: 'States',
+        statesFilterValue: 0,
         districtsFilterTitle: 'Districts',
+        districtsFilterValue: 0,
         merchantFilterSubText: 'All Merchants',
         specialityFilterSubText: 'All Specialities',
         stateFilterSubText: 'All States',
         districtFilterSubText: 'All Districts',
-        merchantModalButtonText: 'SELECT',
-        specialityModalButtonText: 'SELECT',
-        stateModalButtonText: 'SELECT',
-        districtModalButtonText: 'SELECT',
         cscMerchants: [],
         specialities: [],
         cscStates: [],
@@ -671,23 +676,23 @@
     watch: {
       selectedMerchants (newSelectedMerchants) {
         var response = this.updateFilterSubText(newSelectedMerchants, this.cscMerchants)
-        this.merchantFilterSubText = response[0]
-        this.merchantModalButtonText = response[1]
+        this.merchantFilterSubText = this.getUpdatedFilterSubText(response[0])
       },
       selectedSpecialities (newselectedSpecialities) {
         var response = this.updateFilterSubText(newselectedSpecialities, this.specialities)
-        this.specialityFilterSubText = response[0]
-        this.specialityModalButtonText = response[1]
+        this.specialityFilterSubText = this.getUpdatedFilterSubText(response[0])
       },
       selectedStates (newselectedStates) {
         var response = this.updateFilterSubText(newselectedStates, this.cscStates)
-        this.stateFilterSubText = response[0]
-        this.stateModalButtonText = response[1]
+        console.log('selected states')
+        console.log(response)
+        this.stateFilterSubText = this.getUpdatedFilterSubText(response[0])
       },
       selectedDistricts (newselectedDistricts) {
         var response = this.updateFilterSubText(newselectedDistricts, this.cscDistricts)
-        this.districtFilterSubText = response[0]
-        this.districtModalButtonText = response[1]
+        // console.log('selected districts')
+        // console.log(response)
+        this.districtFilterSubText = this.getUpdatedFilterSubText(response[0])
       },
     },
     created () {
@@ -742,7 +747,7 @@
       getCscMerchants: function () {
         this.$http.get('/csc_merchants/index').then((response) => {
           this.cscMerchants = response
-          this.merchantFilterTitle += ` (${this.cscMerchants.length})`
+          this.merchantFilterValue = this.cscMerchants.length
         }).catch((error) => {
           // handle error
           console.log(error)
@@ -751,7 +756,7 @@
       getSpecialities: function () {
         this.$http.get('/mapped_specialities/index').then((response) => {
           this.specialities = response
-          this.specialityFilterTitle += ` (${this.specialities.length})`
+          this.specialityFilterValue = this.specialities.length
         }).catch((error) => {
           // handle error
           console.log(error)
@@ -760,7 +765,7 @@
       getCscStates: function () {
         this.$http.get('/csc_states/index').then((response) => {
           this.cscStates = response
-          this.statesFilterTitle += ` (${this.cscStates.length})`
+          this.statesFilterValue = this.cscStates.length
         }).catch((error) => {
           // handle error
           console.log(error)
@@ -769,7 +774,7 @@
       getCscDistricts: function () {
         this.$http.get('/csc_districts/index').then((response) => {
           this.cscDistricts = response
-          this.districtsFilterTitle += ` (${this.cscDistricts.length})`
+          this.districtsFilterValue = this.cscDistricts.length
         }).catch((error) => {
           // handle error
           console.log(error)
@@ -1000,6 +1005,16 @@
             break
         }
         return color
+      },
+      getUpdatedFilterSubText: function (selectedFilters) {
+        const chosenFilters = selectedFilters.split(',')
+        let filterSubtext
+        if (chosenFilters.length >= 3) {
+          filterSubtext = chosenFilters[0] + ', ' + chosenFilters[1] + ' + ' + `${chosenFilters.length - 2}` + 'more'
+        } else {
+          filterSubtext = selectedFilters
+        }
+        return filterSubtext
       },
     },
   }

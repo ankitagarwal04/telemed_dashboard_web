@@ -12,16 +12,19 @@
         v-if="isDatePicker"
         class="ml-auto text-right"
       >
-        <div
-          class="body-3 grey--text font-weight-light"
-          v-text="title"
-        />
-        <v-btn
+        <!-- <v-btn
           id="datepicker-trigger"
           depressed
         >
-          Select
-        </v-btn>
+          Date
+        </v-btn> -->
+        <button
+          id="datepicker-trigger"
+          class="v-btn v-btn--is-elevated theme--light p-2 m-0"
+          @click="$emit('show-modal')"
+        >
+          Date
+        </button>
         <AirbnbStyleDatepicker
           :trigger-element-id="'datepicker-trigger'"
           :mode="'range'"
@@ -40,19 +43,23 @@
         class="ml-auto text-right"
       >
         <div
+          v-if="title"
           class="body-3 grey--text font-weight-light"
           v-text="title"
         />
-        <v-btn
-          v-if="isContainModal"
+        <!-- <v-btn
           depressed
+          @click="$emit('show-modal')"
+        > -->
+        <button
+          v-if="isContainModal"
+          class="v-btn v-btn--is-elevated theme--light p-2 m-0"
           @click="$emit('show-modal')"
         >
           {{ modalButtonText }}
-        </v-btn>
+        </button>
         <h3
-          v-else
-          class="text--primary counter-class"
+          class="text--primary counter-class text-right mt-3"
         >
           {{ value }}
         </h3>
@@ -62,7 +69,7 @@
     <template v-slot:default>
       <v-col
         cols="12"
-        class="px-0"
+        class="px-0 py-0"
       >
         <v-divider />
       </v-col>

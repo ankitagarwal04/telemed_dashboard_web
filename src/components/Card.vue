@@ -4,13 +4,16 @@
     :class="classes"
     class="v-card--material pa-3"
   >
-    <div class="d-flex grow flex-wrap">
+    <div
+      class="d-flex grow flex-wrap"
+      style="height: 80px;"
+    >
       <!-- outer icon square-->
       <v-sheet
         :color="color"
         :max-height="icon ? 90 : undefined"
         :width="icon ? 'auto' : '100%'"
-        height="100%"
+        height="70"
         elevation="6"
         class="v-card--material__heading pa-2"
         :style="{'background-color': outerIconBgColor}"
