@@ -1,7 +1,7 @@
 <template>
   <section class="about-section">
     <div class="container-fluid">
-      <div class="about-us d-flex flex-row flex-wrap align-items-center bg-light mb-3">
+      <div class="about-us d-flex flex-row flex-wrap align-items-center bg-light">
         <div class="about-media">
           <img src="~@/assets/images/about.jpeg">
         </div>

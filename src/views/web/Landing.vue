@@ -3,9 +3,9 @@
     <hero />
     <stats-display />
     <about />
-    <partner />
     <service />
     <testimonial />
+    <partner />
   </div>
 </template>
 

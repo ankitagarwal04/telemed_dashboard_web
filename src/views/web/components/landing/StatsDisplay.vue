@@ -27,7 +27,13 @@
           consultations: {
             count: '',
             abbreviated_count: '',
-            title: '(Successful Consultations)',
+            title: '(Lives Touched)',
+            icon: require('@/assets/images/tick.svg'),
+          },
+          call_duration: {
+            count: '',
+            abbreviated_count: '3k hrs',
+            title: '(Call Duration)',
             icon: require('@/assets/images/tick.svg'),
           },
         },

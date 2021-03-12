@@ -3,14 +3,14 @@
   <section class="service-section bg-light">
     <div class="container">
       <h2 class="section-header">Health Services</h2>
-      <p class="text-center mb-5">CSC Health Services serve thousands of people from their earliest years to retirement. Our mission is to help rural masses live healthier lives and make the health system work better and the vision is to play our best part in creating a more sustainable health care system: one that works for the betterment for everyone.</p>
+      <p class="text-center mb-3">CSC Health Services serve thousands of people from their earliest years to retirement. Our mission is to help rural masses live healthier lives and make the health system work better and the vision is to play our best part in creating a more sustainable health care system: one that works for the betterment for everyone.</p>
       <div class="card-deck flex-wrap justify-content-between">
-        <div v-for="service in services" :key="service.title" class="card service-card-holder p-3 mb-3  ml-0 mr-0">
+        <div v-for="service in services" :key="service.title" class="card service-card-holder pb-0 pt-3 pl-2 pr-2 mb-3 ml-0 mr-0">
           <div class="service-card-header">
             <img class="card-img-top center service-icon mb-3" :src="service.icon" alt="service.title">
             <h5 class="card-title">{{ service.title }}</h5>
           </div>
-          <hr>
+          <hr class='m-0'>
           <div class="card-body">
             <p class="card-text">{{ service.text }}</p>
           </div>

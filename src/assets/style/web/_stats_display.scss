@@ -4,16 +4,22 @@
   @media only screen and (max-width: $small-devices-max) {
     margin-top: 0;
   }
+  @media only screen and (min-width: $large-devices-min) {
+    max-width: 100%
+  }
   .stats-display {
     min-height: 200px;
     justify-content: flex-end;
+    div:last-child {
+      margin-right: 0;
+    }
     @media only screen and (max-width: $large-devices-min) {
       justify-content: center;
     }
     .counter-holder {
       text-align: center;
       border-radius: 10%;
-      padding: 20px;
+      padding: 5px;
       margin-right: 20px;
       width: 250px;
       img {
