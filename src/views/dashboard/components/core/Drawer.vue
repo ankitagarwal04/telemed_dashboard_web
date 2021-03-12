@@ -16,9 +16,13 @@
       class="p-0"
     >
       <v-list-item class="p-0 dashboard-avatar">
-        <v-list-item-avatar
+        <!-- <v-list-item-avatar
           class="align-self-center"
           color="white"
+          contain
+        > -->
+        <v-list-item-avatar
+          class="align-self-center"
           contain
         >
           <v-img
@@ -183,6 +187,8 @@
 
 <style lang="scss" unscoped>
   .dashboard-drawer {
+    background-color: #99aab5 !important;
+    box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 0, 139, 0.75);
     .dashboard-avatar {
       min-height: 60px;
       .v-list-item__avatar {
@@ -203,6 +209,9 @@
         background-color: #00008b !important;
         color: white !important;
         box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 0, 139, 0.75);
+      }
+      .v-list-item__title {
+        font-size: 18px !important;
       }
       a {
         &:hover {
