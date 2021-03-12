@@ -3,7 +3,10 @@
     <div class="container-fluid">
       <div class="about-us d-flex flex-row flex-wrap align-items-center bg-light">
         <div class="about-media">
-          <img src="~@/assets/images/about.jpeg">
+          <img
+            src="~@/assets/images/about.jpeg"
+            class="img-fluid border-radius-50"
+          >
         </div>
         <div class="about-content mt-5">
           <h4>About Us</h4>
@@ -22,4 +25,5 @@
 
 <style lang="scss" scoped>
   @import "@/assets/style/web/_about.scss";
+  @import "@/assets/style/web/_shared.scss";
 </style>
