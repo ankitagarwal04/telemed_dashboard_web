@@ -3,6 +3,7 @@
     :icon="icon"
     :icon-bg-color="iconBgColor"
     :outer-icon-bg-color="outerIconBgColor"
+    :style="{'border': borderStyle(iconBgColor)}"
     class="v-card--material-stats dashboard-stats"
     v-bind="$attrs"
     v-on="$listeners"
@@ -199,6 +200,9 @@
         } else {
           return false
         }
+      },
+      borderStyle: function (value) {
+        return `3px solid ${value}`
       },
     },
   }
