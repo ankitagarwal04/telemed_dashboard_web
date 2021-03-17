@@ -90,7 +90,6 @@
         })
       },
       registerUser: function () {
-        console.log('pre registeration!')
         this.$http.post('/dashboard_users', {
           dashboard_user: {
             username: this.dashboardUser.username,

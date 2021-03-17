@@ -2,17 +2,27 @@
   <!-- eslint-disable -->
   <div class="auth-login">
     <div>
-      <form class="p-4">
+      <form class="p-4" v-on:submit.prevent="onSubmit()">
         <h3 class="text-center">Sign In</h3>
 
         <div class="form-group pt-2">
           <label class="font-weight-bold">Email address</label>
-          <input type="email" class="form-control form-control-lg" />
+          <input
+           type="email"
+           class="form-control form-control-lg"
+           v-model="userCredentials.emailAddress"
+           required
+          />
         </div>
 
         <div class="form-group pt-2">
           <label class="font-weight-bold">Password</label>
-          <input type="password" class="form-control form-control-lg" />
+          <input
+           type="password"
+           class="form-control form-control-lg"
+           v-model="userCredentials.password"
+           required
+          />
         </div>
 
         <button type="submit" class="btn btn-dark btn-lg btn-block">Sign In</button>
@@ -29,7 +39,29 @@
   export default {
     name: 'login',
     data () {
-      return {}
+      return {
+        userCredentials: {
+          emailAddress: '',
+          password: '',
+        },
+      }
+    },
+    methods: {
+      loginUser: function () {
+        this.$http.post('/authenticate', {
+          email: this.userCredentials.emailAddress,
+          password: this.userCredentials.password,
+        }).then((response) => {
+          console.log(response)
+          // alertify.success('User Successfully Registered')
+        }).catch((error) => {
+          // handle error
+          console.log(error)
+        })
+      },
+      onSubmit: function () {
+        this.loginUser()
+      },
     },
   }
 </script>
