@@ -20,6 +20,7 @@ import './plugins/base'
 import './plugins/chartist'
 import './plugins/vee-validate'
 import vuetify from './plugins/vuetify'
+import Auth from './plugins/Auth.js'
 import i18n from './i18n'
 // defining global variables here, including request interceptor
 import variable from './services/variables'
@@ -48,7 +49,21 @@ Vue.use(AirbnbStyleDatepicker, datepickerOptions)
 Vue.use(BootstrapVue)
 Vue.use(VueCarousel)
 Vue.use(variable)
+Vue.use(Auth)
 Vue.config.productionTip = false
+
+// configure router guards
+router.beforeEach(function (to, from, next) {
+  // prevent access to 'requireGuest' routes;
+  if (to.matched.some(function (record) { return record.meta.requireGuest }) &&
+   Vue.auth.loggedIn()) {
+    next({
+      path: '/dashboard',
+    })
+  } else {
+    next() // make sure to always call next();
+  }
+})
 
 // configure alertify defaults:
 // alertify.defaults.notifier.position = 'top-right'

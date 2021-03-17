@@ -53,7 +53,8 @@
           password: this.userCredentials.password,
         }).then((response) => {
           console.log(response)
-          // alertify.success('User Successfully Registered')
+          this.$auth.setToken(response.auth_token, Date.now() + 14400000) // + 4 hours
+          this.$router.push('/dashboard')
         }).catch((error) => {
           // handle error
           console.log(error)
