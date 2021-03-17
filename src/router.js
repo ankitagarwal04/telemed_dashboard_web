@@ -21,6 +21,23 @@ export default new Router({
       ],
     },
     {
+      path: '/auth',
+      name: 'auth',
+      component: () => import('@/components/auth/Auth.vue'),
+      children: [
+        {
+          name: 'login',
+          path: 'login',
+          component: () => import('@/components/auth/Login.vue'),
+        },
+        {
+          name: 'register',
+          path: 'register',
+          component: () => import('@/components/auth/Register.vue'),
+        },
+      ],
+    },
+    {
       path: '/',
       components: {
         navbar: () => import('./views/web/components/core/Navbar'),
