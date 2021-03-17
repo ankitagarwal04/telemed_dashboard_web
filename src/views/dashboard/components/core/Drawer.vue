@@ -87,10 +87,14 @@
           to: '/',
         },
         {
-          // icon: 'mdi-view-dashboard',
           icon: 'mdi-poll',
-          title: 'dashboard',
-          to: '/dashboard',
+          title: 'Stats',
+          to: '/dashboard/stats',
+        },
+        {
+          icon: 'mdi-home-outline',
+          title: 'Register User',
+          to: '/dashboard/register_user',
         },
       ],
     }),

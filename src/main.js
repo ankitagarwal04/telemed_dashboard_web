@@ -50,6 +50,9 @@ Vue.use(VueCarousel)
 Vue.use(variable)
 Vue.config.productionTip = false
 
+// configure alertify defaults:
+// alertify.defaults.notifier.position = 'top-right'
+
 new Vue({
   router,
   store,

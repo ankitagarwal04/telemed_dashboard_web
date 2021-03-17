@@ -2,7 +2,7 @@
   <!-- eslint-disable -->
   <div class="auth-register">
     <div>
-      <form class="p-4">
+      <form class="p-4" v-on:submit.prevent="onSubmit()">
         <h3 class="text-center">Register</h3>
 
         <div class="form-group pt-2">
@@ -48,8 +48,6 @@
         <button
          type="submit"
          class="btn btn-dark btn-lg btn-block"
-         @click="registerUser()"
-         href=""
         >
           Sign Up
         </button>
@@ -101,12 +99,15 @@
             password: this.dashboardUser.password,
           },
         }).then((response) => {
-          console.log('registeration done!')
           console.log(response)
+          // alertify.success('User Successfully Registered')
         }).catch((error) => {
           // handle error
           console.log(error)
         })
+      },
+      onSubmit: function () {
+        this.registerUser()
       },
     },
   }

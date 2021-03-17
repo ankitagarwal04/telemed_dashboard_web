@@ -62,8 +62,17 @@ instance.interceptors.response.use((response) => {
   return parseBody(response)
 }, error => {
   console.warn('Error status', error.response.status)
-  // return Promise.reject(error)
   if (error.response) {
+    // to show alerts for all errors return from the ruby server.
+    if (error.response.data) {
+      if (error.response.data.success == false) {
+        error.response.data.errors.forEach(function (e) {
+          e.message.split(',').forEach(function (e_msg) {
+            alertify.error(e_msg)
+          })
+        })
+      }
+    }
     return parseError(error.response.data)
   } else {
     return Promise.reject(error)

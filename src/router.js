@@ -10,13 +10,19 @@ export default new Router({
     {
       path: '/dashboard',
       name: 'Dashboard',
+      redirect: '/dashboard/stats',
       component: () => import('@/views/dashboard/Index'),
       children: [
         // Dashboard
         {
           name: 'Consultation Stats',
-          path: '',
+          path: 'stats',
           component: () => import('@/views/dashboard/Consultation'),
+        },
+        {
+          name: 'register',
+          path: 'register_user',
+          component: () => import('@/components/auth/Register.vue'),
         },
       ],
     },
@@ -29,11 +35,6 @@ export default new Router({
           name: 'login',
           path: 'login',
           component: () => import('@/components/auth/Login.vue'),
-        },
-        {
-          name: 'register',
-          path: 'register',
-          component: () => import('@/components/auth/Register.vue'),
         },
       ],
     },
