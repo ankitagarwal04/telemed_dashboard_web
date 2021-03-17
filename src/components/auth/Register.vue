@@ -7,25 +7,52 @@
 
         <div class="form-group pt-2">
           <label class="font-weight-bold">User Name</label>
-          <input type="text" class="form-control form-control-lg"/>
+          <input
+           type="text"
+           class="form-control form-control-lg"
+           v-model="dashboardUser.username"
+           required
+          />
         </div>
 
         <div class="form-group pt-2">
           <label class="font-weight-bold">Email address</label>
-          <input type="email" class="form-control form-control-lg" />
+          <input
+           type="email"
+           class="form-control form-control-lg"
+           v-model="dashboardUser.emailAddress"
+           required
+          />
         </div>
 
         <div class="form-group pt-2">
           <label class="font-weight-bold">Password</label>
-          <input type="password" class="form-control form-control-lg" />
+          <input
+           type="password"
+           class="form-control form-control-lg"
+           v-model="dashboardUser.password"
+           required
+          />
         </div>
 
         <div class="form-group pt-3">
           <label class="font-weight-bold">Merchant</label>
-          <input type="password" class="form-control form-control-lg" />
+          <b-form-select
+           v-model="dashboardUser.cscMerchantId"
+           :options="cscMerchants"
+           class="mb-3"
+           required
+          />
         </div>
 
-        <button type="submit" class="btn btn-dark btn-lg btn-block">Sign Up</button>
+        <button
+         type="submit"
+         class="btn btn-dark btn-lg btn-block"
+         @click="registerUser()"
+         href=""
+        >
+          Sign Up
+        </button>
 
       </form>
     </div>
@@ -34,9 +61,53 @@
 
 <script>
   export default {
-    name: 'login',
+    name: 'register',
     data () {
-      return {}
+      return {
+        dashboardUser: {
+          username: '',
+          emailAddress: '',
+          cscMerchantId: null,
+          password: '',
+        },
+        cscMerchants: [
+          { value: null, text: 'Please select an option' },
+        ],
+      }
+    },
+    created () {
+      this.getCscMerchants()
+    },
+    methods: {
+      getCscMerchants: function () {
+        this.$http.get('/csc_merchants/index').then((response) => {
+          if (response.length > 0) {
+            response.forEach((merchant, index) => {
+              this.cscMerchants.push({ value: merchant.id, text: merchant.name })
+            })
+          }
+        }).catch((error) => {
+          // handle error
+          console.log(error)
+        })
+      },
+      registerUser: function () {
+        console.log('pre registeration!')
+        this.$http.post('/dashboard_users', {
+          dashboard_user: {
+            username: this.dashboardUser.username,
+            email: this.dashboardUser.emailAddress,
+            csc_merchant_id: this.dashboardUser.cscMerchantId,
+            password: this.dashboardUser.password,
+          },
+        }).then((response) => {
+          console.log('registeration done!')
+          console.log(response)
+        }).catch((error) => {
+          // handle error
+          console.log(error)
+        })
+      },
     },
   }
 </script>
