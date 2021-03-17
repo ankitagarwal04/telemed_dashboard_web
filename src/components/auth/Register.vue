@@ -20,7 +20,7 @@
           <input type="password" class="form-control form-control-lg" />
         </div>
 
-        <div class="form-group pt-2">
+        <div class="form-group pt-3">
           <label class="font-weight-bold">Merchant</label>
           <input type="password" class="form-control form-control-lg" />
         </div>
