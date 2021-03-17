@@ -1,14 +1,39 @@
 <template>
-  <div class="container">
-    <h1>Login</h1>
+  <!-- eslint-disable -->
+  <div class="auth-login">
+    <div>
+      <form class="p-4">
+        <h3 class="text-center">Sign In</h3>
+
+        <div class="form-group pt-2">
+          <label class="font-weight-bold">Email address</label>
+          <input type="email" class="form-control form-control-lg" />
+        </div>
+
+        <div class="form-group pt-2">
+          <label class="font-weight-bold">Password</label>
+          <input type="password" class="form-control form-control-lg" />
+        </div>
+
+        <button type="submit" class="btn btn-dark btn-lg btn-block">Sign In</button>
+
+        <p class="forgot-password text-right mt-2">
+          <router-link to="/forgot-password">Forgot password ?</router-link>
+        </p>
+      </form>
+    </div>
   </div>
 </template>
 
 <script>
   export default {
     name: 'login',
+    data () {
+      return {}
+    },
   }
 </script>
 
-<style>
+<style lang="scss" scoped>
+  @import "@/assets/style/auth.scss";
 </style>
