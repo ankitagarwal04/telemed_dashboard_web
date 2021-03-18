@@ -73,7 +73,7 @@
       }),
       handleSignOut: function () {
         this.$auth.destroyToken()
-        this.$router.push('/auth')
+        this.$router.push('/auth/login')
       },
     },
   }

@@ -1,6 +1,7 @@
 /* eslint-disable */
-
 // reference: https://gist.github.com/moreta/fb2625c59aa788009b1f7ce8e44ac559
+import Vue from 'vue'
+import router from '.././router'
 import axios from 'axios'
 import qs from 'qs'
 
@@ -48,10 +49,10 @@ const instance = axios.create({
 // request header
 instance.interceptors.request.use((config) => {
   // Do something before request is sent
-
-  // api tokenなどを利用してheaderに載せる場合
-  // const apiToken = sessionStorage.getItem('token')
-  // config.headers = { 'Custom-Header-IF-Exist': apiToken }
+  var token = Vue.auth.getToken()
+  if (token) {
+    config.headers = { Authorization: token }
+  }
   return config
 }, error => {
   return Promise.reject(error)
@@ -61,14 +62,19 @@ instance.interceptors.request.use((config) => {
 instance.interceptors.response.use((response) => {
   return parseBody(response)
 }, error => {
-  console.warn('Error status', error.response.status)
   if (error.response) {
+    console.warn('Error status', error.response.status)
+    // if unauthorized then sent back to login page.
+    if (error.response.status === 401) {
+      // TODO: redirect to login page and stop further incoming server requests.
+      console.log(router)
+    }
     // to show alerts for all errors return from the ruby server.
     if (error.response.data) {
-      if (error.response.data.success == false) {
+      if (error.response.data.success === false) {
         error.response.data.errors.forEach(function (e) {
-          e.message.split(',').forEach(function (e_msg) {
-            alertify.error(e_msg)
+          e.message.split(',').forEach(function (errorMsg) {
+            alertify.error(errorMsg)
           })
         })
       }
