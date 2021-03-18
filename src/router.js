@@ -20,6 +20,11 @@ export default new Router({
           component: () => import('@/views/dashboard/Consultation'),
         },
         {
+          name: 'users',
+          path: 'users',
+          component: () => import('@/views/dashboard/User'),
+        },
+        {
           name: 'register',
           path: 'register_user',
           component: () => import('@/components/auth/Register.vue'),

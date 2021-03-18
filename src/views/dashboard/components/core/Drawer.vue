@@ -93,6 +93,11 @@
         },
         {
           icon: 'mdi-home-outline',
+          title: 'Users',
+          to: '/dashboard/users',
+        },
+        {
+          icon: 'mdi-home-outline',
           title: 'Register User',
           to: '/dashboard/register_user',
         },
