@@ -23,7 +23,7 @@
         <b-nav-item href="#" class="">
           <b-button>Doctor</b-button>
         </b-nav-item>
-        <b-nav-item href="/dashboard" class="">
+        <b-nav-item href="/auth" class="">
           <b-button>Dashboard</b-button>
         </b-nav-item>
       </b-navbar-nav>

@@ -28,6 +28,22 @@
         src="~@/assets/images/digital_india_logo.png"
       />
     </a>
+    <b-nav-item-dropdown class="user-profile-dropdown">
+      <!-- Using 'button-content' slot -->
+      <template #button-content>
+        <font-awesome-icon
+          :icon="['fa', 'user']"
+          class="icons-size"
+          size="2x"
+        />
+      </template>
+      <b-dropdown-item
+       href="#"
+       @click="handleSignOut()"
+      >
+        Sign Out
+      </b-dropdown-item>
+    </b-nav-item-dropdown>
   </v-app-bar>
 </template>
 
@@ -45,13 +61,6 @@
     },
 
     data: () => ({
-      notifications: [
-        'Mike John Responded to your email',
-        'You have 5 new tasks',
-        'You\'re now friends with Andrew',
-        'Another Notification',
-        'Another one',
-      ],
     }),
 
     computed: {
@@ -62,6 +71,10 @@
       ...mapMutations({
         setDrawer: 'SET_DRAWER',
       }),
+      handleSignOut: function () {
+        this.$auth.destroyToken()
+        this.$router.push('/auth')
+      },
     },
   }
 </script>
@@ -74,6 +87,9 @@
     .v-image {
       height: 50px;
       width: 150px;
+    }
+    .user-profile-dropdown {
+      list-style: none;
     }
   }
 </style>
