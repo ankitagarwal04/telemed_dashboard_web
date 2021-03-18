@@ -98,8 +98,7 @@
             password: this.dashboardUser.password,
           },
         }).then((response) => {
-          console.log(response)
-          // alertify.success('User Successfully Registered')
+          this.$alertify.success('User Successfully Registered')
         }).catch((error) => {
           // handle error
           console.log(error)

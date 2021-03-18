@@ -26,6 +26,7 @@ import i18n from './i18n'
 import variable from './services/variables'
 import VueCarousel from 'vue-carousel'
 import AirbnbStyleDatepicker from 'vue-airbnb-style-datepicker'
+import VueAlertify from 'vue-alertify'
 // import font-awesome
 // https://github.com/FortAwesome/vue-fontawesome
 // https://medium.com/front-end-weekly/how-to-use-fon-awesome-5-on-vuejs-project-ff0f28310821
@@ -50,6 +51,14 @@ Vue.use(BootstrapVue)
 Vue.use(VueCarousel)
 Vue.use(variable)
 Vue.use(Auth)
+Vue.use(VueAlertify, {
+  notifier: {
+    // default position
+    position: 'top-right',
+    // adds a close button to notifier messages
+    closeButton: true,
+  },
+})
 Vue.config.productionTip = false
 
 // configure router guards
@@ -64,9 +73,6 @@ router.beforeEach(function (to, from, next) {
     next() // make sure to always call next();
   }
 })
-
-// configure alertify defaults:
-// alertify.defaults.notifier.position = 'top-right'
 
 new Vue({
   router,

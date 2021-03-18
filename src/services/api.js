@@ -74,7 +74,8 @@ instance.interceptors.response.use((response) => {
       if (error.response.data.success === false) {
         error.response.data.errors.forEach(function (e) {
           e.message.split(',').forEach(function (errorMsg) {
-            alertify.error(errorMsg)
+            // TODO: show errors through alertify.
+            // this.$alertify.error(errorMsg)
           })
         })
       }
