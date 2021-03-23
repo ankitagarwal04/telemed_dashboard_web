@@ -10,7 +10,7 @@
         cols="12"
         md="6"
         lg="4"
-        xl="3"
+        xl="4"
       >
         <stats-card
           :color="getStatsCardIconBgColor('filter')"
@@ -30,7 +30,7 @@
         cols="12"
         md="6"
         lg="4"
-        xl="3"
+        xl="4"
       >
         <stats-card
           :color="getStatsCardIconBgColor('filter')"
@@ -49,7 +49,7 @@
         cols="12"
         md="6"
         lg="4"
-        xl="3"
+        xl="4"
       >
         <!-- on change of dates, required data is also filtered. -->
         <stats-card
@@ -65,7 +65,7 @@
           @format-dates="formatDates($event)"
         />
       </v-col>
-      <v-col
+      <!-- <v-col
         cols="12"
         md="6"
         lg="4"
@@ -83,8 +83,8 @@
           :value="statesFilterValue"
           @show-modal="stateListDialog = true"
         />
-      </v-col>
-      <v-col
+      </v-col> -->
+      <!-- <v-col
         cols="12"
         md="6"
         lg="4"
@@ -102,8 +102,9 @@
           :value="districtsFilterValue"
           @show-modal="districtListDialog = true"
         />
-      </v-col>
+      </v-col> -->
     </v-row>
+    <hr>
     <!-- Stats -->
     <v-row>
       <v-col
@@ -204,12 +205,12 @@
         >
           <h4 class="card-title font-weight-light mt-2 ml-2">
             <!-- Website Views -->
-            {{consultationStats.title}}
+            {{ consultationStats.title }}
           </h4>
 
           <p class="d-inline-flex font-weight-light ml-2 mt-1">
             <!-- Last Campaign Performance -->
-            {{consultationStats.grouppedByDay.subTitle}}
+            {{ consultationStats.grouppedByDay.subTitle }}
           </p>
           <template v-slot:actions>
             <v-icon
@@ -233,11 +234,11 @@
           type="Bar"
         >
           <h4 class="card-title font-weight-light mt-2 ml-2">
-            {{consultationStats.title}}
+            {{ consultationStats.title }}
           </h4>
 
           <p class="d-inline-flex font-weight-light ml-2 mt-1">
-            {{consultationStats.grouppedByMonth.subTitle}}
+            {{ consultationStats.grouppedByMonth.subTitle }}
           </p>
           <template v-slot:actions>
             <v-icon
@@ -261,11 +262,11 @@
           type="Line"
         >
           <h4 class="card-title font-weight-light mt-2 ml-2">
-            {{doctorStats.title}}
+            {{ doctorStats.title }}
           </h4>
 
           <p class="d-inline-flex font-weight-light ml-2 mt-1">
-            {{doctorStats.grouppedByWeek.subTitle}}
+            {{ doctorStats.grouppedByWeek.subTitle }}
           </p>
           <template v-slot:actions>
             <v-icon
@@ -289,11 +290,11 @@
           type="Bar"
         >
           <h4 class="card-title font-weight-light mt-2 ml-2">
-            {{doctorStats.title}}
+            {{ doctorStats.title }}
           </h4>
 
           <p class="d-inline-flex font-weight-light ml-2 mt-1">
-            {{doctorStats.grouppedByMonth.subTitle}}
+            {{ doctorStats.grouppedByMonth.subTitle }}
           </p>
           <template v-slot:actions>
             <v-icon
@@ -317,11 +318,11 @@
           type="Line"
         >
           <h4 class="card-title font-weight-light mt-2 ml-2">
-            {{patientStats.title}}
+            {{ patientStats.title }}
           </h4>
 
           <p class="d-inline-flex font-weight-light ml-2 mt-1">
-            {{patientStats.grouppedByWeek.subTitle}}
+            {{ patientStats.grouppedByWeek.subTitle }}
           </p>
           <template v-slot:actions>
             <v-icon
@@ -345,11 +346,11 @@
           type="Bar"
         >
           <h4 class="card-title font-weight-light mt-2 ml-2">
-            {{patientStats.title}}
+            {{ patientStats.title }}
           </h4>
 
           <p class="d-inline-flex font-weight-light ml-2 mt-1">
-            {{patientStats.grouppedByMonth.subTitle}}
+            {{ patientStats.grouppedByMonth.subTitle }}
           </p>
           <template v-slot:actions>
             <v-icon
@@ -373,11 +374,11 @@
           type="Line"
         >
           <h4 class="card-title font-weight-light mt-2 ml-2">
-            {{callDurationStats.title}}
+            {{ callDurationStats.title }}
           </h4>
 
           <p class="d-inline-flex font-weight-light ml-2 mt-1">
-            {{callDurationStats.grouppedByDay.subTitle}}
+            {{ callDurationStats.grouppedByDay.subTitle }}
           </p>
           <template v-slot:actions>
             <v-icon
@@ -401,11 +402,11 @@
           type="Bar"
         >
           <h4 class="card-title font-weight-light mt-2 ml-2">
-            {{callDurationStats.title}}
+            {{ callDurationStats.title }}
           </h4>
 
           <p class="d-inline-flex font-weight-light ml-2 mt-1">
-            {{callDurationStats.grouppedByMonth.subTitle}}
+            {{ callDurationStats.grouppedByMonth.subTitle }}
           </p>
           <template v-slot:actions>
             <v-icon
@@ -435,7 +436,7 @@
       @close-modal="closeFilterListDialog (specialityFilterTitle)"
       @update-selected-item="selectedSpecialities=$event"
     />
-    <filter-list-dialog
+    <!-- <filter-list-dialog
       :dialog-name="stateListDialog"
       title="Select State"
       :selected-item="selectedStates"
@@ -450,7 +451,7 @@
       :items="cscDistricts"
       @close-modal="closeFilterListDialog (districtsFilterTitle)"
       @update-selected-item="selectedDistricts=$event"
-    />
+    /> -->
   </section>
 </template>
 
@@ -689,31 +690,92 @@
       selectedMerchants (newSelectedMerchants) {
         var response = this.updateFilterSubText(newSelectedMerchants, this.cscMerchants)
         this.merchantFilterSubText = this.getUpdatedFilterSubText(response[0])
+        // on change of merchant filter, filtering specialities options.
+        // couldn't implement this logic, if required will implement later.
+        // if (newSelectedMerchants.length > 0) {
+        //   const specialities = []
+        //   newSelectedMerchants.forEach((selectedMerchantId, index) => {
+        //     this.cscMerchants.forEach((merchant, index) => {
+        //       if (merchant.id === selectedMerchantId) {
+        //         if (merchant.mapped_specialities) {
+        //           merchant.mapped_specialities.forEach((mappedSpeciality, index) => {
+        //             let appendSpeciality = true
+        //             specialities.forEach((speciality, index) => {
+        //               if (speciality.id === mappedSpeciality.id) {
+        //                 appendSpeciality = false
+        //                 return false
+        //               }
+        //             })
+        //             if (appendSpeciality) {
+        //               specialities.push(mappedSpeciality)
+        //             }
+        //           })
+        //         }
+        //       }
+        //     })
+        //   })
+        //   this.specialities = specialities
+        //   this.specialityFilterValue = this.specialities.length
+        // } else {
+        //   this.getSpecialities()
+        // }
       },
       selectedSpecialities (newselectedSpecialities) {
         var response = this.updateFilterSubText(newselectedSpecialities, this.specialities)
         this.specialityFilterSubText = this.getUpdatedFilterSubText(response[0])
+        // on change of speciality filter, filtering merchant options.
+        // couldn't implement this logic, if required will implement later.
+        // if (newselectedSpecialities.length > 0) {
+        //   const cscMerchants = []
+        //   newselectedSpecialities.forEach((selectedSpecialityId, index) => {
+        //     this.specialities.forEach((speciality, index) => {
+        //       if (speciality.id === selectedSpecialityId) {
+        //         if (speciality.csc_merchants) {
+        //           speciality.csc_merchants.forEach((cscMerchant, index) => {
+        //             let appendMerchant = true
+        //             cscMerchants.forEach((merchant, index) => {
+        //               if (merchant.id === cscMerchant.id) {
+        //                 appendMerchant = false
+        //                 return false
+        //               }
+        //             })
+        //             if (appendMerchant) {
+        //               cscMerchants.push(cscMerchant)
+        //             }
+        //           })
+        //         }
+        //       }
+        //     })
+        //   })
+        //   // this.specialities = specialities
+        //   // this.specialityFilterValue = this.specialities.length
+        //   this.cscMerchants = cscMerchants
+        //   this.merchantFilterValue = this.cscMerchants.length
+        // } else {
+        //   this.getCscMerchants()
+        // }
       },
-      selectedStates (newselectedStates) {
-        var response = this.updateFilterSubText(newselectedStates, this.cscStates)
-        console.log('selected states')
-        console.log(response)
-        this.stateFilterSubText = this.getUpdatedFilterSubText(response[0])
-      },
-      selectedDistricts (newselectedDistricts) {
-        var response = this.updateFilterSubText(newselectedDistricts, this.cscDistricts)
-        // console.log('selected districts')
-        // console.log(response)
-        this.districtFilterSubText = this.getUpdatedFilterSubText(response[0])
-      },
+      // for now states and district filters are not required.
+      // selectedStates (newselectedStates) {
+      //   var response = this.updateFilterSubText(newselectedStates, this.cscStates)
+      //   console.log('selected states')
+      //   console.log(response)
+      //   this.stateFilterSubText = this.getUpdatedFilterSubText(response[0])
+      // },
+      // selectedDistricts (newselectedDistricts) {
+      //   var response = this.updateFilterSubText(newselectedDistricts, this.cscDistricts)
+      //   // console.log('selected districts')
+      //   // console.log(response)
+      //   this.districtFilterSubText = this.getUpdatedFilterSubText(response[0])
+      // },
     },
     created () {
       // TODO: single request API to fetch required data on page load.
       this.getConsultationStats()
       this.getCscMerchants()
       this.getSpecialities()
-      this.getCscStates()
-      this.getCscDistricts()
+      // this.getCscStates()
+      // this.getCscDistricts()
       this.updateDatePickerFields()
       this.getDoctorAvailableStats('on_page_load')
       this.getPatientStats()
@@ -757,7 +819,7 @@
         })
       },
       getCscMerchants: function () {
-        this.$http.get('/csc_merchants/index').then((response) => {
+        this.$http.get('/dashboard_csc_merchants/index').then((response) => {
           this.cscMerchants = response
           this.merchantFilterValue = this.cscMerchants.length
         }).catch((error) => {
