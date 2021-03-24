@@ -130,8 +130,8 @@
     data () {
       return {
         animateSettings: {
-          duration: '1000',
-          delay: '300',
+          duration: 1000,
+          delay: 300,
         },
       }
     },

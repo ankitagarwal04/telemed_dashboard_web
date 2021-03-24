@@ -877,9 +877,10 @@
       closeFilterListDialog: function (filterName) {
         if (filterName === this.merchantFilterTitle) {
           this.merchantListDialog = false
+          this.getDoctorAvailableStats()
         } else if (filterName === this.specialityFilterTitle) {
           this.specialitiesListDialog = false
-          this.getDoctorAvailableStats('on_speciaility_change')
+          this.getDoctorAvailableStats()
         } else if (filterName === this.statesFilterTitle) {
           this.stateListDialog = false
         } else if (filterName === this.districtsFilterTitle) {
@@ -910,44 +911,37 @@
         // using a day before today
         this.datePicker.endDate = year + '-' + (month + 1) + '-' + (date - 1)
       },
-      getDoctorAvailableStats: function (from) {
-        if (from === 'on_page_load') {
+      getDoctorAvailableStats: function (when = '') {
+        if (when === 'on_page_load') {
           this.$http.get('/doctor_profiles/stats').then((response) => {
-            if (response.approved_doctor_profiles) {
-              this.doctorStats.approvedCount = response.approved_doctor_profiles.count
-            }
-            if (response.groupped_by_week) {
-              this.handleChartData('doctorStats', 'weekly', response.groupped_by_week)
-            }
-            if (response.groupped_by_month) {
-              this.handleChartData('doctorStats', 'monthly', response.groupped_by_month)
-            }
+            this.handleDoctorAvailableStatsResponse(response)
           }).catch((error) => {
             // handle error
             console.log(error)
           })
-        } else if (from === 'on_speciaility_change') {
-          if (this.specialities) {
-            let updatedDoctorApprovedCount = 0
-            // iterate over mapped speciality
-            this.specialities.forEach((speciality, index) => {
-              // filtering out the unselected specialities.
-              if (this.selectedSpecialities.includes(speciality.id)) {
-                const childSpecialities = speciality.child_specialities
-                if (childSpecialities.doctor_stats) {
-                  const doctorStats = childSpecialities.doctor_stats
-                  if (doctorStats.groupped_by_week) {
-                    this.handleChartData('doctorStats', 'weekly', doctorStats.groupped_by_week)
-                  }
-                  if (doctorStats.groupped_by_month) {
-                    this.handleChartData('doctorStats', 'monthly', doctorStats.groupped_by_month)
-                  }
-                  updatedDoctorApprovedCount += doctorStats.total_approved_doctor_profiles_count
-                }
-              }
-            })
-            this.doctorStats.approvedCount = updatedDoctorApprovedCount
-          }
+        } else {
+          this.$http.post('/doctor_profiles/stats', {
+            doctor_profile_filters: {
+              merchant_ids: this.selectedMerchants,
+              mapped_speciality_ids: this.selectedSpecialities,
+            },
+          }).then((response) => {
+            this.handleDoctorAvailableStatsResponse(response)
+          }).catch((error) => {
+            // handle error
+            console.log(error)
+          })
+        }
+      },
+      handleDoctorAvailableStatsResponse: function (response) {
+        if (response.approved_doctor_profiles) {
+          this.doctorStats.approvedCount = response.approved_doctor_profiles.count
+        }
+        if (response.groupped_by_week) {
+          this.handleChartData('doctorStats', 'weekly', response.groupped_by_week)
+        }
+        if (response.groupped_by_month) {
+          this.handleChartData('doctorStats', 'monthly', response.groupped_by_month)
         }
       },
       getPatientStats: function () {
