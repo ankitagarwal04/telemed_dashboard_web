@@ -63,6 +63,7 @@
           :sub-text="datePicker.subText"
           :date-picker="datePicker"
           @format-dates="formatDates($event)"
+          @reset-dates="resetDates()"
         />
       </v-col>
       <!-- <v-col
@@ -900,6 +901,12 @@
         }
         // this.datePicker.subText += '(' + formattedDates + ')'
         this.datePicker.subText = formattedDates
+        this.getConsultationStats()
+      },
+      resetDates () {
+        this.datePicker.dateOne = ''
+        this.datePicker.dateTwo = ''
+        this.datePicker.subText = ''
         this.getConsultationStats()
       },
       updateDatePickerFields () {

@@ -31,6 +31,7 @@
           @date-one-selected="val => { datePicker.dateOne = val }"
           @date-two-selected="val => { datePicker.dateTwo = val }"
           @apply="$emit('format-dates', datePicker)"
+          @cancelled="$emit('reset-dates')"
         />
       </div>
       <div
