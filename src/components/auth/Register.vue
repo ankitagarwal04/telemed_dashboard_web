@@ -78,7 +78,7 @@
     },
     methods: {
       getCscMerchants: function () {
-        this.$http.get('/csc_merchants/index').then((response) => {
+        this.$http.get('/dashboard_csc_merchants/index').then((response) => {
           if (response.length > 0) {
             response.forEach((merchant, index) => {
               this.cscMerchants.push({ value: merchant.id, text: merchant.name })
@@ -94,7 +94,7 @@
           dashboard_user: {
             username: this.dashboardUser.username,
             email: this.dashboardUser.emailAddress,
-            csc_merchant_id: this.dashboardUser.cscMerchantId,
+            dashboard_csc_merchant_id: this.dashboardUser.cscMerchantId,
             password: this.dashboardUser.password,
           },
         }).then((response) => {

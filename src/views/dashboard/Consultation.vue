@@ -493,7 +493,7 @@
         selectedStates: [],
         selectedDistricts: [],
         consultationStats: {
-          title: 'merchant title',
+          title: 'Consultations title',
           stats: {},
           grouppedByDay: {
             data: {
@@ -513,7 +513,7 @@
                 left: 0,
               },
             },
-            subTitle: 'merchant daily subTitle',
+            subTitle: 'Consultations daily subTitle',
           },
           grouppedByMonth: {
             data: {
@@ -533,7 +533,7 @@
                 left: 15,
               },
             },
-            subTitle: 'merchant monthly subTitle',
+            subTitle: 'Consultations monthly subTitle',
           },
         },
         patientStats: {
