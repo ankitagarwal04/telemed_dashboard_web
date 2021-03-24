@@ -13,12 +13,6 @@
         v-if="isDatePicker"
         class="ml-auto text-right"
       >
-        <!-- <v-btn
-          id="datepicker-trigger"
-          depressed
-        >
-          Date
-        </v-btn> -->
         <button
           id="datepicker-trigger"
           class="v-btn v-btn--is-elevated theme--light p-2 m-0"
@@ -48,10 +42,6 @@
           class="body-3 grey--text font-weight-light"
           v-text="title"
         />
-        <!-- <v-btn
-          depressed
-          @click="$emit('show-modal')"
-        > -->
         <button
           v-if="isContainModal"
           class="v-btn v-btn--is-elevated theme--light p-2 m-0"
@@ -62,7 +52,12 @@
         <h3
           class="text--primary counter-class text-right mt-3"
         >
-          {{ value }}
+          <animated-number
+            :value="value"
+            :formatValue="formatToPrice"
+            :duration="animateSettings.duration"
+            :delay="animateSettings.delay"
+          />
         </h3>
       </div>
     </template>
@@ -98,7 +93,12 @@
           </div>
           <div :style="{'color': substat.color}">
             <h3 class="counter-class">
-              {{ substat.count }}
+              <animated-number
+                :value="substat.count"
+                :formatValue="formatToPrice"
+                :duration="animateSettings.duration"
+                :delay="animateSettings.delay"
+              />
             </h3>
             <h6 class="mt-2">{{ substat.title.toUpperCase() }}</h6>
           </div>
@@ -126,10 +126,18 @@
 <script>
   export default {
     name: 'StatsCard',
-
     inheritAttrs: false,
+    data () {
+      return {
+        animateSettings: {
+          duration: '1000',
+          delay: '300',
+        },
+      }
+    },
     components: {
       Card: () => import('@/components/Card'),
+      AnimatedNumber: () => import('animated-number-vue'),
     },
     props: {
       icon: {
@@ -203,6 +211,9 @@
       },
       borderStyle: function (value) {
         return `3px solid ${value}`
+      },
+      formatToPrice: function (value) {
+        return value.toFixed(0)
       },
     },
   }
