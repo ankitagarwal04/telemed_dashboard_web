@@ -63,12 +63,6 @@ instance.interceptors.response.use((response) => {
   return parseBody(response)
 }, error => {
   if (error.response) {
-    console.warn('Error status', error.response.status)
-    // if unauthorized then sent back to login page.
-    if (error.response.status === 401) {
-      // TODO: redirect to login page and stop further incoming server requests.
-      console.log(router)
-    }
     // to show alerts for all errors return from the ruby server.
     if (error.response.data) {
       if (error.response.data.success === false) {

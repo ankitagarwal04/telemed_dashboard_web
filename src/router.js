@@ -12,6 +12,9 @@ export default new Router({
       name: 'Dashboard',
       redirect: '/dashboard/stats',
       component: () => import('@/views/dashboard/Index'),
+      meta: {
+        requiresAuth: true,
+      },
       children: [
         // Dashboard
         {
@@ -38,7 +41,7 @@ export default new Router({
       redirect: '/auth/login',
       children: [
         {
-          name: 'login',
+          name: 'Login',
           path: 'login',
           component: () => import('@/components/auth/Login.vue'),
           meta: { requireGuest: true },

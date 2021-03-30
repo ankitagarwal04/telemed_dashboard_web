@@ -37,7 +37,7 @@
 
 <script>
   export default {
-    name: 'login',
+    name: 'Login',
     data () {
       return {
         userCredentials: {
@@ -52,7 +52,6 @@
           email: this.userCredentials.emailAddress,
           password: this.userCredentials.password,
         }).then((response) => {
-          console.log(response)
           this.$auth.setToken(response.auth_token, Date.now() + 14400000) // + 4 hours
           this.$router.push('/dashboard')
         }).catch((error) => {

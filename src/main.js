@@ -63,12 +63,23 @@ Vue.config.productionTip = false
 
 // configure router guards
 router.beforeEach(function (to, from, next) {
-  // prevent access to 'requireGuest' routes;
+  // prevent access to 'requireGuest' routes, if loggedin;
   if (to.matched.some(function (record) { return record.meta.requireGuest }) &&
    Vue.auth.loggedIn()) {
     next({
       path: '/dashboard',
     })
+  } else if (to.matched.some(record => record.meta.requiresAuth)) {
+    // verify user authentication first before accessing secure paths.
+    if (Vue.auth.getToken()) {
+      // let user = JSON.parse(localStorage.getItem('user'))
+      next()
+    } else {
+      next({
+        path: '/auth/login',
+        params: { nextUrl: to.fullPath },
+      })
+    }
   } else {
     next() // make sure to always call next();
   }
