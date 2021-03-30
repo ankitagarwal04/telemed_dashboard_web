@@ -469,30 +469,30 @@
     },
     data () {
       return {
+        cscMerchants: [],
         merchantFilterTitle: 'Merchants',
         merchantFilterValue: 0,
+        merchantFilterSubText: 'All Merchants',
+        selectedMerchants: [],
+        merchantListDialog: false,
+        specialities: [],
         specialityFilterTitle: 'Specialities',
         specialityFilterValue: 0,
+        specialityFilterSubText: 'All Specialities',
+        selectedSpecialities: [],
+        specialitiesListDialog: false,
+        cscStates: [],
+        cscDistricts: [],
+        stateListDialog: false,
+        districtListDialog: false,
+        stateFilterSubText: 'All States',
+        districtFilterSubText: 'All Districts',
+        selectedStates: [],
+        selectedDistricts: [],
         statesFilterTitle: 'States',
         statesFilterValue: 0,
         districtsFilterTitle: 'Districts',
         districtsFilterValue: 0,
-        merchantFilterSubText: 'All Merchants',
-        specialityFilterSubText: 'All Specialities',
-        stateFilterSubText: 'All States',
-        districtFilterSubText: 'All Districts',
-        cscMerchants: [],
-        specialities: [],
-        cscStates: [],
-        cscDistricts: [],
-        merchantListDialog: false,
-        specialitiesListDialog: false,
-        stateListDialog: false,
-        districtListDialog: false,
-        selectedMerchants: [],
-        selectedSpecialities: [],
-        selectedStates: [],
-        selectedDistricts: [],
         consultationStats: {
           title: 'Consultations title',
           stats: {},
@@ -689,72 +689,23 @@
     },
     watch: {
       selectedMerchants (newSelectedMerchants) {
-        var response = this.updateFilterSubText(newSelectedMerchants, this.cscMerchants)
-        this.merchantFilterSubText = this.getUpdatedFilterSubText(response[0])
-        // on change of merchant filter, filtering specialities options.
-        // couldn't implement this logic, if required will implement later.
-        // if (newSelectedMerchants.length > 0) {
-        //   const specialities = []
-        //   newSelectedMerchants.forEach((selectedMerchantId, index) => {
-        //     this.cscMerchants.forEach((merchant, index) => {
-        //       if (merchant.id === selectedMerchantId) {
-        //         if (merchant.mapped_specialities) {
-        //           merchant.mapped_specialities.forEach((mappedSpeciality, index) => {
-        //             let appendSpeciality = true
-        //             specialities.forEach((speciality, index) => {
-        //               if (speciality.id === mappedSpeciality.id) {
-        //                 appendSpeciality = false
-        //                 return false
-        //               }
-        //             })
-        //             if (appendSpeciality) {
-        //               specialities.push(mappedSpeciality)
-        //             }
-        //           })
-        //         }
-        //       }
-        //     })
-        //   })
-        //   this.specialities = specialities
-        //   this.specialityFilterValue = this.specialities.length
-        // } else {
-        //   this.getSpecialities()
-        // }
+        this.merchantFilterSubText = this.updateFilterSubText('Merchant', newSelectedMerchants, this.cscMerchants)
+        const selectedMerchantsData = []
+        this.cscMerchants.forEach((merchant) => {
+          if (newSelectedMerchants.includes(merchant.id)) {
+            selectedMerchantsData.push(merchant)
+          }
+        })
+        // when none merchant is selected, fetch all merchant specialities
+        // else fetch only selected merchant sepcialities.
+        if (selectedMerchantsData.length === 0) {
+          this.getMappedSpecialitiesFromMerchants(this.cscMerchants)
+        } else {
+          this.getMappedSpecialitiesFromMerchants(selectedMerchantsData)
+        }
       },
       selectedSpecialities (newselectedSpecialities) {
-        var response = this.updateFilterSubText(newselectedSpecialities, this.specialities)
-        this.specialityFilterSubText = this.getUpdatedFilterSubText(response[0])
-        // on change of speciality filter, filtering merchant options.
-        // couldn't implement this logic, if required will implement later.
-        // if (newselectedSpecialities.length > 0) {
-        //   const cscMerchants = []
-        //   newselectedSpecialities.forEach((selectedSpecialityId, index) => {
-        //     this.specialities.forEach((speciality, index) => {
-        //       if (speciality.id === selectedSpecialityId) {
-        //         if (speciality.csc_merchants) {
-        //           speciality.csc_merchants.forEach((cscMerchant, index) => {
-        //             let appendMerchant = true
-        //             cscMerchants.forEach((merchant, index) => {
-        //               if (merchant.id === cscMerchant.id) {
-        //                 appendMerchant = false
-        //                 return false
-        //               }
-        //             })
-        //             if (appendMerchant) {
-        //               cscMerchants.push(cscMerchant)
-        //             }
-        //           })
-        //         }
-        //       }
-        //     })
-        //   })
-        //   // this.specialities = specialities
-        //   // this.specialityFilterValue = this.specialities.length
-        //   this.cscMerchants = cscMerchants
-        //   this.merchantFilterValue = this.cscMerchants.length
-        // } else {
-        //   this.getCscMerchants()
-        // }
+        this.specialityFilterSubText = this.updateFilterSubText('Speciality', newselectedSpecialities, this.specialities)
       },
       // for now states and district filters are not required.
       // selectedStates (newselectedStates) {
@@ -774,9 +725,6 @@
       // TODO: single request API to fetch required data on page load.
       this.getConsultationStats()
       this.getCscMerchants()
-      this.getSpecialities()
-      // this.getCscStates()
-      // this.getCscDistricts()
       this.updateDatePickerFields()
       this.getDoctorAvailableStats('on_page_load')
       this.getPatientStats()
@@ -819,19 +767,54 @@
           console.log(error)
         })
       },
+      resetSpecialities: function () {
+        this.specialities = []
+        this.specialityFilterValue = 0
+        this.selectedSpecialities = []
+        this.specialityFilterSubText = 'All Specialities'
+      },
+      getMappedSpecialitiesFromMerchants: function (merchantResponse) {
+        if (merchantResponse.length > 0) {
+          const allMappedSpecialities = []
+          const allMappedSpecialitiesIds = []
+          merchantResponse.forEach((merchant) => {
+            const mappedSpecialities = merchant.mapped_specialities
+            if (mappedSpecialities.length > 0) {
+              mappedSpecialities.forEach((mappedSpeciality) => {
+                const mappedSpecialityId = mappedSpeciality.id
+                if (!allMappedSpecialitiesIds.includes(mappedSpecialityId)) {
+                  allMappedSpecialitiesIds.push(mappedSpecialityId)
+                  allMappedSpecialities.push({ id: mappedSpecialityId, name: mappedSpeciality.name })
+                }
+              })
+            }
+          })
+          if (allMappedSpecialitiesIds.length === 0) {
+            this.resetSpecialities()
+          } else {
+            this.setSpecialities(allMappedSpecialities, allMappedSpecialitiesIds)
+          }
+        } else {
+          this.resetSpecialities()
+        }
+      },
+      setSpecialities: function (mappedSpecialities, mappedSpecialitiesIds) {
+        const newselectedSpecialities = []
+        this.specialities = mappedSpecialities
+        this.specialityFilterValue = this.specialities.length
+        this.selectedSpecialities.forEach((selectedSpecialityId) => {
+          if (mappedSpecialitiesIds.includes(selectedSpecialityId)) {
+            newselectedSpecialities.push(selectedSpecialityId)
+          }
+        })
+        this.selectedSpecialities = newselectedSpecialities
+        this.specialityFilterSubText = this.updateFilterSubText('Speciality', this.selectedSpecialities, this.specialities)
+      },
       getCscMerchants: function () {
         this.$http.get('/dashboard_csc_merchants/index').then((response) => {
           this.cscMerchants = response
           this.merchantFilterValue = this.cscMerchants.length
-        }).catch((error) => {
-          // handle error
-          console.log(error)
-        })
-      },
-      getSpecialities: function () {
-        this.$http.get('/mapped_specialities/index').then((response) => {
-          this.specialities = response
-          this.specialityFilterValue = this.specialities.length
+          this.getMappedSpecialitiesFromMerchants(response)
         }).catch((error) => {
           // handle error
           console.log(error)
@@ -855,11 +838,10 @@
           console.log(error)
         })
       },
-      updateFilterSubText: function (newSelectedFilters, filterDataItems) {
+      updateFilterSubText: function (operationOn, newSelectedFilters, filterDataItems) {
+        let filterSubtext = ''
         if (newSelectedFilters.length > 0) {
-          var selectedFilterNames = []
-          var modalButtonText = ''
-          var filterSubtext = ''
+          const selectedFilterNames = []
           newSelectedFilters.forEach((selectedFilterId, index) => {
             filterDataItems.forEach((item, index) => {
               if (item.id === selectedFilterId) {
@@ -868,12 +850,21 @@
             })
           })
           filterSubtext = selectedFilterNames.join(', ')
-          modalButtonText = `SELECTED (${selectedFilterNames.length})`
         } else {
-          filterSubtext = 'All Merchants'
-          modalButtonText = 'SELECT'
+          switch (operationOn) {
+            case 'Merchant':
+              filterSubtext = 'All Merchants'
+              break
+            case 'Speciality':
+              filterSubtext = 'All Specialities'
+              break
+            default:
+              filterSubtext = 'All'
+              break
+          }
         }
-        return [filterSubtext, modalButtonText]
+        filterSubtext = this.getUpdatedFilterSubText(filterSubtext)
+        return filterSubtext
       },
       closeFilterListDialog: function (filterName) {
         if (filterName === this.merchantFilterTitle) {
