@@ -96,12 +96,4 @@
 <style lang="scss" scoped>
   @import "@/assets/style/web/_service.scss";
   @import "@/assets/style/web/_shared.scss";
-  // #bv-modal-service {
-    .modal-content {
-      background-color: #ffe2e2 !important;
-      .modal-header {
-        border-bottom: 1px solid #8785a2 !important;
-      }
-    }
-  // }
 </style>
