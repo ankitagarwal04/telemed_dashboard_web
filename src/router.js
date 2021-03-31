@@ -18,7 +18,7 @@ export default new Router({
       children: [
         // Dashboard
         {
-          name: 'Consultation Stats',
+          name: 'Consultation',
           path: 'stats',
           component: () => import('@/views/dashboard/Consultation'),
         },
@@ -31,6 +31,11 @@ export default new Router({
           name: 'register',
           path: 'register_user',
           component: () => import('@/components/auth/Register.vue'),
+        },
+        {
+          name: 'ConsultationsReport',
+          path: 'consultations_report',
+          component: () => import('@/views/dashboard/ConsultationsReport'),
         },
       ],
     },

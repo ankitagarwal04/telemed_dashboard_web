@@ -101,6 +101,11 @@
           title: 'Register User',
           to: '/dashboard/register_user',
         },
+        {
+          icon: 'mdi-home-outline',
+          title: 'Consultations',
+          to: '/dashboard/consultations_report',
+        },
       ],
     }),
 
