@@ -1,37 +1,30 @@
+// authplugin is accessed only in vuex store.
 var AuthPlugin = {
-  setToken: function (token, expiration) {
+  setToken: function (token) {
     localStorage.setItem('authToken', token)
-    localStorage.setItem('authTokenExpiration', expiration)
   },
 
   destroyToken: function () {
     localStorage.removeItem('authToken')
-    localStorage.removeItem('authTokenExpiration')
   },
 
   getToken: function () {
     var token = localStorage.getItem('authToken')
-    var expiration = localStorage.getItem('authTokenExpiration')
-
-    if (!token || !expiration) {
-      return null
-    }
-
-    if (Date.now() > parseInt(expiration)) {
-      this.destroyToken()
-      return null
-    } else {
+    if (token) {
       return token
+    } else {
+      return null
     }
   },
 
-  loggedIn: function () {
-    if (this.getToken()) {
-      return true
-    } else {
-      return false
-    }
-  },
+  // store getter loggedIn method is used for this purpose.
+  // loggedIn: function () {
+  //   if (this.getToken()) {
+  //     return true
+  //   } else {
+  //     return false
+  //   }
+  // },
 
 }
 

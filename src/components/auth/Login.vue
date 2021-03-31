@@ -27,9 +27,9 @@
 
         <button type="submit" class="btn btn-dark btn-lg btn-block">Sign In</button>
 
-        <p class="forgot-password text-right mt-2">
+        <!-- <p class="forgot-password text-right mt-2">
           <router-link to="/forgot-password">Forgot password ?</router-link>
-        </p>
+        </p> -->
       </form>
     </div>
   </div>
@@ -48,15 +48,11 @@
     },
     methods: {
       loginUser: function () {
-        this.$http.post('/authenticate', {
+        this.$store.dispatch('retrieveToken', {
           email: this.userCredentials.emailAddress,
           password: this.userCredentials.password,
-        }).then((response) => {
-          this.$auth.setToken(response.auth_token, Date.now() + 14400000) // + 4 hours
-          this.$router.push('/dashboard')
-        }).catch((error) => {
-          // handle error
-          console.log(error)
+        }).then(response => {
+          this.$router.push({ name: 'Dashboard' })
         })
       },
       onSubmit: function () {

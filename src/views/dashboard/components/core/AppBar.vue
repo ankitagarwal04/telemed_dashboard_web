@@ -38,8 +38,8 @@
         />
       </template>
       <b-dropdown-item
-       href="#"
-       @click="handleSignOut()"
+        href="#"
+        @click="handleSignOut()"
       >
         Sign Out
       </b-dropdown-item>
@@ -72,8 +72,9 @@
         setDrawer: 'SET_DRAWER',
       }),
       handleSignOut: function () {
-        this.$auth.destroyToken()
-        this.$router.push('/auth/login')
+        this.$store.dispatch('destroyToken').then(response => {
+          this.$router.push('/auth/login')
+        })
       },
     },
   }

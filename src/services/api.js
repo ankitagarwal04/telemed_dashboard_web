@@ -1,7 +1,7 @@
 /* eslint-disable */
 // reference: https://gist.github.com/moreta/fb2625c59aa788009b1f7ce8e44ac559
-import Vue from 'vue'
 import router from '.././router'
+import store from '.././store'
 import axios from 'axios'
 import qs from 'qs'
 
@@ -49,7 +49,7 @@ const instance = axios.create({
 // request header
 instance.interceptors.request.use((config) => {
   // Do something before request is sent
-  var token = Vue.auth.getToken()
+  var token = store.getters.getToken
   if (token) {
     config.headers = { Authorization: token }
   }
@@ -63,6 +63,13 @@ instance.interceptors.response.use((response) => {
   return parseBody(response)
 }, error => {
   if (error.response) {
+    console.warn('Error status', error.response.status)
+    if (error.response.status === 401) {
+      // if unauthorized then sent back to login page.
+      store.dispatch('destroyToken').then(response => {
+        router.push('/auth/login').catch(() => {})
+      })
+    }
     // to show alerts for all errors return from the ruby server.
     if (error.response.data) {
       if (error.response.data.success === false) {

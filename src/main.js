@@ -20,7 +20,6 @@ import './plugins/base'
 import './plugins/chartist'
 import './plugins/vee-validate'
 import vuetify from './plugins/vuetify'
-import Auth from './plugins/Auth.js'
 import i18n from './i18n'
 // defining global variables here, including request interceptor
 import variable from './services/variables'
@@ -50,7 +49,6 @@ Vue.use(AirbnbStyleDatepicker, datepickerOptions)
 Vue.use(BootstrapVue)
 Vue.use(VueCarousel)
 Vue.use(variable)
-Vue.use(Auth)
 Vue.use(VueAlertify, {
   notifier: {
     // default position
@@ -64,20 +62,23 @@ Vue.config.productionTip = false
 // configure router guards
 router.beforeEach(function (to, from, next) {
   // prevent access to 'requireGuest' routes, if loggedin;
-  if (to.matched.some(function (record) { return record.meta.requireGuest }) &&
-   Vue.auth.loggedIn()) {
-    next({
-      path: '/dashboard',
-    })
+  if (to.matched.some(function (record) { return record.meta.requireGuest })) {
+    if (store.getters.loggedIn) {
+      next({
+        name: 'Dashboard',
+      })
+    } else {
+      next()
+    }
   } else if (to.matched.some(record => record.meta.requiresAuth)) {
     // verify user authentication first before accessing secure paths.
-    if (Vue.auth.getToken()) {
+    if (store.getters.loggedIn) {
       // let user = JSON.parse(localStorage.getItem('user'))
       next()
     } else {
       next({
-        path: '/auth/login',
-        params: { nextUrl: to.fullPath },
+        name: 'Login',
+        query: { redirect: to.fullPath },
       })
     }
   } else {
