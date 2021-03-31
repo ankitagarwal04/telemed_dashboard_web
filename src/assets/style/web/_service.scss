@@ -19,4 +19,10 @@
       width: 64px;
     }
   }
+  .modal-content {
+    background-color: #ffe2e2 !important;
+    .modal-header {
+      border-bottom: 1px solid #8785a2 !important;
+    }
+  }
 }
