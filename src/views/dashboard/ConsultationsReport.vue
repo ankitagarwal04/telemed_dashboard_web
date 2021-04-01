@@ -9,7 +9,7 @@
       ></b-pagination>
       <download-excel
         class="btn btn-info h-100"
-        :data="consultations"
+        :data="downloadConsultations"
         type="csv"
         name="doctors_successful_consultations.xls"
       >
@@ -24,14 +24,14 @@
      small
     >
       <template #cell(index)="data">
-        {{ data.index + 1 }}
+        {{ (currentPage - 1)*perPage + data.index + 1 }}
       </template>
     </b-table>
   </div>
 </template>
 
 <script>
-  // download report needs to be implemented through background job.
+  // TODO: download report needs to be implemented through background job.
   export default {
     name: 'ConsultationsReport',
     components: {
@@ -41,6 +41,7 @@
       return {
         fields: ['index', 'doctorFullName', 'doctorEmail', 'phoneNumber', 'speciality'],
         consultations: [],
+        downloadConsultations: [],
         consultationsCount: null,
         perPage: 10,
         currentPage: 1,
@@ -54,6 +55,7 @@
     created () {
       this.getConsultations('pagination')
       this.getConsultations('only_count')
+      this.getConsultations('download')
     },
     methods: {
       getConsultations: function (instruction) {
@@ -73,20 +75,31 @@
         this.$http.get('/dashboard_consultations/index', {
           params: params,
         }).then((response) => {
+          const responseConsultations = response.consultations
           if (response.total_count) {
             this.consultationsCount = response.total_count
           }
-          const responseConsultations = response.consultations
           if (responseConsultations && responseConsultations.length > 0) {
-            this.consultations = []
-            responseConsultations.forEach((consultation) => {
-              this.consultations.push({
-                doctorFullName: consultation.doctor_full_name,
-                doctorEmail: consultation.doctor_email,
-                phoneNumber: consultation.phone_number,
-                speciality: consultation.speciality,
+            if (instruction === 'download') {
+              responseConsultations.forEach((consultation) => {
+                this.downloadConsultations.push({
+                  doctorFullName: consultation.doctor_full_name,
+                  doctorEmail: consultation.doctor_email,
+                  phoneNumber: consultation.phone_number,
+                  speciality: consultation.speciality,
+                })
               })
-            })
+            } else {
+              this.consultations = []
+              responseConsultations.forEach((consultation) => {
+                this.consultations.push({
+                  doctorFullName: consultation.doctor_full_name,
+                  doctorEmail: consultation.doctor_email,
+                  phoneNumber: consultation.phone_number,
+                  speciality: consultation.speciality,
+                })
+              })
+            }
           }
         }).catch((error) => {
           // handle error
