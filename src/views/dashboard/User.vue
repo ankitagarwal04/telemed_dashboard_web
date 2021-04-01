@@ -6,7 +6,11 @@
      hover
      :items="users"
      :fields="fields"
-    />
+    >
+      <template #cell(index)="data">
+        {{ data.index + 1 }}
+      </template>
+    </b-table>
   </div>
 </template>
 
@@ -15,7 +19,7 @@
     name: 'users',
     data () {
       return {
-        fields: ['id', 'username', 'email', 'merchantName'],
+        fields: ['index', 'id', 'username', 'email', 'merchantName'],
         users: [],
       }
     },

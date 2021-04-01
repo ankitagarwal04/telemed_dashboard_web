@@ -1,42 +1,90 @@
 <template>
   <!-- https://bootstrap-vue.org/docs/components/table -->
   <div class="container">
+    <div class="d-flex justify-content-between">
+      <b-pagination
+        v-model="currentPage"
+        :total-rows="consultationsCount"
+        :per-page="perPage"
+      ></b-pagination>
+      <download-excel
+        class="btn btn-info h-100"
+        :data="consultations"
+        type="csv"
+        name="doctors_successful_consultations.xls"
+      >
+        Download CSV
+      </download-excel>
+    </div>
     <b-table
      striped
      hover
      :items="consultations"
      :fields="fields"
-    />
+     small
+    >
+      <template #cell(index)="data">
+        {{ data.index + 1 }}
+      </template>
+    </b-table>
   </div>
 </template>
 
 <script>
+  // download report needs to be implemented through background job.
   export default {
     name: 'ConsultationsReport',
+    components: {
+      DownloadExcel: () => import('vue-json-excel'),
+    },
     data () {
       return {
-        fields: ['id', 'doctorProfileId'],
+        fields: ['index', 'doctorFullName', 'doctorEmail', 'phoneNumber', 'speciality'],
         consultations: [],
         consultationsCount: null,
-        pageNum: 1,
+        perPage: 10,
+        currentPage: 1,
       }
     },
+    watch: {
+      currentPage (newCurrentPage) {
+        this.getConsultations('pagination')
+      },
+    },
     created () {
-      this.getConsultations()
+      this.getConsultations('pagination')
+      this.getConsultations('only_count')
     },
     methods: {
-      getConsultations: function () {
+      getConsultations: function (instruction) {
+        let params = {}
+        if (instruction === 'pagination') {
+          params = {
+            page_num: this.currentPage,
+            per_page: this.perPage,
+          }
+        } else if (instruction === 'only_count') {
+          params = {
+            only_count: true,
+          }
+        } else {
+          params = {}
+        }
         this.$http.get('/dashboard_consultations/index', {
-          params: { page_num: this.pageNum },
+          params: params,
         }).then((response) => {
+          if (response.total_count) {
+            this.consultationsCount = response.total_count
+          }
           const responseConsultations = response.consultations
           if (responseConsultations && responseConsultations.length > 0) {
-            this.consultationsCount = response.total_count
+            this.consultations = []
             responseConsultations.forEach((consultation) => {
-              console.log(consultation)
               this.consultations.push({
-                id: consultation.id,
-                doctorProfileId: consultation.doctor_profile_id,
+                doctorFullName: consultation.doctor_full_name,
+                doctorEmail: consultation.doctor_email,
+                phoneNumber: consultation.phone_number,
+                speciality: consultation.speciality,
               })
             })
           }
@@ -48,4 +96,3 @@
     },
   }
 </script>
-<style></style>
