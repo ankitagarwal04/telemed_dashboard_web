@@ -2,7 +2,7 @@
   <v-app>
     <dashboard-core-app-bar />
 
-    <dashboard-core-drawer />
+    <dashboard-core-drawer :items="getItems" />
 
     <dashboard-core-view />
   </v-app>
@@ -21,5 +21,39 @@
     data: () => ({
       expandOnHover: false,
     }),
+    computed: {
+      getItems () {
+        const items = [
+          {
+            icon: 'mdi-home-outline',
+            title: 'Landing',
+            to: '/',
+          },
+          {
+            icon: 'mdi-poll',
+            title: 'Stats',
+            to: '/dashboard/stats',
+          },
+          {
+            icon: 'mdi-home-outline',
+            title: 'Consultations',
+            to: '/dashboard/consultations_report',
+          },
+        ]
+        if (this.$store.getters.isAdmin) {
+          items.push({
+            icon: 'mdi-home-outline',
+            title: 'Users',
+            to: '/dashboard/users',
+          })
+          items.push({
+            icon: 'mdi-home-outline',
+            title: 'Register User',
+            to: '/dashboard/register_user',
+          })
+        }
+        return items
+      },
+    },
   }
 </script>

@@ -26,11 +26,17 @@ export default new Router({
           name: 'users',
           path: 'users',
           component: () => import('@/views/dashboard/User'),
+          meta: {
+            requiresAdmin: true,
+          },
         },
         {
           name: 'register',
           path: 'register_user',
           component: () => import('@/components/auth/Register.vue'),
+          meta: {
+            requiresAdmin: true,
+          },
         },
         {
           name: 'ConsultationsReport',

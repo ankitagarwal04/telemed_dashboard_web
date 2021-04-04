@@ -12,6 +12,7 @@ export default new Vuex.Store({
     barImage: 'https://demos.creative-tim.com/material-dashboard/assets/img/sidebar-1.jpg',
     drawer: null,
     authToken: Vue.auth.getToken() || null,
+    currentUser: Vue.auth.getUser() || null,
   },
   getters: {
     loggedIn (state) {
@@ -19,6 +20,16 @@ export default new Vuex.Store({
     },
     getToken (state) {
       return state.authToken
+    },
+    getUser (state) {
+      return state.currentUser
+    },
+    isAdmin (state) {
+      if (state.currentUser && state.currentUser.role === 'admin') {
+        return true
+      } else {
+        return false
+      }
     },
   },
   mutations: {
@@ -28,11 +39,16 @@ export default new Vuex.Store({
     SET_DRAWER (state, payload) {
       state.drawer = payload
     },
-    retrieveToken (state, authToken) {
-      state.authToken = authToken
+    retrieveToken (state, dataAfterLogin) {
+      state.authToken = dataAfterLogin.authToken
+      state.currentUser = {
+        email: dataAfterLogin.user.email,
+        role: dataAfterLogin.user.role,
+      }
     },
     destroyToken (state) {
       state.authToken = null
+      state.currentUser = null
     },
   },
   actions: {
@@ -49,8 +65,12 @@ export default new Vuex.Store({
           email: credentials.email,
           password: credentials.password,
         }).then((response) => {
-          Vue.auth.setToken(response.auth_token)
-          context.commit('retrieveToken', response.auth_token)
+          Vue.auth.setToken(response.auth_token, response.user)
+          const dataAfterLogin = {
+            authToken: response.auth_token,
+            user: response.user,
+          }
+          context.commit('retrieveToken', dataAfterLogin)
           resolve(response)
         }).catch((error) => {
           // handle error

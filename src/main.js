@@ -73,8 +73,19 @@ router.beforeEach(function (to, from, next) {
   } else if (to.matched.some(record => record.meta.requiresAuth)) {
     // verify user authentication first before accessing secure paths.
     if (store.getters.loggedIn) {
-      // let user = JSON.parse(localStorage.getItem('user'))
-      next()
+      // if path requested require admin access
+      if (to.matched.some(record => record.meta.requiresAdmin)) {
+        if (store.getters.isAdmin) {
+          next()
+        } else {
+          next({
+            name: 'Dashboard',
+          })
+        }
+      } else {
+        // if path requested do not require admin access
+        next()
+      }
     } else {
       next({
         name: 'Login',
