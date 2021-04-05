@@ -1,3 +1,4 @@
+<!-- this file is in process to get depreciated. -->
 <template>
   <!-- section used instead of v-container because defining fluid inside it wasn't working -->
   <section
@@ -66,44 +67,6 @@
           @reset-dates="resetDates()"
         />
       </v-col>
-      <!-- <v-col
-        cols="12"
-        md="6"
-        lg="4"
-        xl="3"
-      >
-        <stats-card
-          :color="getStatsCardIconBgColor('filter')"
-          :icon="['fas', 'globe-asia']"
-          outer-icon-bg-color="rgb(136, 128, 152, 0.7)"
-          icon-bg-color="rgb(136, 128, 152)"
-          :is-contain-modal="true"
-          :modal-button-text="statesFilterTitle"
-          sub-icon="mdi-tag"
-          :sub-text="stateFilterSubText"
-          :value="statesFilterValue"
-          @show-modal="stateListDialog = true"
-        />
-      </v-col> -->
-      <!-- <v-col
-        cols="12"
-        md="6"
-        lg="4"
-        xl="3"
-      >
-        <stats-card
-          :color="getStatsCardIconBgColor('filter')"
-          :icon="['fas', 'globe-asia']"
-          outer-icon-bg-color="rgb(54, 143, 139, 0.7)"
-          icon-bg-color="rgb(54, 143, 139)"
-          :is-contain-modal="true"
-          :modal-button-text="districtsFilterTitle"
-          sub-icon="mdi-tag"
-          :sub-text="districtFilterSubText"
-          :value="districtsFilterValue"
-          @show-modal="districtListDialog = true"
-        />
-      </v-col> -->
     </v-row>
     <hr>
     <!-- Stats -->
@@ -437,22 +400,6 @@
       @close-modal="closeFilterListDialog (specialityFilterTitle)"
       @update-selected-item="selectedSpecialities=$event"
     />
-    <!-- <filter-list-dialog
-      :dialog-name="stateListDialog"
-      title="Select State"
-      :selected-item="selectedStates"
-      :items="cscStates"
-      @close-modal="closeFilterListDialog (statesFilterTitle)"
-      @update-selected-item="selectedStates=$event"
-    />
-    <filter-list-dialog
-      :dialog-name="districtListDialog"
-      title="Select District"
-      :selected-item="selectedDistricts"
-      :items="cscDistricts"
-      @close-modal="closeFilterListDialog (districtsFilterTitle)"
-      @update-selected-item="selectedDistricts=$event"
-    /> -->
   </section>
 </template>
 
@@ -691,92 +638,17 @@
       selectedMerchants (newSelectedMerchants) {
         var response = this.updateFilterSubText(newSelectedMerchants, this.cscMerchants)
         this.merchantFilterSubText = this.getUpdatedFilterSubText(response[0])
-        // on change of merchant filter, filtering specialities options.
-        // couldn't implement this logic, if required will implement later.
-        // if (newSelectedMerchants.length > 0) {
-        //   const specialities = []
-        //   newSelectedMerchants.forEach((selectedMerchantId, index) => {
-        //     this.cscMerchants.forEach((merchant, index) => {
-        //       if (merchant.id === selectedMerchantId) {
-        //         if (merchant.mapped_specialities) {
-        //           merchant.mapped_specialities.forEach((mappedSpeciality, index) => {
-        //             let appendSpeciality = true
-        //             specialities.forEach((speciality, index) => {
-        //               if (speciality.id === mappedSpeciality.id) {
-        //                 appendSpeciality = false
-        //                 return false
-        //               }
-        //             })
-        //             if (appendSpeciality) {
-        //               specialities.push(mappedSpeciality)
-        //             }
-        //           })
-        //         }
-        //       }
-        //     })
-        //   })
-        //   this.specialities = specialities
-        //   this.specialityFilterValue = this.specialities.length
-        // } else {
-        //   this.getSpecialities()
-        // }
       },
       selectedSpecialities (newselectedSpecialities) {
         var response = this.updateFilterSubText(newselectedSpecialities, this.specialities)
         this.specialityFilterSubText = this.getUpdatedFilterSubText(response[0])
-        // on change of speciality filter, filtering merchant options.
-        // couldn't implement this logic, if required will implement later.
-        // if (newselectedSpecialities.length > 0) {
-        //   const cscMerchants = []
-        //   newselectedSpecialities.forEach((selectedSpecialityId, index) => {
-        //     this.specialities.forEach((speciality, index) => {
-        //       if (speciality.id === selectedSpecialityId) {
-        //         if (speciality.csc_merchants) {
-        //           speciality.csc_merchants.forEach((cscMerchant, index) => {
-        //             let appendMerchant = true
-        //             cscMerchants.forEach((merchant, index) => {
-        //               if (merchant.id === cscMerchant.id) {
-        //                 appendMerchant = false
-        //                 return false
-        //               }
-        //             })
-        //             if (appendMerchant) {
-        //               cscMerchants.push(cscMerchant)
-        //             }
-        //           })
-        //         }
-        //       }
-        //     })
-        //   })
-        //   // this.specialities = specialities
-        //   // this.specialityFilterValue = this.specialities.length
-        //   this.cscMerchants = cscMerchants
-        //   this.merchantFilterValue = this.cscMerchants.length
-        // } else {
-        //   this.getCscMerchants()
-        // }
       },
-      // for now states and district filters are not required.
-      // selectedStates (newselectedStates) {
-      //   var response = this.updateFilterSubText(newselectedStates, this.cscStates)
-      //   console.log('selected states')
-      //   console.log(response)
-      //   this.stateFilterSubText = this.getUpdatedFilterSubText(response[0])
-      // },
-      // selectedDistricts (newselectedDistricts) {
-      //   var response = this.updateFilterSubText(newselectedDistricts, this.cscDistricts)
-      //   // console.log('selected districts')
-      //   // console.log(response)
-      //   this.districtFilterSubText = this.getUpdatedFilterSubText(response[0])
-      // },
     },
     created () {
       // TODO: single request API to fetch required data on page load.
       this.getConsultationStats()
       this.getCscMerchants()
       this.getSpecialities()
-      // this.getCscStates()
-      // this.getCscDistricts()
       this.updateDatePickerFields()
       this.getDoctorAvailableStats('on_page_load')
       this.getPatientStats()

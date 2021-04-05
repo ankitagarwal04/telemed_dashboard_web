@@ -17,10 +17,15 @@ export default new Router({
       },
       children: [
         // Dashboard
+        // {
+        //   name: 'Consultation',
+        //   path: 'stats',
+        //   component: () => import('@/views/dashboard/Consultation'),
+        // },
         {
-          name: 'Consultation',
+          name: 'ConsultationStats',
           path: 'stats',
-          component: () => import('@/views/dashboard/Consultation'),
+          component: () => import('@/views/dashboard/stats/Consultation'),
         },
         {
           name: 'Users',
