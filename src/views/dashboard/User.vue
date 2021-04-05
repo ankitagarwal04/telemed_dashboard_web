@@ -2,10 +2,10 @@
   <!-- https://bootstrap-vue.org/docs/components/table -->
   <div class="container">
     <b-table
-     striped
-     hover
-     :items="users"
-     :fields="fields"
+      striped
+      hover
+      :items="users"
+      :fields="fields"
     >
       <template #cell(index)="data">
         {{ data.index + 1 }}
@@ -13,10 +13,9 @@
     </b-table>
   </div>
 </template>
-
 <script>
   export default {
-    name: 'users',
+    name: 'Users',
     data () {
       return {
         fields: ['index', 'id', 'username', 'email', 'merchantName'],

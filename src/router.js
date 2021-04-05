@@ -23,7 +23,7 @@ export default new Router({
           component: () => import('@/views/dashboard/Consultation'),
         },
         {
-          name: 'users',
+          name: 'Users',
           path: 'users',
           component: () => import('@/views/dashboard/User'),
           meta: {
