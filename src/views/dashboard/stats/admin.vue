@@ -645,7 +645,14 @@
         // when none merchant is selected, fetch all merchant specialities
         // else fetch only selected merchant sepcialities.
         if (selectedMerchantsData.length === 0) {
-          this.getMappedSpecialitiesFromMerchants(this.cscMerchants)
+          // on no merchant select, mapped speciality filter are reset (to avoid confusion).
+          // keep this in promise.
+          new Promise((resolve, reject) => {
+            this.resetSpecialities()
+            resolve('')
+          }).then(response => {
+            this.getMappedSpecialitiesFromMerchants(this.cscMerchants)
+          })
         } else {
           this.getMappedSpecialitiesFromMerchants(selectedMerchantsData)
         }
