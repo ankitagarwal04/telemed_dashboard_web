@@ -12,22 +12,41 @@ export default new Router({
       name: 'Dashboard',
       redirect: '/dashboard/stats',
       component: () => import('@/views/dashboard/Index'),
+      meta: {
+        requiresAuth: true,
+      },
       children: [
         // Dashboard
+        // {
+        //   name: 'Consultation',
+        //   path: 'stats',
+        //   component: () => import('@/views/dashboard/Consultation'),
+        // },
         {
-          name: 'Consultation Stats',
+          name: 'ConsultationStats',
           path: 'stats',
-          component: () => import('@/views/dashboard/Consultation'),
+          component: () => import('@/views/dashboard/stats/Consultation'),
         },
         {
-          name: 'users',
+          name: 'Users',
           path: 'users',
           component: () => import('@/views/dashboard/User'),
+          meta: {
+            requiresAdmin: true,
+          },
         },
         {
           name: 'register',
           path: 'register_user',
           component: () => import('@/components/auth/Register.vue'),
+          meta: {
+            requiresAdmin: true,
+          },
+        },
+        {
+          name: 'ConsultationsReport',
+          path: 'consultations_report',
+          component: () => import('@/views/dashboard/ConsultationsReport'),
         },
       ],
     },
@@ -38,7 +57,7 @@ export default new Router({
       redirect: '/auth/login',
       children: [
         {
-          name: 'login',
+          name: 'Login',
           path: 'login',
           component: () => import('@/components/auth/Login.vue'),
           meta: { requireGuest: true },

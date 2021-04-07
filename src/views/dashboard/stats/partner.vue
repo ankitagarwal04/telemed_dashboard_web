@@ -1,4 +1,3 @@
-<!-- this file is in process to get depreciated. -->
 <template>
   <!-- section used instead of v-container because defining fluid inside it wasn't working -->
   <section
@@ -78,43 +77,11 @@
       >
         <stats-card
           :color="getStatsCardIconBgColor('stats')"
-          :icon="['fa', 'rupee-sign']"
-          outer-icon-bg-color="rgb(93, 162, 113, 0.7)"
-          icon-bg-color="rgb(93, 162, 113)"
-          title="Payment"
-          :value="paymentStats.totalAmount"
-          sub-icon="mdi-calendar"
-          sub-text="Updated Last 24 Hours"
-        />
-      </v-col>
-      <v-col
-        cols="12"
-        sm="6"
-        lg="4"
-      >
-        <stats-card
-          :color="getStatsCardIconBgColor('stats')"
           :icon="['fa', 'user-md']"
           outer-icon-bg-color="rgb(137, 6, 32, 0.7)"
           icon-bg-color="rgb(137, 6, 32)"
           title="Doctors Available"
           :value="doctorStats.approvedCount"
-          sub-icon="mdi-calendar"
-          sub-text="Updated Last 24 Hours"
-        />
-      </v-col>
-      <v-col
-        cols="12"
-        sm="6"
-        lg="4"
-      >
-        <stats-card
-          :color="getStatsCardIconBgColor('stats')"
-          :icon="['fa', 'hospital-user']"
-          outer-icon-bg-color="rgb(32, 129, 195, 0.7)"
-          icon-bg-color="rgb(32, 129, 195)"
-          title="Patients Registered"
-          :value="patientStats.count"
           sub-icon="mdi-calendar"
           sub-text="Updated Last 24 Hours"
         />
@@ -276,62 +243,6 @@
         lg="6"
       >
         <base-material-chart-card
-          :data="patientStats.grouppedByWeek.data"
-          :options="patientStats.grouppedByWeek.options"
-          hover-reveal
-          type="Line"
-        >
-          <h4 class="card-title font-weight-light mt-2 ml-2">
-            {{ patientStats.title }}
-          </h4>
-
-          <p class="d-inline-flex font-weight-light ml-2 mt-1">
-            {{ patientStats.grouppedByWeek.subTitle }}
-          </p>
-          <template v-slot:actions>
-            <v-icon
-              class="mr-1"
-            >
-              mdi-clock-outline
-            </v-icon>
-            <span class="h5 mb-0 caption black--text font-weight-dark">Patient Registeration last weeks</span>
-          </template>
-        </base-material-chart-card>
-      </v-col>
-      <v-col
-        cols="12"
-        sm="12"
-        lg="6"
-      >
-        <base-material-chart-card
-          :data="patientStats.grouppedByMonth.data"
-          :options="patientStats.grouppedByMonth.options"
-          hover-reveal
-          type="Bar"
-        >
-          <h4 class="card-title font-weight-light mt-2 ml-2">
-            {{ patientStats.title }}
-          </h4>
-
-          <p class="d-inline-flex font-weight-light ml-2 mt-1">
-            {{ patientStats.grouppedByMonth.subTitle }}
-          </p>
-          <template v-slot:actions>
-            <v-icon
-              class="mr-1"
-            >
-              mdi-clock-outline
-            </v-icon>
-            <span class="h5 mb-0 caption black--text font-weight-dark">Patient Registeration last 12 Months</span>
-          </template>
-        </base-material-chart-card>
-      </v-col>
-      <v-col
-        cols="12"
-        sm="12"
-        lg="6"
-      >
-        <base-material-chart-card
           :data="callDurationStats.grouppedByDay.data"
           :options="callDurationStats.grouppedByDay.options"
           hover-reveal
@@ -409,7 +320,7 @@
   import ChartistTooltip from 'chartist-plugin-tooltips-updated'
 
   export default {
-    name: 'Consultation',
+    name: 'PartnerStats',
     components: {
       FilterListDialog: () => import('@/components/FilterListDialog'),
       StatsCard: () => import('@/components/StatsCard'),
@@ -482,50 +393,6 @@
               },
             },
             subTitle: 'Consultations monthly subTitle',
-          },
-        },
-        patientStats: {
-          count: 0,
-          title: 'patient title',
-          grouppedByWeek: {
-            data: {
-              labels: [],
-              series: [],
-            },
-            options: {
-              lineSmooth: this.$chartist.Interpolation.cardinal({
-                tension: 0,
-              }),
-              low: 0,
-              high: 0, // recommended you to set the high as the biggest value + something for a better look
-              chartPadding: {
-                top: 0,
-                right: 0,
-                bottom: 0,
-                left: 0,
-              },
-            },
-            subTitle: 'patient weekly subTitle',
-          },
-          grouppedByMonth: {
-            data: {
-              labels: [],
-              series: [],
-            },
-            options: {
-              lineSmooth: this.$chartist.Interpolation.cardinal({
-                tension: 0,
-              }),
-              low: 0,
-              high: 0, // recommended you to set the high as the biggest value + something for a better look
-              chartPadding: {
-                top: 0,
-                right: 10,
-                bottom: 0,
-                left: 15,
-              },
-            },
-            subTitle: 'patient monthly subTitle',
           },
         },
         datePicker: {
@@ -629,9 +496,6 @@
             subTitle: 'call monthly subTitle',
           },
         },
-        paymentStats: {
-          totalAmount: 0,
-        },
       }
     },
     watch: {
@@ -661,8 +525,6 @@
       this.getCscMerchants()
       this.updateDatePickerFields()
       this.getDoctorAvailableStats()
-      this.getPatientStats()
-      this.getPaymentStats()
     },
     methods: {
       getConsultationStats: function () {
@@ -749,24 +611,6 @@
           this.cscMerchants = response
           this.merchantFilterValue = this.cscMerchants.length
           this.getMappedSpecialitiesFromMerchants(response)
-        }).catch((error) => {
-          // handle error
-          console.log(error)
-        })
-      },
-      getCscStates: function () {
-        this.$http.get('/csc_states/index').then((response) => {
-          this.cscStates = response
-          this.statesFilterValue = this.cscStates.length
-        }).catch((error) => {
-          // handle error
-          console.log(error)
-        })
-      },
-      getCscDistricts: function () {
-        this.$http.get('/csc_districts/index').then((response) => {
-          this.cscDistricts = response
-          this.districtsFilterValue = this.cscDistricts.length
         }).catch((error) => {
           // handle error
           console.log(error)
@@ -867,30 +711,6 @@
           this.handleChartData('doctorStats', 'monthly', response.groupped_by_month)
         }
       },
-      getPatientStats: function () {
-        this.$http.get('/users/patients_stats').then((response) => {
-          if (response.count) {
-            this.patientStats.count = response.count
-          }
-          if (response.groupped_by_week) {
-            this.handleChartData('patientStats', 'weekly', response.groupped_by_week)
-          }
-          if (response.groupped_by_month) {
-            this.handleChartData('patientStats', 'monthly', response.groupped_by_month)
-          }
-        }).catch((error) => {
-          // handle error
-          console.log(error)
-        })
-      },
-      getPaymentStats: function () {
-        this.$http.get('/payment_notifications/payments').then((response) => {
-          this.paymentStats.totalAmount = response.payment_amount
-        }).catch((error) => {
-          // handle error
-          console.log(error)
-        })
-      },
       fetchChartData: function (chartData) {
         const chartDataLabels = Object.keys(chartData)
         const chartDataSeries = [Object.values(chartData)]
@@ -922,16 +742,6 @@
             this.consultationStats.grouppedByMonth.data.labels = specifiedIntervalData[0]
             this.consultationStats.grouppedByMonth.data.series = specifiedIntervalData[1]
             this.consultationStats.grouppedByMonth.options.high = specifiedIntervalData[2]
-          }
-        } else if (whoseStats === 'patientStats') {
-          if (grouppingInterval === 'weekly') {
-            this.patientStats.grouppedByWeek.data.labels = specifiedIntervalData[0]
-            this.patientStats.grouppedByWeek.data.series = specifiedIntervalData[1]
-            this.patientStats.grouppedByWeek.options.high = specifiedIntervalData[2]
-          } else if (grouppingInterval === 'monthly') {
-            this.patientStats.grouppedByMonth.data.labels = specifiedIntervalData[0]
-            this.patientStats.grouppedByMonth.data.series = specifiedIntervalData[1]
-            this.patientStats.grouppedByMonth.options.high = specifiedIntervalData[2]
           }
         } else if (whoseStats === 'callDurationStats') {
           if (grouppingInterval === 'daily') {

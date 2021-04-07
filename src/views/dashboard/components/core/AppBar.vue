@@ -28,7 +28,10 @@
         src="~@/assets/images/digital_india_logo.png"
       />
     </a>
-    <b-nav-item-dropdown class="user-profile-dropdown">
+    <b-nav-item-dropdown
+      v-if="isLoggedIn"
+      class="user-profile-dropdown"
+    >
       <!-- Using 'button-content' slot -->
       <template #button-content>
         <font-awesome-icon
@@ -37,9 +40,15 @@
           size="2x"
         />
       </template>
+      <b-nav-text>
+        {{ userEmail }}
+      </b-nav-text>
+      <b-nav-text>
+        {{ userRole }}
+      </b-nav-text>
       <b-dropdown-item
-       href="#"
-       @click="handleSignOut()"
+        href="#"
+        @click="handleSignOut()"
       >
         Sign Out
       </b-dropdown-item>
@@ -61,10 +70,30 @@
     },
 
     data: () => ({
+      currentUser: null,
     }),
 
     computed: {
       ...mapState(['drawer']),
+      isLoggedIn () {
+        return this.$store.getters.loggedIn
+      },
+      userEmail () {
+        if (this.currentUser) {
+          return this.currentUser.email
+        }
+        return null
+      },
+      userRole () {
+        if (this.currentUser) {
+          return this.currentUser.role
+        }
+        return null
+      },
+    },
+
+    created () {
+      this.getUser()
     },
 
     methods: {
@@ -72,8 +101,14 @@
         setDrawer: 'SET_DRAWER',
       }),
       handleSignOut: function () {
-        this.$auth.destroyToken()
-        this.$router.push('/auth/login')
+        this.$store.dispatch('destroyToken').then(response => {
+          this.$router.push('/auth/login')
+        })
+      },
+      getUser (field) {
+        if (this.$store.getters.loggedIn) {
+          this.currentUser = this.$store.getters.getUser
+        }
       },
     },
   }
@@ -90,6 +125,10 @@
     }
     .user-profile-dropdown {
       list-style: none;
+      .navbar-text {
+        color: #4caf50;
+        padding: 0.25rem 1.5rem;
+      }
     }
   }
 </style>

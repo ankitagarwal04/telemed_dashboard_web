@@ -1,4 +1,3 @@
-<!-- this file is in process to get depreciated. -->
 <template>
   <!-- section used instead of v-container because defining fluid inside it wasn't working -->
   <section
@@ -409,7 +408,7 @@
   import ChartistTooltip from 'chartist-plugin-tooltips-updated'
 
   export default {
-    name: 'Consultation',
+    name: 'AdminStats',
     components: {
       FilterListDialog: () => import('@/components/FilterListDialog'),
       StatsCard: () => import('@/components/StatsCard'),
@@ -749,24 +748,6 @@
           this.cscMerchants = response
           this.merchantFilterValue = this.cscMerchants.length
           this.getMappedSpecialitiesFromMerchants(response)
-        }).catch((error) => {
-          // handle error
-          console.log(error)
-        })
-      },
-      getCscStates: function () {
-        this.$http.get('/csc_states/index').then((response) => {
-          this.cscStates = response
-          this.statesFilterValue = this.cscStates.length
-        }).catch((error) => {
-          // handle error
-          console.log(error)
-        })
-      },
-      getCscDistricts: function () {
-        this.$http.get('/csc_districts/index').then((response) => {
-          this.cscDistricts = response
-          this.districtsFilterValue = this.cscDistricts.length
         }).catch((error) => {
           // handle error
           console.log(error)

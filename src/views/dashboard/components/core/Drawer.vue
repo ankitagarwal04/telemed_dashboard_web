@@ -77,33 +77,11 @@
         type: Boolean,
         default: false,
       },
+      items: {
+        type: Array,
+        default: undefined,
+      },
     },
-
-    data: () => ({
-      items: [
-        {
-          icon: 'mdi-home-outline',
-          title: 'Landing',
-          to: '/',
-        },
-        {
-          icon: 'mdi-poll',
-          title: 'Stats',
-          to: '/dashboard/stats',
-        },
-        {
-          icon: 'mdi-home-outline',
-          title: 'Users',
-          to: '/dashboard/users',
-        },
-        {
-          icon: 'mdi-home-outline',
-          title: 'Register User',
-          to: '/dashboard/register_user',
-        },
-      ],
-    }),
-
     computed: {
       ...mapState(['barColor', 'barImage']),
       drawer: {
@@ -124,7 +102,6 @@
         }
       },
     },
-
     methods: {
       mapItem (item) {
         return {
