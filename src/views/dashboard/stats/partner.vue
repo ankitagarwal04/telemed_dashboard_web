@@ -514,7 +514,7 @@
       this.getCscMerchants()
       this.getSpecialities()
       this.updateDatePickerFields()
-      this.getDoctorAvailableStats('on_page_load')
+      this.getDoctorAvailableStats()
     },
     methods: {
       getConsultationStats: function () {
@@ -634,27 +634,18 @@
         // using a day before today
         this.datePicker.endDate = year + '-' + (month + 1) + '-' + (date - 1)
       },
-      getDoctorAvailableStats: function (when = '') {
-        if (when === 'on_page_load') {
-          this.$http.get('/doctor_profiles/stats').then((response) => {
-            this.handleDoctorAvailableStatsResponse(response)
-          }).catch((error) => {
-            // handle error
-            console.log(error)
-          })
-        } else {
-          this.$http.post('/doctor_profiles/stats', {
-            doctor_profile_filters: {
-              merchant_ids: this.selectedMerchants,
-              mapped_speciality_ids: this.selectedSpecialities,
-            },
-          }).then((response) => {
-            this.handleDoctorAvailableStatsResponse(response)
-          }).catch((error) => {
-            // handle error
-            console.log(error)
-          })
-        }
+      getDoctorAvailableStats: function () {
+        this.$http.post('/doctor_profiles/stats', {
+          doctor_profile_filters: {
+            merchant_ids: this.selectedMerchants,
+            mapped_speciality_ids: this.selectedSpecialities,
+          },
+        }).then((response) => {
+          this.handleDoctorAvailableStatsResponse(response)
+        }).catch((error) => {
+          // handle error
+          console.log(error)
+        })
       },
       handleDoctorAvailableStatsResponse: function (response) {
         if (response.approved_doctor_profiles) {
