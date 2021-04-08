@@ -45,7 +45,7 @@
     },
     methods: {
       getConsultationStats: function () {
-        this.$http.post('/dashboard_consultations/stats').then((response) => {
+        this.$http.get('/dashboard_consultations/stats', { params: { request_from: 'landing_page' } }).then((response) => {
           const consultationStats = response
           if (consultationStats) {
             this.stats.consultations.count = consultationStats.consultation_count
@@ -57,7 +57,7 @@
         })
       },
       getAvailableDoctorStats: function () {
-        this.$http.get('/doctor_profiles/stats').then((response) => {
+        this.$http.get('/doctor_profiles/stats', { params: { request_from: 'landing_page' } }).then((response) => {
           const availableDoctorStats = response
           if (availableDoctorStats && availableDoctorStats.approved_doctor_profiles) {
             this.stats.doctor.count = availableDoctorStats.approved_doctor_profiles.count
