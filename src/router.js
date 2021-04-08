@@ -16,12 +16,6 @@ export default new Router({
         requiresAuth: true,
       },
       children: [
-        // Dashboard
-        // {
-        //   name: 'Consultation',
-        //   path: 'stats',
-        //   component: () => import('@/views/dashboard/Consultation'),
-        // },
         {
           name: 'ConsultationStats',
           path: 'stats',
