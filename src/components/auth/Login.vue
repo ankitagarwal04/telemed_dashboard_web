@@ -27,9 +27,9 @@
 
         <button type="submit" class="btn btn-dark btn-lg btn-block">Sign In</button>
 
-        <!-- <p class="forgot-password text-right mt-2">
-          <router-link to="/forgot-password">Forgot password ?</router-link>
-        </p> -->
+        <p class="forgot-password text-right mt-2">
+          <router-link to="/auth/forgot_password">Forgot password ?</router-link>
+        </p>
       </form>
     </div>
   </div>

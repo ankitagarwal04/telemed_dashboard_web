@@ -56,9 +56,22 @@ export default new Router({
           component: () => import('@/components/auth/Login.vue'),
           meta: { requireGuest: true },
         },
+        {
+          name: 'ForgotPassword',
+          path: 'forgot_password',
+          component: () => import('@/components/auth/ForgotPassword.vue'),
+          meta: { requireGuest: true },
+        },
+        {
+          name: 'ResetPassword',
+          path: 'reset_password',
+          component: () => import('@/components/auth/ResetPassword.vue'),
+          meta: { requireGuest: true },
+        },
       ],
     },
     {
+      name: 'root',
       path: '/',
       components: {
         navbar: () => import('./views/web/components/core/Navbar'),
