@@ -16,11 +16,12 @@
       class="justify-content-center"
       is-nav
     >
+      <!-- TODO: fix these hardcoded links-->
       <b-navbar-nav>
-        <b-nav-item href="#" class="">
+        <b-nav-item href="https://csc-staging.ringmd.com/csc/auto_login" class="">
           <b-button>VLE</b-button>
         </b-nav-item>
-        <b-nav-item href="#" class="">
+        <b-nav-item href="https://csc-staging.ringmd.com/ui/login" class="">
           <b-button>Doctor</b-button>
         </b-nav-item>
         <b-nav-item href="/auth/login" class="">

@@ -31,8 +31,8 @@
     },
     data () {
       return {
-        contactNumberr: '',
-        contactEmaill: '',
+        contactNumber: '',
+        contactEmail: '',
       }
     },
     created () {
