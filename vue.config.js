@@ -1,8 +1,8 @@
 module.exports = {
   devServer: {
     // disableHostCheck: true,
-    host: 'localhost',
-    proxy: process.env.VUE_APP_API_URL,
+    // host: 'localhost',
+    // proxy: process.env.VUE_APP_API_URL,
   },
   transpileDependencies: ['vuetify'],
 
