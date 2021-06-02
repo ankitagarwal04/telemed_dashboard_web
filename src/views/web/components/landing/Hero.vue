@@ -14,7 +14,7 @@
             </div>
             <div class="hero-contact-item via-email pl-3">
               <img class='pr-2' src='~@/assets/images/mailer.png' />
-              <span>{{ contactEmail }}</span>
+              <span>{{ contactEmail }} {{environment}}</span>
             </div>
           </div>
         </div>
@@ -33,6 +33,7 @@
       return {
         contactNumber: '',
         contactEmail: '',
+        environment: process.env,
       }
     },
     created () {
