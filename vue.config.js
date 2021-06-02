@@ -2,9 +2,8 @@ module.exports = {
   devServer: {
     // disableHostCheck: true,
     host: 'localhost',
-    proxy: 'http://localhost:3000',
+    proxy: process.env.VUE_APP_API_URL,
   },
-
   transpileDependencies: ['vuetify'],
 
   pluginOptions: {
