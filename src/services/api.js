@@ -38,7 +38,7 @@ function parseBody (response) {
 /**
  * axios instance
  */
-var requestBaseURL = process.env.API
+var requestBaseURL = process.env.VUE_APP_API_URL
 const instance = axios.create({
   baseURL: requestBaseURL,
   paramsSerializer: function (params) {
