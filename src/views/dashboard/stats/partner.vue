@@ -149,7 +149,7 @@
             >
               mdi-clock-outline
             </v-icon>
-            <span class="h5 mb-0 caption black--text font-weight-dark">Consultations last 7 days</span>
+            <span class="h5 mb-0 text-caption black--text font-weight-dark">Consultations last 7 days</span>
           </template>
         </base-material-chart-card>
       </v-col>
@@ -177,7 +177,7 @@
             >
               mdi-clock-outline
             </v-icon>
-            <span class="h5 mb-0 caption black--text font-weight-dark">Consultations last 12 Months</span>
+            <span class="h5 mb-0 text-caption black--text font-weight-dark">Consultations last 12 Months</span>
           </template>
         </base-material-chart-card>
       </v-col>
@@ -205,7 +205,7 @@
             >
               mdi-clock-outline
             </v-icon>
-            <span class="h5 mb-0 caption black--text font-weight-dark">Doctor Registeration last weeks</span>
+            <span class="h5 mb-0 text-caption black--text font-weight-dark">Doctor Registeration last weeks</span>
           </template>
         </base-material-chart-card>
       </v-col>
@@ -233,7 +233,7 @@
             >
               mdi-clock-outline
             </v-icon>
-            <span class="h5 mb-0 caption black--text font-weight-dark">Doctor Registeration last 12 Months</span>
+            <span class="h5 mb-0 text-caption black--text font-weight-dark">Doctor Registeration last 12 Months</span>
           </template>
         </base-material-chart-card>
       </v-col>
@@ -261,7 +261,7 @@
             >
               mdi-clock-outline
             </v-icon>
-            <span class="h5 mb-0 caption black--text font-weight-dark">Call Duration last 7 days</span>
+            <span class="h5 mb-0 text-caption black--text font-weight-dark">Call Duration last 7 days</span>
           </template>
         </base-material-chart-card>
       </v-col>
@@ -289,7 +289,7 @@
             >
               mdi-clock-outline
             </v-icon>
-            <span class="h5 mb-0 caption black--text font-weight-dark">Call Duration last 12 Months</span>
+            <span class="h5 mb-0 text-caption black--text font-weight-dark">Call Duration last 12 Months</span>
           </template>
         </base-material-chart-card>
       </v-col>
@@ -516,7 +516,7 @@
       background-color: white;
     }
     .dashboard-graph {
-      .caption {
+      .text-caption {
         font-size: 16px !important;
       }
     }
