@@ -47,7 +47,10 @@ export default new Router({
     {
       path: '/auth',
       name: 'auth',
-      component: () => import('@/components/auth/Auth.vue'),
+      components: {
+        navbar: () => import('./views/web/components/core/Navbar'),
+        default: () => import('@/components/auth/Auth.vue'),
+      },
       redirect: '/auth/login',
       children: [
         {

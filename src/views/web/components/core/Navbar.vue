@@ -5,7 +5,7 @@
     type="light"
     variant="light"
   >
-    <b-navbar-brand href="#">
+    <b-navbar-brand href="/">
       <img src="~@/assets/images/csc_logo.png">
     </b-navbar-brand>
 
