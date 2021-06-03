@@ -45,11 +45,11 @@
     data: () => ({
       links: [
         {
-          href: '#',
+          href: process.env.VUE_APP_VLE_URL,
           text: 'VLE',
         },
         {
-          href: '#',
+          href: process.env.VUE_APP_DOCTOR_URL,
           text: 'DOCTOR',
         },
         {
