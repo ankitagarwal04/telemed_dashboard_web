@@ -32,8 +32,7 @@
           },
           call_duration: {
             count: '',
-            // abbreviated_count: '3k hrs',
-            abbreviated_count: '',
+            abbreviated_count: '3k hrs',
             title: '(Call Duration)',
             icon: require('@/assets/images/tick.svg'),
           },
