@@ -13,6 +13,7 @@ export default new Vuex.Store({
     drawer: null,
     authToken: Vue.auth.getToken() || null,
     currentUser: Vue.auth.getUser() || null,
+    errorMessage: null,
   },
   getters: {
     loggedIn (state) {
@@ -31,6 +32,9 @@ export default new Vuex.Store({
         return false
       }
     },
+    errorMessage (state) {
+      return state.errorMessage
+    },
   },
   mutations: {
     SET_BAR_IMAGE (state, payload) {
@@ -38,6 +42,9 @@ export default new Vuex.Store({
     },
     SET_DRAWER (state, payload) {
       state.drawer = payload
+    },
+    SET_ERROR_MESSAGE (state, payload) {
+      state.errorMessage = payload
     },
     retrieveToken (state, dataAfterLogin) {
       state.authToken = dataAfterLogin.authToken

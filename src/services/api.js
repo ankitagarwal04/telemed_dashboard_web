@@ -74,10 +74,12 @@ instance.interceptors.response.use((response) => {
     if (error.response.data) {
       if (error.response.data.success === false) {
         error.response.data.errors.forEach(function (e) {
-          e.message.split(',').forEach(function (errorMsg) {
-            // TODO: show errors through alertify.
-            // this.$alertify.error(errorMsg)
-          })
+          // e.message.split(',').forEach(function (errorMsg) {
+          //   // TODO: show errors through alertify.
+          //   // _this.$alertify.error(errorMsg)
+          //   Vue.$alertify.success(errorMsg)
+          // })
+          store.commit('SET_ERROR_MESSAGE', e.application_message)
         })
       }
     }
