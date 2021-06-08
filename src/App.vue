@@ -51,12 +51,16 @@
         if (this.errorMessage !== null && this.errorMessage !== '') {
           this.error.dismissCountDown = this.error.dismissSecs
           setTimeout(() => store.commit('SET_ERROR_MESSAGE', null), ((this.error.dismissSecs + 1) * 1000))
+        } else {
+          this.error.dismissCountDown = 0
         }
       },
       successMessage () {
         if (this.successMessage !== null && this.successMessage !== '') {
           this.success.dismissCountDown = this.success.dismissSecs
           setTimeout(() => store.commit('SET_SUCCESS_MESSAGE', null), ((this.success.dismissSecs + 1) * 1000))
+        } else {
+          this.error.dismissCountDown = 0
         }
       },
     },

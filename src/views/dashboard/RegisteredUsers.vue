@@ -15,6 +15,7 @@
           :icon="['fa', 'pen']"
           class="icons-size mr-2"
           size="1x"
+          @click="updateUser(slotProps.item.id)"
         />
         <font-awesome-icon
           :icon="['fa', 'trash-alt']"
@@ -30,7 +31,7 @@
   import store from '@/store'
 
   export default {
-    name: 'Users',
+    name: 'RegisteredUsers',
     data () {
       return {
         fields: ['index', 'id', 'username', 'email', 'merchantName', 'action'],
@@ -69,7 +70,9 @@
           console.log(error)
         })
       },
-
+      updateUser: function (userId) {
+        this.$router.push({ path: '/dashboard/users/' + userId })
+      },
     },
   }
 </script>
