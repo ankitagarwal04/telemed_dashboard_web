@@ -2,13 +2,22 @@
   <div id="app">
     <router-view name="navbar" />
     <b-alert
-      :show="dismissCountDown"
+      :show="error.dismissCountDown"
       variant="danger"
       dismissible
       align="center"
-      @dismissed="dismissCountDown=0"
+      @dismissed="error.dismissCountDown=0"
     >
       {{ errorMessage }}
+    </b-alert>
+    <b-alert
+      :show="success.dismissCountDown"
+      variant="success"
+      dismissible
+      align="center"
+      @dismissed="success.dismissCountDown=0"
+    >
+      {{ successMessage }}
     </b-alert>
     <router-view />
     <router-view name="footer" />
@@ -24,18 +33,30 @@
     name: 'App',
     data () {
       return {
-        dismissSecs: 5,
-        dismissCountDown: 0,
+        error: {
+          dismissSecs: 5,
+          dismissCountDown: 0,
+        },
+        success: {
+          dismissSecs: 5,
+          dismissCountDown: 0,
+        },
       }
     },
     computed: {
-      ...mapState(['errorMessage']),
+      ...mapState(['errorMessage', 'successMessage']),
     },
     watch: {
       errorMessage () {
         if (this.errorMessage !== null && this.errorMessage !== '') {
-          this.dismissCountDown = this.dismissSecs
-          setTimeout(() => store.commit('SET_ERROR_MESSAGE', null), ((this.dismissSecs + 1) * 1000))
+          this.error.dismissCountDown = this.error.dismissSecs
+          setTimeout(() => store.commit('SET_ERROR_MESSAGE', null), ((this.error.dismissSecs + 1) * 1000))
+        }
+      },
+      successMessage () {
+        if (this.successMessage !== null && this.successMessage !== '') {
+          this.success.dismissCountDown = this.success.dismissSecs
+          setTimeout(() => store.commit('SET_SUCCESS_MESSAGE', null), ((this.success.dismissSecs + 1) * 1000))
         }
       },
     },
