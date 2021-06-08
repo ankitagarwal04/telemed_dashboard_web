@@ -44,12 +44,12 @@
           items.push({
             icon: 'mdi-home-outline',
             title: 'Users',
-            to: '/dashboard/users',
+            to: '/dashboard/registered_users',
           })
           items.push({
             icon: 'mdi-home-outline',
             title: 'Register User',
-            to: '/dashboard/register_user',
+            to: '/dashboard/users/create',
           })
         }
         return items

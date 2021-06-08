@@ -14,6 +14,7 @@ export default new Vuex.Store({
     authToken: Vue.auth.getToken() || null,
     currentUser: Vue.auth.getUser() || null,
     errorMessage: null,
+    successMessage: null,
   },
   getters: {
     loggedIn (state) {
@@ -35,6 +36,9 @@ export default new Vuex.Store({
     errorMessage (state) {
       return state.errorMessage
     },
+    successMessage (state) {
+      return state.successMessage
+    },
   },
   mutations: {
     SET_BAR_IMAGE (state, payload) {
@@ -45,6 +49,9 @@ export default new Vuex.Store({
     },
     SET_ERROR_MESSAGE (state, payload) {
       state.errorMessage = payload
+    },
+    SET_SUCCESS_MESSAGE (state, payload) {
+      state.successMessage = payload
     },
     retrieveToken (state, dataAfterLogin) {
       state.authToken = dataAfterLogin.authToken
