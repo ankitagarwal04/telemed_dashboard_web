@@ -1,7 +1,7 @@
 <template>
   <section class="mb-12 text-center">
     <h1
-      class="font-weight-light mb-2 headline"
+      class="font-weight-light mb-2 text-h5"
       v-text="`Vuetify ${heading}`"
     />
 
