@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-7ef36b68"],{"8da4":function(t,e,n){"use strict";n("93f6")},"93f6":function(t,e,n){},f217:function(t,e,n){"use strict";n.r(e);var u=function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("div",{staticClass:"auth-register"},[n("router-view")],1)},a=[],c={name:"default"},s=c,i=(n("8da4"),n("2877")),r=Object(i["a"])(s,u,a,!1,null,"5183114c",null);e["default"]=r.exports}}]);
-//# sourceMappingURL=chunk-7ef36b68.1d674c7f.js.map
