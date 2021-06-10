@@ -28,7 +28,7 @@
   // reference: https://stackoverflow.com/questions/49354607/vue-js-data-is-not-updating-with-state-change-so-the-re-render-does-not-happen
   import { mapState } from 'vuex'
   import store from './store'
-
+  console.log(process.env.NODE_ENV)
   export default {
     name: 'App',
     data () {
