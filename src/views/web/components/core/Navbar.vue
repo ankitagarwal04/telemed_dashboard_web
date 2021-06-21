@@ -16,7 +16,6 @@
       class="justify-content-center"
       is-nav
     >
-      <!-- TODO: fix these hardcoded links-->
       <b-navbar-nav>
         <b-nav-item :href="vleUrl" class="">
           <b-button>VLE</b-button>
