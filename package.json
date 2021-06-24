@@ -1,5 +1,5 @@
 {
-  "name": "vuetify-material-dashboard",
+  "name": "telemed-dashboard",
   "version": "2.1.0",
   "private": true,
   "scripts": {
@@ -19,6 +19,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.15.2",
     "@fortawesome/free-solid-svg-icons": "^5.15.2",
     "@fortawesome/vue-fontawesome": "^2.0.2",
+    "@vue/eslint-config-standard": "^6.0.0",
     "animated-number-vue": "^1.0.0",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
@@ -45,7 +46,6 @@
     "@vue/cli-plugin-eslint": "^4.1.2",
     "@vue/cli-plugin-unit-jest": "^4.1.2",
     "@vue/cli-service": "^4.1.2",
-    "@vue/eslint-config-standard": "^5.0.1",
     "@vue/test-utils": "1.0.0-beta.30",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.0.3",
