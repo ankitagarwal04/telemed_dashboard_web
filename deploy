@@ -1,10 +1,9 @@
 -#!/bin/sh
 ssh ubuntu@3.108.142.41 <<EOF
- cd /telemed_dashboard_web
+ cd telemed_dashboard_web
  git pull origin staging
- npm install
+ npm install --staging
  npm run staging-build
  sudo service nginx restart
  exit
 EOF
-
