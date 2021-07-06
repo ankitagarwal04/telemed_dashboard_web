@@ -116,7 +116,7 @@
 
         <span
           :class="subTextColor"
-          class="caption grey--text font-weight-light"
+          class="text-caption grey--text font-weight-light"
           v-text="subText"
         />
       </div>

@@ -14,7 +14,6 @@
            required
           />
         </div>
-
         <div class="form-group pt-2">
           <label class="font-weight-bold">Password</label>
           <input
@@ -24,10 +23,8 @@
            required
           />
         </div>
-
         <button type="submit" class="btn btn-dark btn-lg btn-block">Sign In</button>
-
-        <p class="forgot-password text-right mt-2">
+        <p class="text-right mt-2">
           <router-link to="/auth/forgot_password">Forgot password ?</router-link>
         </p>
       </form>

@@ -265,6 +265,16 @@ export default {
           this.callDurationStats.grouppedByMonth.data.series = specifiedIntervalData[1]
           this.callDurationStats.grouppedByMonth.options.high = specifiedIntervalData[2]
         }
+      } else if (whoseStats === 'patientStats') {
+        if (grouppingInterval === 'weekly') {
+          this.patientStats.grouppedByWeek.data.labels = specifiedIntervalData[0]
+          this.patientStats.grouppedByWeek.data.series = specifiedIntervalData[1]
+          this.patientStats.grouppedByWeek.options.high = specifiedIntervalData[2]
+        } else if (grouppingInterval === 'monthly') {
+          this.patientStats.grouppedByMonth.data.labels = specifiedIntervalData[0]
+          this.patientStats.grouppedByMonth.data.series = specifiedIntervalData[1]
+          this.patientStats.grouppedByMonth.options.high = specifiedIntervalData[2]
+        }
       }
     },
     getSubStats: function (whoseStats) {

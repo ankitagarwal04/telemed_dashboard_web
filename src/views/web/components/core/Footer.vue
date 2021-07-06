@@ -29,7 +29,7 @@
           cols="12"
           md="auto"
         >
-          <div class="body-1 font-weight-light pt-6 pt-md-0 text-center text-white">
+          <div class="text-body-1 font-weight-light pt-6 pt-md-0 text-center text-white">
             Copyright &copy; 2018 CSC e-Governance services India Ltd. All Rights Reserved
           </div>
         </v-col>
@@ -45,11 +45,11 @@
     data: () => ({
       links: [
         {
-          href: '#',
+          href: process.env.VUE_APP_VLE_URL,
           text: 'VLE',
         },
         {
-          href: '#',
+          href: process.env.VUE_APP_DOCTOR_URL,
           text: 'DOCTOR',
         },
         {

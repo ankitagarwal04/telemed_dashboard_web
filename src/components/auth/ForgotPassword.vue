@@ -4,7 +4,6 @@
     <div>
       <form class="p-4" v-on:submit.prevent="onSubmit()">
         <h3 class="text-center">Forgot Password</h3>
-
         <div class="form-group pt-2">
           <label class="font-weight-bold">Email address</label>
           <input
@@ -20,7 +19,9 @@
         >
           Reset Password
         </button>
-
+        <p class="text-right mt-2">
+          <router-link to="/auth/login">Go back to login</router-link>
+        </p>
       </form>
     </div>
   </div>

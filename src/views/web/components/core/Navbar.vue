@@ -5,7 +5,7 @@
     type="light"
     variant="light"
   >
-    <b-navbar-brand href="#">
+    <b-navbar-brand href="/">
       <img src="~@/assets/images/csc_logo.png">
     </b-navbar-brand>
 
@@ -17,10 +17,10 @@
       is-nav
     >
       <b-navbar-nav>
-        <b-nav-item href="#" class="">
+        <b-nav-item :href="vleUrl" class="">
           <b-button>VLE</b-button>
         </b-nav-item>
-        <b-nav-item href="#" class="">
+        <b-nav-item :href="doctorUrl" class="">
           <b-button>Doctor</b-button>
         </b-nav-item>
         <b-nav-item href="/auth/login" class="">
@@ -39,6 +39,12 @@
 <script>
   export default {
     name: 'Navbar',
+    data () {
+      return {
+        vleUrl: process.env.VUE_APP_VLE_URL,
+        doctorUrl: process.env.VUE_APP_DOCTOR_URL,
+      }
+    },
   }
 </script>
 

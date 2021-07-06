@@ -22,20 +22,32 @@ export default new Router({
           component: () => import('@/views/dashboard/stats/Consultation'),
         },
         {
-          name: 'Users',
-          path: 'users',
-          component: () => import('@/views/dashboard/User'),
+          name: 'RegisteredUsers',
+          path: 'registered_users',
+          component: () => import('@/views/dashboard/RegisteredUsers'),
           meta: {
             requiresAdmin: true,
           },
         },
         {
-          name: 'register',
-          path: 'register_user',
-          component: () => import('@/components/auth/Register.vue'),
+          name: 'Users',
+          path: 'users',
+          component: () => import('@/views/dashboard/users/default'),
           meta: {
             requiresAdmin: true,
           },
+          children: [
+            {
+              name: 'Create',
+              path: 'create',
+              component: () => import('@/views/dashboard/users/create'),
+            },
+            {
+              name: 'Update',
+              path: ':id',
+              component: () => import('@/views/dashboard/users/update'),
+            },
+          ],
         },
         {
           name: 'ConsultationsReport',
@@ -47,7 +59,10 @@ export default new Router({
     {
       path: '/auth',
       name: 'auth',
-      component: () => import('@/components/auth/Auth.vue'),
+      components: {
+        navbar: () => import('./views/web/components/core/Navbar'),
+        default: () => import('@/components/auth/Auth.vue'),
+      },
       redirect: '/auth/login',
       children: [
         {
