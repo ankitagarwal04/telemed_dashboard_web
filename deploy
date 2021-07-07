@@ -1,8 +1,6 @@
 -#!/bin/sh
 ssh ubuntu@3.108.142.41 <<EOF
  cd telemed_dashboard_web
- node -v
- npm -v
  which node
  which npm
  sudo service nginx restart
