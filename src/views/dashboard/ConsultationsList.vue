@@ -1,6 +1,6 @@
 <template>
   <!-- https://bootstrap-vue.org/docs/components/table -->
-  <div class="container consultation_reports">
+  <div class="container consultations_list">
     <!-- filters -->
     <v-row>
       <v-col
@@ -58,38 +58,14 @@
         Start Download
       </b-button>
     </div>
-    <!-- downloadble reports section-->
-    <b-button
-      class="btn btn-info h-100"
-      @click="downloadImage()"
-    >
-      File Download
-    </b-button>
-    <hr>
-    <b-table
-      striped
-      hover
-      :items="downloadedReports.reports"
-      :fields="downloadedReports.fields"
-      small
-    >
-      <template #cell(index)="data">
-        {{ (currentPage - 1)*perPage + data.index + 1 }}
-      </template>
-      <template #cell(download_report)="data">
-        {{ (currentPage - 1)*perPage + data.index + 1 }}
-      </template>
-    </b-table>
   </div>
 </template>
 
 <script>
   import format from 'date-fns/format'
-  import axios from 'axios'
   export default {
-    name: 'ConsultationsReport',
+    name: 'ConsultationsList',
     components: {
-      // DownloadExcel: () => import('vue-json-excel'),
       StatsCard: () => import('@/components/StatsCard'),
     },
     data () {
@@ -98,10 +74,6 @@
           consultations: [],
           consultationsCount: 0,
           fields: ['index', 'doctorFullName', 'doctorEmail', 'phoneNumber', 'speciality'],
-        },
-        downloadedReports: {
-          reports: [],
-          fields: ['index', 'name', 'status', 'started_at', 'finished_at'],
         },
         perPage: 10,
         currentPage: 1,
@@ -121,26 +93,8 @@
     },
     created () {
       this.getConsultations('')
-      this.getDownloadedConsultationReports()
     },
     methods: {
-      // sample method to download image, retrived from the api server.
-      // this method can be used as a reference (for generating a url) to download a file.
-      downloadImage: function () {
-        axios({
-          url: 'https://source.unsplash.com/random/500*500',
-          method: 'GET',
-          responseType: 'blob',
-        }).then((response) => {
-          const url = window.URL.createObjectURL(new Blob([response.data]))
-          const link = document.createElement('a')
-          link.href = url
-          // link.setAttribute('download', 'file.pdf')
-          link.setAttribute('download', 'image.jpg')
-          document.body.appendChild(link)
-          link.click()
-        })
-      },
       resetConsultations: function () {
         this.consultationsData.consultations = []
         this.consultationsData.consultationsCount = 0
@@ -153,7 +107,6 @@
           },
         }).then((response) => {
           this.$alertify.success('Report Downloading is in process.')
-          this.getDownloadedConsultationReports()
         }).catch((error) => {
           // handle error
           console.log(error)
@@ -204,14 +157,6 @@
           console.log(error)
         })
       },
-      getDownloadedConsultationReports: function () {
-        this.$http.get('/downloadable_consultation_report/index').then((response) => {
-          this.downloadedReports.reports = response
-        }).catch((error) => {
-          // handle error
-          console.log(error)
-        })
-      },
       getStatsCardIconBgColor: function (section) {
         let color
         switch (section) {
@@ -254,7 +199,7 @@
   }
 </script>
 <style unscoped>
-.consultation_reports
+.consultations_list
   .asd__wrapper--datepicker-open {
     left: 0 !important;
   }

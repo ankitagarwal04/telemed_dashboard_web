@@ -50,9 +50,14 @@ export default new Router({
           ],
         },
         {
-          name: 'ConsultationsReport',
-          path: 'consultations_report',
-          component: () => import('@/views/dashboard/ConsultationsReport'),
+          name: 'ConsultationsList',
+          path: 'consultations_list',
+          component: () => import('@/views/dashboard/ConsultationsList'),
+        },
+        {
+          name: 'ConsultationReports',
+          path: 'consultation_reports',
+          component: () => import('@/views/dashboard/ConsultationReports'),
         },
       ],
     },
