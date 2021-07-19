@@ -43,14 +43,6 @@
         :total-rows="consultationsData.consultationsCount"
         :per-page="perPage"
       />
-      <!-- <download-excel
-        class="btn btn-info h-100"
-        :data="consultationsData.downloadConsultations"
-        type="csv"
-        name="doctors_successful_consultations.xls"
-      >
-        Download CSV
-      </download-excel> -->
       <b-button
         class="btn btn-info h-100"
         @click="startReportDownload()"
@@ -62,6 +54,7 @@
 </template>
 
 <script>
+  import store from '@/store'
   import format from 'date-fns/format'
   export default {
     name: 'ConsultationsList',
@@ -106,7 +99,7 @@
             date_to: this.datePicker.dateTwo,
           },
         }).then((response) => {
-          this.$alertify.success('Report Downloading is in process.')
+          store.commit('SET_SUCCESS_MESSAGE', 'Report Downloading. Go to Consultation Reports for more info.')
         }).catch((error) => {
           // handle error
           console.log(error)
