@@ -1,6 +1,6 @@
 <template>
   <!-- https://bootstrap-vue.org/docs/components/table -->
-  <div class="container consultation_reports">
+  <div class="container consultations_list">
     <!-- filters -->
     <v-row>
       <v-col
@@ -29,7 +29,7 @@
       striped
       hover
       :items="consultationsData.consultations"
-      :fields="fields"
+      :fields="consultationsData.fields"
       small
     >
       <template #cell(index)="data">
@@ -43,34 +43,30 @@
         :total-rows="consultationsData.consultationsCount"
         :per-page="perPage"
       />
-      <download-excel
+      <b-button
         class="btn btn-info h-100"
-        :data="consultationsData.downloadConsultations"
-        type="csv"
-        name="doctors_successful_consultations.xls"
+        @click="startReportDownload()"
       >
-        Download CSV
-      </download-excel>
+        Start Download
+      </b-button>
     </div>
   </div>
 </template>
 
 <script>
+  import store from '@/store'
   import format from 'date-fns/format'
-  // TODO: download report needs to be implemented through background job.
   export default {
-    name: 'ConsultationsReport',
+    name: 'ConsultationsList',
     components: {
-      DownloadExcel: () => import('vue-json-excel'),
       StatsCard: () => import('@/components/StatsCard'),
     },
     data () {
       return {
-        fields: ['index', 'doctorFullName', 'doctorEmail', 'phoneNumber', 'speciality'],
         consultationsData: {
           consultations: [],
-          downloadConsultations: [],
           consultationsCount: 0,
+          fields: ['index', 'doctorFullName', 'doctorEmail', 'phoneNumber', 'speciality'],
         },
         perPage: 10,
         currentPage: 1,
@@ -94,8 +90,20 @@
     methods: {
       resetConsultations: function () {
         this.consultationsData.consultations = []
-        this.consultationsData.downloadConsultations = []
         this.consultationsData.consultationsCount = 0
+      },
+      startReportDownload: function () {
+        this.$http.post('/dashboard_consultations/download_report', {
+          consultation_filters: {
+            date_from: this.datePicker.dateOne,
+            date_to: this.datePicker.dateTwo,
+          },
+        }).then((response) => {
+          store.commit('SET_SUCCESS_MESSAGE', 'Report Downloading. Go to Consultation Reports for more info.')
+        }).catch((error) => {
+          // handle error
+          console.log(error)
+        })
       },
       getConsultations: function (instruction) {
         let consultationUrl = '/dashboard_consultations/index'
@@ -106,14 +114,12 @@
           addedString = `?page_num=${this.currentPage}&per_page=${this.perPage}&only_count=true`
         }
         consultationUrl += addedString
-        console.log(consultationUrl)
         this.$http.post(consultationUrl, {
           consultation_filters: {
             date_from: this.datePicker.dateOne,
             date_to: this.datePicker.dateTwo,
           },
         }).then((response) => {
-          console.log(response)
           if (response.all_consultations) {
             this.consultationsData.downloadConsultations = []
             response.all_consultations.forEach((consultation) => {
@@ -137,8 +143,6 @@
             })
           }
           if (response.total_count >= 0) {
-            console.log(response.total_count)
-            console.log(response)
             this.consultationsData.consultationsCount = response.total_count
           }
         }).catch((error) => {
@@ -188,7 +192,7 @@
   }
 </script>
 <style unscoped>
-.consultation_reports
+.consultations_list
   .asd__wrapper--datepicker-open {
     left: 0 !important;
   }

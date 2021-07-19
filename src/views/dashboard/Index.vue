@@ -37,17 +37,22 @@
           {
             icon: 'mdi-home-outline',
             title: 'Consultations',
-            to: '/dashboard/consultations_report',
+            to: '/dashboard/consultations_list',
+          },
+          {
+            icon: 'mdi-home-outline',
+            title: 'Consultation Reports',
+            to: '/dashboard/consultation_reports',
           },
         ]
         if (this.$store.getters.isAdmin) {
           items.push({
-            icon: 'mdi-home-outline',
+            icon: 'mdi-account',
             title: 'Users',
             to: '/dashboard/registered_users',
           })
           items.push({
-            icon: 'mdi-home-outline',
+            icon: 'mdi-account',
             title: 'Register User',
             to: '/dashboard/users/create',
           })
