@@ -16,7 +16,7 @@
           :icon="['fa', 'download']"
           class="icons-size mr-2 text-success"
           size="1x"
-          @click="downloadImage(data.item.file_url)"
+          @click="downloadImage(data.item.file_url, data.item.name)"
         />
       </template>
     </b-table>
@@ -47,7 +47,7 @@
           console.log(error)
         })
       },
-      downloadImage: function (reportUrl) {
+      downloadImage: function (reportUrl, fileName) {
         axios({
           url: reportUrl,
           method: 'GET',
@@ -56,7 +56,7 @@
           const url = window.URL.createObjectURL(new Blob([response.data]))
           const link = document.createElement('a')
           link.href = url
-          link.setAttribute('download', 'consultations_17_1626352429.xlsx')
+          link.setAttribute('download', fileName)
           document.body.appendChild(link)
           link.click()
         })
